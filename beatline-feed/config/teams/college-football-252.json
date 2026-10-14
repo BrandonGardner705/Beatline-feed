@@ -1,0 +1,224 @@
+{
+  "id": "college-football-252",
+  "short": "BYU",
+  "name": "BYU Football",
+  "espn": {
+    "sport": "football",
+    "league": "college-football",
+    "id": 252
+  },
+  "match": [
+    "BYU",
+    "Brigham Young",
+    "LaVell Edwards Stadium"
+  ],
+  "exclude": [
+    "Washington State",
+    "Houston Cougars",
+    "WSU Cougars",
+    "Coug football in Pullman"
+  ],
+  "news": {
+    "queries": [
+      "BYU football",
+      "BYU Cougars"
+    ],
+    "bing": [
+      "BYU Cougars football"
+    ],
+    "sites": [
+      "ksl.com",
+      "kslsports.com",
+      "kslnewsradio.com",
+      "deseret.com",
+      "sltrib.com",
+      "kutv.com",
+      "fox13now.com",
+      "abc4.com",
+      "kjzz.com",
+      "heraldextra.com",
+      "byucougars.com",
+      "universe.byu.edu",
+      "byuradio.org",
+      "byutv.org"
+    ],
+    "sitesNational": [
+      "espn.com",
+      "cbssports.com",
+      "si.com",
+      "nytimes.com/athletic",
+      "sports.yahoo.com",
+      "foxsports.com",
+      "on3.com",
+      "247sports.com",
+      "rivals.com",
+      "usatoday.com",
+      "theathletic.com"
+    ],
+    "sitesFans": [
+      "vanquishthefoe.com",
+      "lawlessrepublic.com",
+      "cougarboard.com",
+      "cougarnation.com"
+    ]
+  },
+  "podcasts": [
+    {
+      "appleId": 996764363,
+      "name": "Cougar Sports with Ben Criddle"
+    },
+    {
+      "appleId": 1430094842,
+      "name": "Locked On Cougars"
+    },
+    {
+      "appleId": 902067712,
+      "name": "BYU Sports Nation"
+    },
+    {
+      "appleId": 1146971609,
+      "name": "Cougar Tracks",
+      "radio": true
+    },
+    {
+      "appleId": 660356776,
+      "name": "Cougar Sports Saturday",
+      "radio": true
+    },
+    {
+      "appleId": 1629310222,
+      "name": "Y's Guys"
+    },
+    {
+      "appleId": 1278474812,
+      "name": "Coordinators' Corner",
+      "radio": true
+    },
+    {
+      "appleId": 1278474481,
+      "name": "BYU Football with Kalani Sitake"
+    },
+    {
+      "appleId": 1779536152,
+      "name": "Center Street Media"
+    },
+    {
+      "appleId": 1766389095,
+      "name": "Bleav in BYU"
+    },
+    {
+      "appleId": 1764157016,
+      "name": "Lavell's Lounge"
+    },
+    {
+      "appleId": 1586819866,
+      "name": "The Hype Train"
+    },
+    {
+      "appleId": 1833726405,
+      "name": "The Royal Cougars"
+    },
+    {
+      "appleId": 1832345572,
+      "name": "The Weekly Y"
+    },
+    {
+      "appleId": 1435179604,
+      "name": "BYU Football (BYUradio)"
+    },
+    {
+      "appleId": 1512970348,
+      "name": "Give 'Em Hell, Brigham"
+    },
+    {
+      "appleId": 1704072438,
+      "name": "The Cougar Talk Podcast"
+    },
+    {
+      "appleId": 1787178959,
+      "name": "The Loyal Cougars Podcast"
+    },
+    {
+      "appleId": 1860085579,
+      "name": "CougConnect Podcast"
+    },
+    {
+      "appleId": 1648939810,
+      "name": "A Century of Cougar Football"
+    }
+  ],
+  "youtube": [
+    {
+      "name": "BYU Cougars",
+      "channelId": "UCreL2UlUK2cV2OXZ4SGstBQ",
+      "teamOnly": true
+    },
+    {
+      "name": "BYU Sports Nation",
+      "channelId": "UCPGJ6U6tzIKHubr5zFWFZLw",
+      "teamOnly": true
+    },
+    {
+      "name": "Locked On Cougars",
+      "channelId": "UC4DgNb05EO8oom2NZsmAQXg",
+      "teamOnly": true
+    },
+    {
+      "name": "Y's Guys",
+      "channelId": "UChVGd9goVAhcV629J3vaFIQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Center Street Media",
+      "handle": "@CenterStMedia",
+      "teamOnly": true
+    },
+    {
+      "name": "KSL Sports",
+      "handle": "@KSLSports"
+    }
+  ],
+  "rss": [
+    {
+      "name": "Vanquish The Foe",
+      "url": "https://www.vanquishthefoe.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "The Daily Universe",
+      "url": "https://universe.byu.edu/category/sports/feed/",
+      "verify": true
+    },
+    {
+      "name": "Lawless Republic",
+      "url": "https://lawlessrepublic.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    }
+  ],
+  "social": [],
+  "tier": "featured",
+  "every": 20,
+  "city": "Provo",
+  "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
+  "episodeSearch": [
+    "BYU Cougars",
+    "BYU football"
+  ],
+  "youtubeSearch": [
+    "BYU football"
+  ],
+  "reddit": [
+    {
+      "sub": "byu"
+    },
+    {
+      "search": "\"BYU football\""
+    }
+  ],
+  "matchWeak": [
+    "Cougars",
+    "Cougs"
+  ]
+}

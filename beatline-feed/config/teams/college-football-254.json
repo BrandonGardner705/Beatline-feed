@@ -1,0 +1,168 @@
+{
+  "id": "college-football-254",
+  "short": "UTAH",
+  "name": "Utah Football",
+  "espn": {
+    "sport": "football",
+    "league": "college-football",
+    "id": 254
+  },
+  "match": [
+    "Utah Utes",
+    "University of Utah",
+    "Rice-Eccles"
+  ],
+  "exclude": [
+    "Utah State",
+    "Utah Tech",
+    "Utah Valley",
+    "Utah Jazz",
+    "Utah Mammoth",
+    "Southern Utah"
+  ],
+  "news": {
+    "queries": [
+      "Utah Utes football",
+      "Utes football"
+    ],
+    "bing": [
+      "Utah Utes football"
+    ],
+    "sites": [
+      "ksl.com",
+      "kslsports.com",
+      "kslnewsradio.com",
+      "deseret.com",
+      "sltrib.com",
+      "kutv.com",
+      "fox13now.com",
+      "abc4.com",
+      "kjzz.com",
+      "utahutes.com",
+      "espn700sports.com",
+      "dailyutahchronicle.com"
+    ],
+    "sitesNational": [
+      "espn.com",
+      "cbssports.com",
+      "si.com",
+      "nytimes.com/athletic",
+      "sports.yahoo.com",
+      "foxsports.com",
+      "on3.com",
+      "247sports.com",
+      "rivals.com",
+      "usatoday.com",
+      "theathletic.com"
+    ],
+    "sitesFans": [
+      "blocku.com",
+      "utefans.net",
+      "hoyosrevenge.com",
+      "utezone.com"
+    ]
+  },
+  "podcasts": [
+    {
+      "appleId": 1438790448,
+      "name": "Locked On Utes"
+    },
+    {
+      "appleId": 1475061881,
+      "name": "Utah Utes Interviews",
+      "radio": true
+    },
+    {
+      "appleId": 1464953641,
+      "name": "Scotty G. & The Coach",
+      "radio": true
+    },
+    {
+      "appleId": 1606944102,
+      "name": "Jake & Ben",
+      "radio": true
+    },
+    {
+      "appleId": 916428945,
+      "name": "Utah Man Podcast"
+    },
+    {
+      "search": "Crimson Corner Bill Riley",
+      "name": "Crimson Corner"
+    },
+    {
+      "search": "Under the Headset with Utah Football",
+      "name": "Under the Headset",
+      "radio": true
+    },
+    {
+      "search": "Bleav in Utes",
+      "name": "Bleav in Utes"
+    }
+  ],
+  "youtube": [
+    {
+      "name": "Utah Football",
+      "handle": "@UtahFootball",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "Locked On Utes",
+      "handle": "@LockedOnUtes",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "KSL Sports",
+      "handle": "@KSLSports"
+    }
+  ],
+  "rss": [
+    {
+      "name": "Utah Athletics",
+      "url": "https://utahutes.com/rss.aspx?path=football",
+      "teamOnly": true
+    },
+    {
+      "name": "Block U",
+      "url": "https://www.blocku.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "Hoyos Revenge",
+      "url": "https://hoyosrevenge.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "The Daily Utah Chronicle",
+      "url": "https://dailyutahchronicle.com/category/sports/feed/",
+      "verify": true
+    }
+  ],
+  "social": [],
+  "tier": "featured",
+  "every": 20,
+  "city": "Salt Lake City",
+  "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
+  "episodeSearch": [
+    "Utah Utes"
+  ],
+  "youtubeSearch": [
+    "Utah Utes football"
+  ],
+  "reddit": [
+    {
+      "sub": "Utes",
+      "verify": true
+    },
+    {
+      "search": "\"Utah Utes\""
+    }
+  ],
+  "matchWeak": [
+    "Utes"
+  ]
+}
