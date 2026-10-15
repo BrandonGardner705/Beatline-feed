@@ -447,7 +447,7 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
         description: it.description,
       };
     });
-  items = dedupe(items).slice(0, 160);
+  items = dedupe(items).slice(0, team.maxItems || 400);
 
   await aiSummaries(items, team, apiKey, cache.summaries, fetchImpl);
   const brief = (await aiBrief(items, team, apiKey, fetchImpl)) ||
