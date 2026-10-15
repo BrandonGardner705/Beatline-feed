@@ -217,6 +217,648 @@
       "verify": true
     }
   ],
+  "social": [
+    {
+      "name": "Utah Football",
+      "platform": "X",
+      "handle": "Utah_Football",
+      "profile": "https://x.com/Utah_Football"
+    },
+    {
+      "name": "Utah Football",
+      "platform": "Instagram",
+      "handle": "utah_football",
+      "profile": "https://www.instagram.com/utah_football"
+    },
+    {
+      "name": "Utah Athletics",
+      "platform": "X",
+      "handle": "UtahUtes",
+      "profile": "https://x.com/UtahUtes"
+    },
+    {
+      "name": "Utah Athletics",
+      "platform": "Instagram",
+      "handle": "utahutes",
+      "profile": "https://www.instagram.com/utahutes"
+    },
+    {
+      "player": "Daniel Bray",
+      "platform": "X",
+      "handle": "Danielbray2_",
+      "profile": "https://x.com/Danielbray2_"
+    },
+    {
+      "player": "Nate Ritchie",
+      "platform": "X",
+      "handle": "nateritchie3",
+      "profile": "https://x.com/nateritchie3"
+    },
+    {
+      "player": "Nate Ritchie",
+      "platform": "Instagram",
+      "handle": "nateritchie6",
+      "profile": "https://www.instagram.com/nateritchie6"
+    },
+    {
+      "player": "Johnathan Hall",
+      "platform": "X",
+      "handle": "johnathanBhall",
+      "profile": "https://x.com/johnathanBhall"
+    },
+    {
+      "player": "Johnathan Hall",
+      "platform": "Instagram",
+      "handle": "jjonnio",
+      "profile": "https://www.instagram.com/jjonnio"
+    },
+    {
+      "player": "Daidren Zipperer",
+      "platform": "X",
+      "handle": "daidrenz",
+      "profile": "https://x.com/daidrenz"
+    },
+    {
+      "player": "Daidren Zipperer",
+      "platform": "Instagram",
+      "handle": "daidrenz",
+      "profile": "https://www.instagram.com/daidrenz"
+    },
+    {
+      "player": "Mana Carvalho",
+      "platform": "X",
+      "handle": "Mana_Carvalho22",
+      "profile": "https://x.com/Mana_Carvalho22"
+    },
+    {
+      "player": "Elijah Davis",
+      "platform": "X",
+      "handle": "elijah_davisDBU",
+      "profile": "https://x.com/elijah_davisDBU"
+    },
+    {
+      "player": "Elijah Davis",
+      "platform": "Instagram",
+      "handle": "chargedupscooby",
+      "profile": "https://www.instagram.com/chargedupscooby"
+    },
+    {
+      "player": "Kane Archer",
+      "platform": "X",
+      "handle": "KaneArcher9",
+      "profile": "https://x.com/KaneArcher9"
+    },
+    {
+      "player": "Kane Archer",
+      "platform": "Instagram",
+      "handle": "kanearcher8",
+      "profile": "https://www.instagram.com/kanearcher8"
+    },
+    {
+      "player": "Michael Johnson",
+      "platform": "X",
+      "handle": "__Mikejohnson1",
+      "profile": "https://x.com/__Mikejohnson1"
+    },
+    {
+      "player": "Michael Johnson",
+      "platform": "Instagram",
+      "handle": "mike_johnson.jr",
+      "profile": "https://www.instagram.com/mike_johnson.jr"
+    },
+    {
+      "player": "Byrd Ficklin",
+      "platform": "X",
+      "handle": "FicklinJamarian",
+      "profile": "https://x.com/FicklinJamarian"
+    },
+    {
+      "player": "PJ Takitaki",
+      "platform": "X",
+      "handle": "PjTakitaki",
+      "profile": "https://x.com/PjTakitaki"
+    },
+    {
+      "player": "PJ Takitaki",
+      "platform": "Instagram",
+      "handle": "pj_takitaki",
+      "profile": "https://www.instagram.com/pj_takitaki"
+    },
+    {
+      "player": "Dillon Curtis",
+      "platform": "X",
+      "handle": "dilloncurtis07",
+      "profile": "https://x.com/dilloncurtis07"
+    },
+    {
+      "player": "Dylan Waters",
+      "platform": "X",
+      "handle": "Dy1an_AW",
+      "profile": "https://x.com/Dy1an_AW"
+    },
+    {
+      "player": "Dylan Waters",
+      "platform": "Instagram",
+      "handle": "dylan25k_",
+      "profile": "https://www.instagram.com/dylan25k_"
+    },
+    {
+      "player": "Mateaki Helu",
+      "platform": "X",
+      "handle": "HeluMateaki",
+      "profile": "https://x.com/HeluMateaki"
+    },
+    {
+      "player": "Mateaki Helu",
+      "platform": "Instagram",
+      "handle": "mateaki.helu",
+      "profile": "https://www.instagram.com/mateaki.helu"
+    },
+    {
+      "player": "Nate Tilmon",
+      "platform": "X",
+      "handle": "NateTilmon2025",
+      "profile": "https://x.com/NateTilmon2025"
+    },
+    {
+      "player": "Manny Fuller",
+      "platform": "X",
+      "handle": "Manny_Fuller10",
+      "profile": "https://x.com/Manny_Fuller10"
+    },
+    {
+      "player": "LaMarcus Bell",
+      "platform": "X",
+      "handle": "Lamarcusbell4",
+      "profile": "https://x.com/Lamarcusbell4"
+    },
+    {
+      "player": "LaMarcus Bell",
+      "platform": "Instagram",
+      "handle": "_bam2__",
+      "profile": "https://www.instagram.com/_bam2__"
+    },
+    {
+      "player": "Major Hinchen",
+      "platform": "X",
+      "handle": "HinchenMajor",
+      "profile": "https://x.com/HinchenMajor"
+    },
+    {
+      "player": "Major Hinchen",
+      "platform": "Instagram",
+      "handle": "major.hinchenn",
+      "profile": "https://www.instagram.com/major.hinchenn"
+    },
+    {
+      "player": "Preston Pitts",
+      "platform": "X",
+      "handle": "PittsPreston_",
+      "profile": "https://x.com/PittsPreston_"
+    },
+    {
+      "player": "LaGary Mitchell",
+      "platform": "X",
+      "handle": "LaGaryMitchell8",
+      "profile": "https://x.com/LaGaryMitchell8"
+    },
+    {
+      "player": "LaGary Mitchell",
+      "platform": "Instagram",
+      "handle": "lagarymitchell",
+      "profile": "https://www.instagram.com/lagarymitchell"
+    },
+    {
+      "player": "Pupu Sepulona",
+      "platform": "X",
+      "handle": "PupualiiS",
+      "profile": "https://x.com/PupualiiS"
+    },
+    {
+      "player": "Brock Fonoimoana",
+      "platform": "X",
+      "handle": "BrockFonoimoana",
+      "profile": "https://x.com/BrockFonoimoana"
+    },
+    {
+      "player": "Karson Kaufusi",
+      "platform": "X",
+      "handle": "KarsonKaufusi",
+      "profile": "https://x.com/KarsonKaufusi"
+    },
+    {
+      "player": "Milz Asiata",
+      "platform": "X",
+      "handle": "milz_asiata",
+      "profile": "https://x.com/milz_asiata"
+    },
+    {
+      "player": "Tayson Reid",
+      "platform": "X",
+      "handle": "ReidTayson",
+      "profile": "https://x.com/ReidTayson"
+    },
+    {
+      "player": "Tayson Reid",
+      "platform": "Instagram",
+      "handle": "taysonreid",
+      "profile": "https://www.instagram.com/taysonreid"
+    },
+    {
+      "player": "Kelvin Obot",
+      "platform": "X",
+      "handle": "KelvinObot72",
+      "profile": "https://x.com/KelvinObot72"
+    },
+    {
+      "player": "Kelvin Obot",
+      "platform": "Instagram",
+      "handle": "kelvin_obama72",
+      "profile": "https://www.instagram.com/kelvin_obama72"
+    },
+    {
+      "player": "Moses Sparks",
+      "platform": "X",
+      "handle": "mosessparks77",
+      "profile": "https://x.com/mosessparks77"
+    },
+    {
+      "player": "Moses Sparks",
+      "platform": "Instagram",
+      "handle": "moses_sparks55",
+      "profile": "https://www.instagram.com/moses_sparks55"
+    },
+    {
+      "player": "Stanley Raass",
+      "platform": "X",
+      "handle": "RaassStanley",
+      "profile": "https://x.com/RaassStanley"
+    },
+    {
+      "player": "Devin Entsminger",
+      "platform": "X",
+      "handle": "Dentsminger2026",
+      "profile": "https://x.com/Dentsminger2026"
+    },
+    {
+      "player": "Devin Entsminger",
+      "platform": "Instagram",
+      "handle": "Im.devin.ents",
+      "profile": "https://www.instagram.com/Im.devin.ents"
+    },
+    {
+      "player": "Will Fry",
+      "platform": "X",
+      "handle": "wfry001",
+      "profile": "https://x.com/wfry001"
+    },
+    {
+      "player": "Will Fry",
+      "platform": "Instagram",
+      "handle": "wfry001",
+      "profile": "https://www.instagram.com/wfry001"
+    },
+    {
+      "player": "Mataalii Benjamin",
+      "platform": "X",
+      "handle": "LiiBenjamin",
+      "profile": "https://x.com/LiiBenjamin"
+    },
+    {
+      "player": "Logan Castor",
+      "platform": "X",
+      "handle": "logancastor2",
+      "profile": "https://x.com/logancastor2"
+    },
+    {
+      "player": "Logan Castor",
+      "platform": "Instagram",
+      "handle": "logan.castor",
+      "profile": "https://www.instagram.com/logan.castor"
+    },
+    {
+      "player": "Soren Shinofield",
+      "platform": "X",
+      "handle": "sorenshinofield",
+      "profile": "https://x.com/sorenshinofield"
+    },
+    {
+      "player": "Rowdy Pearce",
+      "platform": "X",
+      "handle": "RowdyPearce_71",
+      "profile": "https://x.com/RowdyPearce_71"
+    },
+    {
+      "player": "Rowdy Pearce",
+      "platform": "Instagram",
+      "handle": "rowdy_pearce",
+      "profile": "https://www.instagram.com/rowdy_pearce"
+    },
+    {
+      "player": "Roger Alderman",
+      "platform": "X",
+      "handle": "AldermanRoger",
+      "profile": "https://x.com/AldermanRoger"
+    },
+    {
+      "player": "Zereoue Williams",
+      "platform": "X",
+      "handle": "ZereoueW",
+      "profile": "https://x.com/ZereoueW"
+    },
+    {
+      "player": "Zereoue Williams",
+      "platform": "Instagram",
+      "handle": "zereoue0202",
+      "profile": "https://www.instagram.com/zereoue0202"
+    },
+    {
+      "player": "Nick Hallock",
+      "platform": "X",
+      "handle": "NickHallock__",
+      "profile": "https://x.com/NickHallock__"
+    },
+    {
+      "player": "Bear Fisher",
+      "platform": "X",
+      "handle": "Bearfisher55",
+      "profile": "https://x.com/Bearfisher55"
+    },
+    {
+      "player": "Alex Harrison",
+      "platform": "X",
+      "handle": "BigAlHarrison1",
+      "profile": "https://x.com/BigAlHarrison1"
+    },
+    {
+      "player": "Alex Harrison",
+      "platform": "Instagram",
+      "handle": "bigalharrison79",
+      "profile": "https://www.instagram.com/bigalharrison79"
+    },
+    {
+      "player": "Alex Harrison",
+      "platform": "TikTok",
+      "handle": "bigalharrison79",
+      "profile": "https://www.tiktok.com/@bigalharrison79"
+    },
+    {
+      "player": "Noah Bennee",
+      "platform": "X",
+      "handle": "n_bennee",
+      "profile": "https://x.com/n_bennee"
+    },
+    {
+      "player": "Noah Bennee",
+      "platform": "Instagram",
+      "handle": "noah_bennee",
+      "profile": "https://www.instagram.com/noah_bennee"
+    }
+  ],
+  "tier": "featured",
+  "every": 20,
+  "city": "Salt Lake City",
+  "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
+  "episodeSearch": [
+    "Utah Utes",
+    "Morgan Scalley",
+    "Utah Utes basketball"
+  ],
+  "youtubeSearch": [
+    "Utah Utes football"
+  ],
+  "reddit": [
+    {
+      "sub": "Utes",
+      "verify": true
+    },
+    {
+      "search": "\"Utah Utes\""
+    }
+  ],
+  "matchWeak": [
+    "Utes"
+  ]
+}
+{
+  "id": "college-football-254",
+  "short": "UTAH",
+  "name": "Utah Football",
+  "espn": {
+    "sport": "football",
+    "league": "college-football",
+    "id": 254
+  },
+  "match": [
+    "Utah Utes",
+    "University of Utah",
+    "Rice-Eccles"
+  ],
+  "exclude": [
+    "Utah State",
+    "Utah Tech",
+    "Utah Valley",
+    "Utah Jazz",
+    "Utah Mammoth",
+    "Southern Utah"
+  ],
+  "news": {
+    "queries": [
+      "Utah Utes football",
+      "Utes football",
+      "Morgan Scalley",
+      "Utah Utes basketball",
+      "Utah Utes recruiting"
+    ],
+    "bing": [
+      "Utah Utes football"
+    ],
+    "sites": [
+      "ksl.com",
+      "kslsports.com",
+      "kslnewsradio.com",
+      "deseret.com",
+      "sltrib.com",
+      "kutv.com",
+      "fox13now.com",
+      "abc4.com",
+      "kjzz.com",
+      "utahutes.com",
+      "espn700sports.com",
+      "dailyutahchronicle.com"
+    ],
+    "sitesNational": [
+      "espn.com",
+      "cbssports.com",
+      "si.com",
+      "nytimes.com/athletic",
+      "sports.yahoo.com",
+      "foxsports.com",
+      "on3.com",
+      "247sports.com",
+      "rivals.com",
+      "usatoday.com",
+      "theathletic.com"
+    ],
+    "sitesFans": [
+      "utefans.net",
+      "hoyosrevenge.com",
+      "utezone.com"
+    ]
+  },
+  "podcasts": [
+    {
+      "appleId": 1438790448,
+      "name": "Locked On Utes"
+    },
+    {
+      "appleId": 1475061881,
+      "name": "Utah Utes Interviews",
+      "radio": true
+    },
+    {
+      "appleId": 1464953641,
+      "name": "Scotty G. & The Coach",
+      "radio": true
+    },
+    {
+      "appleId": 1606944102,
+      "name": "Jake & Ben",
+      "radio": true
+    },
+    {
+      "appleId": 916428945,
+      "name": "Utah Man Podcast"
+    },
+    {
+      "search": "Crimson Corner Bill Riley",
+      "name": "Crimson Corner"
+    },
+    {
+      "search": "Under the Headset with Utah Football",
+      "name": "Under the Headset",
+      "radio": true
+    },
+    {
+      "appleId": 1297674070,
+      "name": "ESPN 700 Sports",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1474933041,
+      "name": "The Utah Blockcast"
+    },
+    {
+      "appleId": 1606942358,
+      "name": "University of Utah Sound (KSL)"
+    },
+    {
+      "appleId": 1635832657,
+      "name": "The Utah Checkdown"
+    },
+    {
+      "appleId": 1475651052,
+      "name": "Utah Football Fans Podcast (Bleav)"
+    },
+    {
+      "appleId": 1835927549,
+      "name": "Crimson Corner with Bill Riley"
+    },
+    {
+      "appleId": 6807554470,
+      "name": "U Talk UTAH"
+    },
+    {
+      "appleId": 1835942419,
+      "name": "Under The Headset with Utah Football"
+    }
+  ],
+  "youtube": [
+    {
+      "name": "Utah Athletics",
+      "channelId": "UCOZJeIxFaGm9-czFb9t59PQ"
+    },
+    {
+      "name": "Locked On Utes",
+      "teamOnly": true,
+      "channelId": "UCDRJWNPcAzXgCJifD34eYKQ"
+    },
+    {
+      "name": "KSL Sports",
+      "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "U Talk UTAH",
+      "channelId": "UC_1FdIxtcSzTIWlREiB3jew",
+      "teamOnly": true
+    },
+    {
+      "name": "Utah Football Fans",
+      "channelId": "UC1SSwa42QfhuKf8uWp9BF6Q",
+      "teamOnly": true
+    },
+    {
+      "name": "Utah Football DNA",
+      "channelId": "UCfNUMA6R9eyI5EKDbxEnxGw",
+      "teamOnly": true
+    },
+    {
+      "name": "CFB on FOX",
+      "channelId": "UCpwix-O6ceqMgdxhqIynzFA",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Conference",
+      "channelId": "UCLnfOCTbfqMy_3ah8OmTHEQ",
+      "every": 60
+    },
+    {
+      "name": "Locked On Big 12",
+      "channelId": "UCIaiqufEekxiTnnLc129t2g",
+      "every": 60
+    },
+    {
+      "name": "ESPN College Football",
+      "channelId": "UCzRWWsFjqHk1an4OnVPsl9g",
+      "every": 60
+    },
+    {
+      "name": "Preferred Walk-On",
+      "channelId": "UC7FKpO5Kzc-hQitJvM7tFuQ",
+      "every": 60
+    }
+  ],
+  "rss": [
+    {
+      "name": "Utah Athletics",
+      "url": "https://utahutes.com/rss.aspx?path=football",
+      "teamOnly": true
+    },
+    {
+      "name": "Hoyos Revenge",
+      "url": "https://hoyosrevenge.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "The Daily Utah Chronicle",
+      "url": "https://dailyutahchronicle.com/category/sports/feed/",
+      "verify": true
+    }
+  ],
   "social": [],
   "tier": "featured",
   "every": 20,
