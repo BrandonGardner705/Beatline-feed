@@ -102,10 +102,8 @@
   ],
   "youtube": [
     {
-      "name": "Utah Football",
-      "handle": "@UtahFootball",
-      "teamOnly": true,
-      "verify": true
+      "name": "Utah Athletics",
+      "channelId": "UCOZJeIxFaGm9-czFb9t59PQ"
     },
     {
       "name": "Locked On Utes",
@@ -115,7 +113,7 @@
     },
     {
       "name": "KSL Sports",
-      "handle": "@KSLSports"
+      "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
     }
   ],
   "rss": [
