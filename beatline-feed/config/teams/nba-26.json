@@ -18,7 +18,10 @@
   ],
   "news": {
     "queries": [
-      "Utah Jazz"
+      "Utah Jazz",
+      "Will Hardy Jazz",
+      "Utah Jazz trade",
+      "Utah Jazz injury"
     ],
     "bing": [
       "Utah Jazz"
@@ -121,32 +124,94 @@
       "name": "Hoops Nerd"
     },
     {
-      "search": "SLC Dunk",
-      "name": "SLC Dunk"
+      "appleId": 6821180279,
+      "name": "Locked On Jazz Hit"
+    },
+    {
+      "appleId": 1543021925,
+      "name": "Salt City Jazz"
+    },
+    {
+      "appleId": 6814901766,
+      "name": "LOYAL: A Utah Jazz Podcast"
+    },
+    {
+      "appleId": 6811201696,
+      "name": "Utah Jazz Weekly"
     }
   ],
   "youtube": [
     {
       "name": "Utah Jazz",
-      "handle": "@utahjazz",
       "teamOnly": true,
-      "verify": true
+      "channelId": "UCv9iSdeI9IzWfV8yTDsMYWA"
     },
     {
       "name": "KSL Sports",
       "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "Locked On Jazz",
+      "channelId": "UCQxdULfeeOoUeT60tEvrDTg",
+      "teamOnly": true
+    },
+    {
+      "name": "Hoops Nerd",
+      "channelId": "UCa6xQIVH2_t0AFx-XDw7WvQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Utah Jazz DNA",
+      "channelId": "UCUWje6WD7AWRl2_CwMe9k7Q",
+      "teamOnly": true
+    },
+    {
+      "name": "Jazzmen Podcast",
+      "channelId": "UCTQiAK4JUPaQyH2RTuqHXLw",
+      "teamOnly": true
+    },
+    {
+      "name": "Salt City Hoops",
+      "channelId": "UCl--_3TjoMwXSdr1IaVSRsg",
+      "teamOnly": true
+    },
+    {
+      "name": "T-Talk Jazz",
+      "channelId": "UC3fbPcI-aZg6-v1getkVPtg",
+      "teamOnly": true
+    },
+    {
+      "name": "Mountain Standard Show",
+      "channelId": "UCcqN_ac3hb3vsBqOw2bNkCQ"
+    },
+    {
+      "name": "NBA",
+      "channelId": "UCWJ2lWNubArHWmf3FIHbfcQ",
+      "every": 60
+    },
+    {
+      "name": "NBA on ESPN",
+      "channelId": "UCVSSpcmZD2PwPBqb8yKQKBA",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
     }
   ],
   "rss": [
     {
       "name": "SLC Dunk",
       "url": "https://www.slcdunk.com/rss/index.xml",
-      "teamOnly": true,
-      "verify": true
-    },
-    {
-      "name": "Salt City Hoops",
-      "url": "https://saltcityhoops.com/feed/",
       "teamOnly": true,
       "verify": true
     }
@@ -157,7 +222,9 @@
   "city": "Salt Lake City",
   "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
   "episodeSearch": [
-    "Utah Jazz"
+    "Utah Jazz",
+    "Will Hardy",
+    "Lauri Markkanen"
   ],
   "youtubeSearch": [
     "Utah Jazz"
