@@ -171,18 +171,39 @@ export function normalizeTitle(t) {
   return t.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim().slice(0, 70);
 }
 
+// Google News links are redirects with no picture; a copy of the same story from
+// Bing or the outlet's own feed links straight to the article and often has one.
+const isRedirect = (u) => /news\.google\.com/.test(u || '');
+const better = (a, b) => (!!b.image - !!a.image) || (isRedirect(a.url) - isRedirect(b.url));
+
 export function dedupe(items) {
   const seenUrl = new Set();
-  const seenTitle = new Set();
+  const byTitle = new Map();
   const out = [];
   for (const it of items) {
+    if (!it.title) continue;
     const nt = normalizeTitle(it.title);
-    if (!it.title || seenUrl.has(it.url) || seenTitle.has(nt)) continue;
+    if (seenUrl.has(it.url)) continue;
+    const prev = byTitle.get(nt);
+    if (prev !== undefined) {
+      if (better(out[prev], it) > 0) out[prev] = { ...it, at: Math.max(out[prev].at || 0, it.at || 0) };
+      continue;
+    }
     seenUrl.add(it.url);
-    seenTitle.add(nt);
+    byTitle.set(nt, out.length);
     out.push(it);
   }
   return out;
+}
+
+// Article preview picture: the image a publisher sets for link previews (og:image / twitter:image).
+export function previewImageFromHtml(html, base) {
+  const head = String(html).slice(0, 200000);
+  const m = head.match(/<meta[^>]+(?:property|name)=["'](?:og:image(?::secure_url)?|twitter:image(?::src)?)["'][^>]*>/i);
+  if (!m) return undefined;
+  const c = m[0].match(/content=["']([^"']+)["']/i);
+  if (!c) return undefined;
+  try { return new URL(c[1].replace(/&amp;/g, '&'), base).href; } catch { return undefined; }
 }
 
 export function fallbackSummary(title, description) {
