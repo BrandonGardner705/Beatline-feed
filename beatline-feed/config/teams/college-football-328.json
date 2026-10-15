@@ -22,7 +22,10 @@
   "news": {
     "queries": [
       "\"Utah State\" football",
-      "\"Utah State\" Aggies"
+      "\"Utah State\" Aggies",
+      "Bronco Mendenhall",
+      "Utah State basketball",
+      "Utah State Aggies Logan"
     ],
     "bing": [
       "Utah State Aggies football"
@@ -82,13 +85,17 @@
       "name": "Aggies All the Way"
     },
     {
-      "search": "Game Day Aggie Call KVNU",
-      "name": "Game Day Aggie Call",
-      "radio": true
+      "appleId": 1465992636,
+      "name": "Full Court Press (Cache Valley Media)",
+      "teamOnly": false
     },
     {
-      "search": "Herald Journal sports podcast Cache Valley",
-      "name": "Herald Journal Sports"
+      "appleId": 1606942362,
+      "name": "Utah State University Sound (KSL)"
+    },
+    {
+      "appleId": 1691337268,
+      "name": "The Scotsman Show"
     }
   ],
   "youtube": [
@@ -104,6 +111,38 @@
     {
       "name": "KSL Sports",
       "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "The Fan KLGN (Logan)",
+      "channelId": "UCK40yeN51MMANs8ZmIRYhWQ"
+    },
+    {
+      "name": "Pac-12",
+      "channelId": "UCtxdtF8iCxZw593FSUIPrxg",
+      "every": 60
+    },
+    {
+      "name": "Locked On Pac-12",
+      "channelId": "UC8d-TBpeHQ0uhyg-qwehXxg",
+      "every": 60
+    },
+    {
+      "name": "ESPN College Football",
+      "channelId": "UCzRWWsFjqHk1an4OnVPsl9g",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
     }
   ],
   "rss": [
@@ -131,7 +170,9 @@
   "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
   "episodeSearch": [
     "Utah State Aggies",
-    "Utah State football"
+    "Utah State football",
+    "Bronco Mendenhall",
+    "Utah State basketball"
   ],
   "youtubeSearch": [
     "Utah State Aggies football"
