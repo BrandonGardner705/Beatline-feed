@@ -23,7 +23,10 @@
   "news": {
     "queries": [
       "Utah Utes football",
-      "Utes football"
+      "Utes football",
+      "Morgan Scalley",
+      "Utah Utes basketball",
+      "Utah Utes recruiting"
     ],
     "bing": [
       "Utah Utes football"
@@ -56,7 +59,6 @@
       "theathletic.com"
     ],
     "sitesFans": [
-      "blocku.com",
       "utefans.net",
       "hoyosrevenge.com",
       "utezone.com"
@@ -96,8 +98,37 @@
       "radio": true
     },
     {
-      "search": "Bleav in Utes",
-      "name": "Bleav in Utes"
+      "appleId": 1297674070,
+      "name": "ESPN 700 Sports",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1474933041,
+      "name": "The Utah Blockcast"
+    },
+    {
+      "appleId": 1606942358,
+      "name": "University of Utah Sound (KSL)"
+    },
+    {
+      "appleId": 1635832657,
+      "name": "The Utah Checkdown"
+    },
+    {
+      "appleId": 1475651052,
+      "name": "Utah Football Fans Podcast (Bleav)"
+    },
+    {
+      "appleId": 1835927549,
+      "name": "Crimson Corner with Bill Riley"
+    },
+    {
+      "appleId": 6807554470,
+      "name": "U Talk UTAH"
+    },
+    {
+      "appleId": 1835942419,
+      "name": "Under The Headset with Utah Football"
     }
   ],
   "youtube": [
@@ -107,13 +138,65 @@
     },
     {
       "name": "Locked On Utes",
-      "handle": "@LockedOnUtes",
       "teamOnly": true,
-      "verify": true
+      "channelId": "UCDRJWNPcAzXgCJifD34eYKQ"
     },
     {
       "name": "KSL Sports",
       "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "U Talk UTAH",
+      "channelId": "UC_1FdIxtcSzTIWlREiB3jew",
+      "teamOnly": true
+    },
+    {
+      "name": "Utah Football Fans",
+      "channelId": "UC1SSwa42QfhuKf8uWp9BF6Q",
+      "teamOnly": true
+    },
+    {
+      "name": "Utah Football DNA",
+      "channelId": "UCfNUMA6R9eyI5EKDbxEnxGw",
+      "teamOnly": true
+    },
+    {
+      "name": "CFB on FOX",
+      "channelId": "UCpwix-O6ceqMgdxhqIynzFA",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Conference",
+      "channelId": "UCLnfOCTbfqMy_3ah8OmTHEQ",
+      "every": 60
+    },
+    {
+      "name": "Locked On Big 12",
+      "channelId": "UCIaiqufEekxiTnnLc129t2g",
+      "every": 60
+    },
+    {
+      "name": "ESPN College Football",
+      "channelId": "UCzRWWsFjqHk1an4OnVPsl9g",
+      "every": 60
+    },
+    {
+      "name": "Preferred Walk-On",
+      "channelId": "UC7FKpO5Kzc-hQitJvM7tFuQ",
+      "every": 60
     }
   ],
   "rss": [
@@ -121,12 +204,6 @@
       "name": "Utah Athletics",
       "url": "https://utahutes.com/rss.aspx?path=football",
       "teamOnly": true
-    },
-    {
-      "name": "Block U",
-      "url": "https://www.blocku.com/feed/",
-      "teamOnly": true,
-      "verify": true
     },
     {
       "name": "Hoyos Revenge",
@@ -146,7 +223,9 @@
   "city": "Salt Lake City",
   "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
   "episodeSearch": [
-    "Utah Utes"
+    "Utah Utes",
+    "Morgan Scalley",
+    "Utah Utes basketball"
   ],
   "youtubeSearch": [
     "Utah Utes football"
