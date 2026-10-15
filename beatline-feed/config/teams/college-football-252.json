@@ -377,6 +377,1757 @@
       "verify": true
     }
   ],
+  "social": [
+    {
+      "name": "BYU Football",
+      "platform": "X",
+      "handle": "BYUfootball",
+      "profile": "https://x.com/BYUfootball"
+    },
+    {
+      "name": "BYU Football",
+      "platform": "Instagram",
+      "handle": "byufootball",
+      "profile": "https://www.instagram.com/byufootball"
+    },
+    {
+      "name": "BYU Cougars",
+      "platform": "X",
+      "handle": "BYUcougars",
+      "profile": "https://x.com/BYUcougars"
+    },
+    {
+      "name": "BYU Cougars",
+      "platform": "Instagram",
+      "handle": "byucougars",
+      "profile": "https://www.instagram.com/byucougars"
+    },
+    {
+      "player": "Tei Nacua",
+      "platform": "X",
+      "handle": "TeiNacua",
+      "profile": "https://x.com/TeiNacua"
+    },
+    {
+      "player": "Tei Nacua",
+      "platform": "Instagram",
+      "handle": "3xclusive.tei",
+      "profile": "https://www.instagram.com/3xclusive.tei"
+    },
+    {
+      "player": "Evan Johnson",
+      "platform": "Instagram",
+      "handle": "_shmev_",
+      "profile": "https://www.instagram.com/_shmev_"
+    },
+    {
+      "player": "Therrian Alexander III",
+      "platform": "X",
+      "handle": "therriannn",
+      "profile": "https://x.com/therriannn"
+    },
+    {
+      "player": "Therrian Alexander III",
+      "platform": "Instagram",
+      "handle": "therriannn",
+      "profile": "https://www.instagram.com/therriannn"
+    },
+    {
+      "player": "Legend Glasker",
+      "platform": "X",
+      "handle": "legendglasker",
+      "profile": "https://x.com/legendglasker"
+    },
+    {
+      "player": "Legend Glasker",
+      "platform": "Instagram",
+      "handle": "__showtime.6__",
+      "profile": "https://www.instagram.com/__showtime.6__"
+    },
+    {
+      "player": "Jonathan Kabeya",
+      "platform": "X",
+      "handle": "iamjonathann_2",
+      "profile": "https://x.com/iamjonathann_2"
+    },
+    {
+      "player": "Jonathan Kabeya",
+      "platform": "Instagram",
+      "handle": "iamjonathann_2",
+      "profile": "https://www.instagram.com/iamjonathann_2"
+    },
+    {
+      "player": "Roger Saleapaga II",
+      "platform": "X",
+      "handle": "RogerSaleapaga6",
+      "profile": "https://x.com/RogerSaleapaga6"
+    },
+    {
+      "player": "Roger Saleapaga II",
+      "platform": "Instagram",
+      "handle": "thatkidrog",
+      "profile": "https://www.instagram.com/thatkidrog"
+    },
+    {
+      "player": "Kyler Kasper",
+      "platform": "X",
+      "handle": "KasperKyler",
+      "profile": "https://x.com/KasperKyler"
+    },
+    {
+      "player": "Kyler Kasper",
+      "platform": "Instagram",
+      "handle": "kyler.kasper",
+      "profile": "https://www.instagram.com/kyler.kasper"
+    },
+    {
+      "player": "Raider Damuni",
+      "platform": "X",
+      "handle": "raiderdamuni",
+      "profile": "https://x.com/raiderdamuni"
+    },
+    {
+      "player": "Raider Damuni",
+      "platform": "Instagram",
+      "handle": "raiderdamuni.3",
+      "profile": "https://www.instagram.com/raiderdamuni.3"
+    },
+    {
+      "player": "LJ Martin",
+      "platform": "X",
+      "handle": "aLJayMartin",
+      "profile": "https://x.com/aLJayMartin"
+    },
+    {
+      "player": "LJ Martin",
+      "platform": "Instagram",
+      "handle": "_ljmartin_",
+      "profile": "https://www.instagram.com/_ljmartin_"
+    },
+    {
+      "player": "Cade Uluave",
+      "platform": "X",
+      "handle": "cadeuluave",
+      "profile": "https://x.com/cadeuluave"
+    },
+    {
+      "player": "Cade Uluave",
+      "platform": "Instagram",
+      "handle": "cadeuluave_",
+      "profile": "https://www.instagram.com/cadeuluave_"
+    },
+    {
+      "player": "Nusi Taumoepeau",
+      "platform": "X",
+      "handle": "nusgotdajuice",
+      "profile": "https://x.com/nusgotdajuice"
+    },
+    {
+      "player": "Nusi Taumoepeau",
+      "platform": "Instagram",
+      "handle": "nusgotdajuice",
+      "profile": "https://www.instagram.com/nusgotdajuice"
+    },
+    {
+      "player": "Walker Lyons",
+      "platform": "X",
+      "handle": "walkerly0ns",
+      "profile": "https://x.com/walkerly0ns"
+    },
+    {
+      "player": "Walker Lyons",
+      "platform": "Instagram",
+      "handle": "walkerlyons",
+      "profile": "https://www.instagram.com/walkerlyons"
+    },
+    {
+      "player": "Jaron Pula",
+      "platform": "X",
+      "handle": "jaron_pula",
+      "profile": "https://x.com/jaron_pula"
+    },
+    {
+      "player": "Jaron Pula",
+      "platform": "Instagram",
+      "handle": "_.jearpula",
+      "profile": "https://www.instagram.com/_.jearpula"
+    },
+    {
+      "player": "Kennan Pula",
+      "platform": "X",
+      "handle": "Kennanpula6",
+      "profile": "https://x.com/Kennanpula6"
+    },
+    {
+      "player": "Kennan Pula",
+      "platform": "Instagram",
+      "handle": "kpula.3",
+      "profile": "https://www.instagram.com/kpula.3"
+    },
+    {
+      "player": "Treyson Bourguet",
+      "platform": "X",
+      "handle": "treysonbourguet",
+      "profile": "https://x.com/treysonbourguet"
+    },
+    {
+      "player": "Treyson Bourguet",
+      "platform": "Instagram",
+      "handle": "treysonbourguet_",
+      "profile": "https://www.instagram.com/treysonbourguet_"
+    },
+    {
+      "player": "Orion Maile-Kaufusi",
+      "platform": "X",
+      "handle": "Orion_Httr",
+      "profile": "https://x.com/Orion_Httr"
+    },
+    {
+      "player": "Orion Maile-Kaufusi",
+      "platform": "Instagram",
+      "handle": "orionmkay",
+      "profile": "https://www.instagram.com/orionmkay"
+    },
+    {
+      "player": "Preston Rex",
+      "platform": "X",
+      "handle": "preston_rex1",
+      "profile": "https://x.com/preston_rex1"
+    },
+    {
+      "player": "Preston Rex",
+      "platform": "Instagram",
+      "handle": "_pwavvy",
+      "profile": "https://www.instagram.com/_pwavvy"
+    },
+    {
+      "player": "Faletau Satuala",
+      "platform": "X",
+      "handle": "faletausatuala",
+      "profile": "https://x.com/faletausatuala"
+    },
+    {
+      "player": "Faletau Satuala",
+      "platform": "Instagram",
+      "handle": "faletau11satuala",
+      "profile": "https://www.instagram.com/faletau11satuala"
+    },
+    {
+      "player": "Jojo Phillips",
+      "platform": "X",
+      "handle": "josiahphillip20",
+      "profile": "https://x.com/josiahphillip20"
+    },
+    {
+      "player": "Jojo Phillips",
+      "platform": "Instagram",
+      "handle": "jjosiahphillips",
+      "profile": "https://www.instagram.com/jjosiahphillips"
+    },
+    {
+      "player": "Jayven Williams",
+      "platform": "X",
+      "handle": "williams_jayven",
+      "profile": "https://x.com/williams_jayven"
+    },
+    {
+      "player": "Jayven Williams",
+      "platform": "Instagram",
+      "handle": "jay.will22",
+      "profile": "https://www.instagram.com/jay.will22"
+    },
+    {
+      "player": "Tausili Akana",
+      "platform": "X",
+      "handle": "AkanaTausili",
+      "profile": "https://x.com/AkanaTausili"
+    },
+    {
+      "player": "Tausili Akana",
+      "platform": "Instagram",
+      "handle": "tausiliakana_",
+      "profile": "https://www.instagram.com/tausiliakana_"
+    },
+    {
+      "player": "John Sanders",
+      "platform": "X",
+      "handle": "4Jsanders",
+      "profile": "https://x.com/4Jsanders"
+    },
+    {
+      "player": "John Sanders",
+      "platform": "Instagram",
+      "handle": "_john.sanders",
+      "profile": "https://www.instagram.com/_john.sanders"
+    },
+    {
+      "player": "Isaiah Glasker",
+      "platform": "Instagram",
+      "handle": "prettyboyzayy1x",
+      "profile": "https://www.instagram.com/prettyboyzayy1x"
+    },
+    {
+      "player": "Isaiah Glasker",
+      "platform": "X",
+      "handle": "isaiahglasker",
+      "profile": "https://x.com/isaiahglasker"
+    },
+    {
+      "player": "Enoch Watson",
+      "platform": "X",
+      "handle": "Enoch_Watson1",
+      "profile": "https://x.com/Enoch_Watson1"
+    },
+    {
+      "player": "Enoch Watson",
+      "platform": "Instagram",
+      "handle": "enochwats",
+      "profile": "https://www.instagram.com/enochwats"
+    },
+    {
+      "player": "Jarinn Kalama",
+      "platform": "X",
+      "handle": "JarinnKalama",
+      "profile": "https://x.com/JarinnKalama"
+    },
+    {
+      "player": "Jarinn Kalama",
+      "platform": "Instagram",
+      "handle": "jarinn.kalama",
+      "profile": "https://www.instagram.com/jarinn.kalama"
+    },
+    {
+      "player": "Owen Geilman",
+      "platform": "Instagram",
+      "handle": "owengeilman",
+      "profile": "https://www.instagram.com/owengeilman"
+    },
+    {
+      "player": "Ace Kaufusi",
+      "platform": "X",
+      "handle": "Ace_Kaufusi",
+      "profile": "https://x.com/Ace_Kaufusi"
+    },
+    {
+      "player": "Ace Kaufusi",
+      "platform": "Instagram",
+      "handle": "ace_kaufusi",
+      "profile": "https://www.instagram.com/ace_kaufusi"
+    },
+    {
+      "player": "Tiger Bachmeier",
+      "platform": "X",
+      "handle": "tigerbachmeier",
+      "profile": "https://x.com/tigerbachmeier"
+    },
+    {
+      "player": "Tiger Bachmeier",
+      "platform": "Instagram",
+      "handle": "tigerbachmeier",
+      "profile": "https://www.instagram.com/tigerbachmeier"
+    },
+    {
+      "player": "Reggie Frischknecht",
+      "platform": "X",
+      "handle": "Reggie_Frisch23",
+      "profile": "https://x.com/Reggie_Frisch23"
+    },
+    {
+      "player": "Reggie Frischknecht",
+      "platform": "Instagram",
+      "handle": "reggie_frisch23",
+      "profile": "https://www.instagram.com/reggie_frisch23"
+    },
+    {
+      "player": "Fuller Shurtz",
+      "platform": "Instagram",
+      "handle": "fjshurtz",
+      "profile": "https://www.instagram.com/fjshurtz"
+    },
+    {
+      "player": "Kevin Doe",
+      "platform": "Instagram",
+      "handle": "kevin.doe_",
+      "profile": "https://www.instagram.com/kevin.doe_"
+    },
+    {
+      "player": "Journee Tonga",
+      "platform": "X",
+      "handle": "journee_tonga",
+      "profile": "https://x.com/journee_tonga"
+    },
+    {
+      "player": "Journee Tonga",
+      "platform": "Instagram",
+      "handle": "journee_t0nga",
+      "profile": "https://www.instagram.com/journee_t0nga"
+    },
+    {
+      "player": "Miles Hall",
+      "platform": "X",
+      "handle": "mileshall30",
+      "profile": "https://x.com/mileshall30"
+    },
+    {
+      "player": "Miles Hall",
+      "platform": "Instagram",
+      "handle": "mileshall_2",
+      "profile": "https://www.instagram.com/mileshall_2"
+    },
+    {
+      "player": "Asher Young",
+      "platform": "X",
+      "handle": "_asheryoung3",
+      "profile": "https://x.com/_asheryoung3"
+    },
+    {
+      "player": "Asher Young",
+      "platform": "Instagram",
+      "handle": "_asheryoung",
+      "profile": "https://www.instagram.com/_asheryoung"
+    },
+    {
+      "player": "Tommy Prassas",
+      "platform": "X",
+      "handle": "PRASSAS22",
+      "profile": "https://x.com/PRASSAS22"
+    },
+    {
+      "player": "Tommy Prassas",
+      "platform": "Instagram",
+      "handle": "prassas22",
+      "profile": "https://www.instagram.com/prassas22"
+    },
+    {
+      "player": "Trey Roberts",
+      "platform": "X",
+      "handle": "trey_roberts27",
+      "profile": "https://x.com/trey_roberts27"
+    },
+    {
+      "player": "Trey Roberts",
+      "platform": "Instagram",
+      "handle": "treyroberts11",
+      "profile": "https://www.instagram.com/treyroberts11"
+    },
+    {
+      "player": "Pierson Watson",
+      "platform": "X",
+      "handle": "PiersonWatson",
+      "profile": "https://x.com/PiersonWatson"
+    },
+    {
+      "player": "Pierson Watson",
+      "platform": "Instagram",
+      "handle": "pierson_watson",
+      "profile": "https://www.instagram.com/pierson_watson"
+    },
+    {
+      "player": "Terrance Saryon",
+      "platform": "Instagram",
+      "handle": "TerranceSaryon",
+      "profile": "https://www.instagram.com/TerranceSaryon"
+    },
+    {
+      "player": "Terrance Saryon",
+      "platform": "X",
+      "handle": "terrancesaryon",
+      "profile": "https://x.com/terrancesaryon"
+    },
+    {
+      "player": "Payton VanSteenkiste",
+      "platform": "X",
+      "handle": "__pmv__",
+      "profile": "https://x.com/__pmv__"
+    },
+    {
+      "player": "Payton VanSteenkiste",
+      "platform": "Instagram",
+      "handle": "paytonvan5",
+      "profile": "https://www.instagram.com/paytonvan5"
+    },
+    {
+      "player": "Devaughn Eka",
+      "platform": "X",
+      "handle": "Devaughn_Eka",
+      "profile": "https://x.com/Devaughn_Eka"
+    },
+    {
+      "player": "Devaughn Eka",
+      "platform": "Instagram",
+      "handle": "Devaughneka39",
+      "profile": "https://www.instagram.com/Devaughneka39"
+    },
+    {
+      "player": "Ethan Wood",
+      "platform": "X",
+      "handle": "Ethwoody",
+      "profile": "https://x.com/Ethwoody"
+    },
+    {
+      "player": "Ethan Wood",
+      "platform": "Instagram",
+      "handle": "ethwoody",
+      "profile": "https://www.instagram.com/ethwoody"
+    },
+    {
+      "player": "Lance Reynolds",
+      "platform": "X",
+      "handle": "Lancerey545",
+      "profile": "https://x.com/Lancerey545"
+    },
+    {
+      "player": "Jordyn Criss",
+      "platform": "X",
+      "handle": "CrissJordyn",
+      "profile": "https://x.com/CrissJordyn"
+    },
+    {
+      "player": "Jordyn Criss",
+      "platform": "Instagram",
+      "handle": "jordyn._4x",
+      "profile": "https://www.instagram.com/jordyn._4x"
+    },
+    {
+      "player": "Fisher Ingersoll",
+      "platform": "X",
+      "handle": "FisherIngersoll",
+      "profile": "https://x.com/FisherIngersoll"
+    },
+    {
+      "player": "Fisher Ingersoll",
+      "platform": "Instagram",
+      "handle": "fisheringersol",
+      "profile": "https://www.instagram.com/fisheringersol"
+    },
+    {
+      "player": "Matthias Leach",
+      "platform": "Instagram",
+      "handle": "matthiasleach_",
+      "profile": "https://www.instagram.com/matthiasleach_"
+    },
+    {
+      "player": "Jovesa Damuni",
+      "platform": "X",
+      "handle": "jovesa4",
+      "profile": "https://x.com/jovesa4"
+    },
+    {
+      "player": "Jovesa Damuni",
+      "platform": "Instagram",
+      "handle": "jov3sa",
+      "profile": "https://www.instagram.com/jov3sa"
+    },
+    {
+      "player": "Crew Clark",
+      "platform": "X",
+      "handle": "crewclark1",
+      "profile": "https://x.com/crewclark1"
+    },
+    {
+      "player": "Justice Brathwaite",
+      "platform": "X",
+      "handle": "Justice29B",
+      "profile": "https://x.com/Justice29B"
+    },
+    {
+      "player": "Jared Esplin",
+      "platform": "X",
+      "handle": "JaredEsplin",
+      "profile": "https://x.com/JaredEsplin"
+    },
+    {
+      "player": "Jake Clifton",
+      "platform": "X",
+      "handle": "JakeClifton2",
+      "profile": "https://x.com/JakeClifton2"
+    },
+    {
+      "player": "Jake Clifton",
+      "platform": "Instagram",
+      "handle": "jakeclifton31",
+      "profile": "https://www.instagram.com/jakeclifton31"
+    },
+    {
+      "player": "Sione Moa",
+      "platform": "Instagram",
+      "handle": "thejohnmoa",
+      "profile": "https://www.instagram.com/thejohnmoa"
+    },
+    {
+      "player": "Braxton Lindsey",
+      "platform": "X",
+      "handle": "BraxtonTrev",
+      "profile": "https://x.com/BraxtonTrev"
+    },
+    {
+      "player": "Braxton Lindsey",
+      "platform": "Instagram",
+      "handle": "braxtonlindsey_14",
+      "profile": "https://www.instagram.com/braxtonlindsey_14"
+    },
+    {
+      "player": "Cannon DeVries",
+      "platform": "X",
+      "handle": "cannondevries",
+      "profile": "https://x.com/cannondevries"
+    },
+    {
+      "player": "Cannon DeVries",
+      "platform": "Instagram",
+      "handle": "cannon.devries",
+      "profile": "https://www.instagram.com/cannon.devries"
+    },
+    {
+      "player": "Charlie Miska",
+      "platform": "X",
+      "handle": "Chimmer08",
+      "profile": "https://x.com/Chimmer08"
+    },
+    {
+      "player": "Charlie Miska",
+      "platform": "Instagram",
+      "handle": "chimmer_m",
+      "profile": "https://www.instagram.com/chimmer_m"
+    },
+    {
+      "player": "Daniel Taumoepeau",
+      "platform": "X",
+      "handle": "DanielSun49",
+      "profile": "https://x.com/DanielSun49"
+    },
+    {
+      "player": "Daniel Taumoepeau",
+      "platform": "Instagram",
+      "handle": "dtmp03",
+      "profile": "https://www.instagram.com/dtmp03"
+    },
+    {
+      "player": "Maika Kaufusi",
+      "platform": "X",
+      "handle": "KaufusiMaika",
+      "profile": "https://x.com/KaufusiMaika"
+    },
+    {
+      "player": "Maika Kaufusi",
+      "platform": "Instagram",
+      "handle": "maika.kaufusi",
+      "profile": "https://www.instagram.com/maika.kaufusi"
+    },
+    {
+      "player": "Matthew Mason",
+      "platform": "X",
+      "handle": "Matthew_Mason8",
+      "profile": "https://x.com/Matthew_Mason8"
+    },
+    {
+      "player": "Matthew Mason",
+      "platform": "Instagram",
+      "handle": "matthew2mason",
+      "profile": "https://www.instagram.com/matthew2mason"
+    },
+    {
+      "player": "TJ Johnson",
+      "platform": "X",
+      "handle": "AntonioJohns88_",
+      "profile": "https://x.com/AntonioJohns88_"
+    },
+    {
+      "player": "Cole Shulman",
+      "platform": "X",
+      "handle": "cole_shulman10",
+      "profile": "https://x.com/cole_shulman10"
+    },
+    {
+      "player": "Cole Shulman",
+      "platform": "Instagram",
+      "handle": "cole_shulman",
+      "profile": "https://www.instagram.com/cole_shulman"
+    },
+    {
+      "player": "Joseph Douglas",
+      "platform": "X",
+      "handle": "JosephADouglas",
+      "profile": "https://x.com/JosephADouglas"
+    },
+    {
+      "player": "Joseph Douglas",
+      "platform": "Instagram",
+      "handle": "josephantonidouglas",
+      "profile": "https://www.instagram.com/josephantonidouglas"
+    },
+    {
+      "player": "Logan Payne",
+      "platform": "X",
+      "handle": "LoganPayne38",
+      "profile": "https://x.com/LoganPayne38"
+    },
+    {
+      "player": "Logan Payne",
+      "platform": "Instagram",
+      "handle": "logan.payne38",
+      "profile": "https://www.instagram.com/logan.payne38"
+    },
+    {
+      "player": "Nehemiah Kolone",
+      "platform": "X",
+      "handle": "MiahKolone",
+      "profile": "https://x.com/MiahKolone"
+    },
+    {
+      "player": "Nehemiah Kolone",
+      "platform": "Instagram",
+      "handle": "nehemiahkol",
+      "profile": "https://www.instagram.com/nehemiahkol"
+    },
+    {
+      "player": "Micah Beckstead",
+      "platform": "X",
+      "handle": "BecksteadMicah",
+      "profile": "https://x.com/BecksteadMicah"
+    },
+    {
+      "player": "Micah Beckstead",
+      "platform": "Instagram",
+      "handle": "micahbeckstead",
+      "profile": "https://www.instagram.com/micahbeckstead"
+    },
+    {
+      "player": "Lucky Finau",
+      "platform": "X",
+      "handle": "lucky_finau",
+      "profile": "https://x.com/lucky_finau"
+    },
+    {
+      "player": "Lucky Finau",
+      "platform": "Instagram",
+      "handle": "lucky.finau",
+      "profile": "https://www.instagram.com/lucky.finau"
+    },
+    {
+      "player": "Seth Shigg",
+      "platform": "X",
+      "handle": "SethShigg",
+      "profile": "https://x.com/SethShigg"
+    },
+    {
+      "player": "Seth Shigg",
+      "platform": "Instagram",
+      "handle": "the_ace_1",
+      "profile": "https://www.instagram.com/the_ace_1"
+    },
+    {
+      "player": "Owen Borg",
+      "platform": "X",
+      "handle": "owenborg10",
+      "profile": "https://x.com/owenborg10"
+    },
+    {
+      "player": "Owen Borg",
+      "platform": "Instagram",
+      "handle": "owenborg10",
+      "profile": "https://www.instagram.com/owenborg10"
+    },
+    {
+      "player": "Adney Reid",
+      "platform": "X",
+      "handle": "adney_reid",
+      "profile": "https://x.com/adney_reid"
+    },
+    {
+      "player": "Adney Reid",
+      "platform": "Instagram",
+      "handle": "adney_reid",
+      "profile": "https://www.instagram.com/adney_reid"
+    },
+    {
+      "player": "Viliami Po'uha",
+      "platform": "X",
+      "handle": "VPouha",
+      "profile": "https://x.com/VPouha"
+    },
+    {
+      "player": "Viliami Po'uha",
+      "platform": "Instagram",
+      "handle": "vill.pouha",
+      "profile": "https://www.instagram.com/vill.pouha"
+    },
+    {
+      "player": "Josh Davis",
+      "platform": "X",
+      "handle": "joshdavis2023",
+      "profile": "https://x.com/joshdavis2023"
+    },
+    {
+      "player": "Josh Davis",
+      "platform": "Instagram",
+      "handle": "josh_davis2023",
+      "profile": "https://www.instagram.com/josh_davis2023"
+    },
+    {
+      "player": "Keayen Nead",
+      "platform": "X",
+      "handle": "KeayenNead",
+      "profile": "https://x.com/KeayenNead"
+    },
+    {
+      "player": "Keayen Nead",
+      "platform": "Instagram",
+      "handle": "thekeayennead",
+      "profile": "https://www.instagram.com/thekeayennead"
+    },
+    {
+      "player": "Bear Bachmeier",
+      "platform": "X",
+      "handle": "bearb47",
+      "profile": "https://x.com/bearb47"
+    },
+    {
+      "player": "Bear Bachmeier",
+      "platform": "Instagram",
+      "handle": "bearb47",
+      "profile": "https://www.instagram.com/bearb47"
+    },
+    {
+      "player": "Kendal Wall",
+      "platform": "X",
+      "handle": "wall_kendal45",
+      "profile": "https://x.com/wall_kendal45"
+    },
+    {
+      "player": "Kendal Wall",
+      "platform": "Instagram",
+      "handle": "kendalwall46",
+      "profile": "https://www.instagram.com/kendalwall46"
+    },
+    {
+      "player": "Berkley Alfrey",
+      "platform": "Instagram",
+      "handle": "berkleyalfrey",
+      "profile": "https://www.instagram.com/berkleyalfrey"
+    },
+    {
+      "player": "Bodie Schoonover",
+      "platform": "X",
+      "handle": "BodieSchoonover",
+      "profile": "https://x.com/BodieSchoonover"
+    },
+    {
+      "player": "Bodie Schoonover",
+      "platform": "Instagram",
+      "handle": "yungman_skoon",
+      "profile": "https://www.instagram.com/yungman_skoon"
+    },
+    {
+      "player": "Maverick McManus",
+      "platform": "X",
+      "handle": "MaverickMcmanus",
+      "profile": "https://x.com/MaverickMcmanus"
+    },
+    {
+      "player": "Maverick McManus",
+      "platform": "Instagram",
+      "handle": "maverick_mcmanus",
+      "profile": "https://www.instagram.com/maverick_mcmanus"
+    },
+    {
+      "player": "Sonny Makasini",
+      "platform": "X",
+      "handle": "sonmakjr",
+      "profile": "https://x.com/sonmakjr"
+    },
+    {
+      "player": "Sonny Makasini",
+      "platform": "Instagram",
+      "handle": "sonny_makasini",
+      "profile": "https://www.instagram.com/sonny_makasini"
+    },
+    {
+      "player": "Rayden Heintz",
+      "platform": "X",
+      "handle": "HeintzRayden",
+      "profile": "https://x.com/HeintzRayden"
+    },
+    {
+      "player": "Rayden Heintz",
+      "platform": "Instagram",
+      "handle": "raydenheintz7",
+      "profile": "https://www.instagram.com/raydenheintz7"
+    },
+    {
+      "player": "Gage Tanner",
+      "platform": "X",
+      "handle": "GageTanner11",
+      "profile": "https://x.com/GageTanner11"
+    },
+    {
+      "player": "Gage Tanner",
+      "platform": "Instagram",
+      "handle": "gage_tanner1",
+      "profile": "https://www.instagram.com/gage_tanner1"
+    },
+    {
+      "player": "Vincent Tautua",
+      "platform": "X",
+      "handle": "VincentTautua_",
+      "profile": "https://x.com/VincentTautua_"
+    },
+    {
+      "player": "Vincent Tautua",
+      "platform": "Instagram",
+      "handle": "incent.tautua",
+      "profile": "https://www.instagram.com/incent.tautua"
+    },
+    {
+      "player": "Strantz Mangisi",
+      "platform": "X",
+      "handle": "strantz_mangisi",
+      "profile": "https://x.com/strantz_mangisi"
+    },
+    {
+      "player": "Strantz Mangisi",
+      "platform": "Instagram",
+      "handle": "strantzkanomangisi",
+      "profile": "https://www.instagram.com/strantzkanomangisi"
+    },
+    {
+      "player": "Bott Mulitalo",
+      "platform": "X",
+      "handle": "BottMulitalo",
+      "profile": "https://x.com/BottMulitalo"
+    },
+    {
+      "player": "Bott Mulitalo",
+      "platform": "Instagram",
+      "handle": "bott._m",
+      "profile": "https://www.instagram.com/bott._m"
+    },
+    {
+      "player": "Siale Esera",
+      "platform": "X",
+      "handle": "EseraSiale",
+      "profile": "https://x.com/EseraSiale"
+    },
+    {
+      "player": "Siale Esera",
+      "platform": "Instagram",
+      "handle": "sialeesera",
+      "profile": "https://www.instagram.com/sialeesera"
+    },
+    {
+      "player": "Jake Alexander",
+      "platform": "X",
+      "handle": "AlexanderJake53",
+      "profile": "https://x.com/AlexanderJake53"
+    },
+    {
+      "player": "Zak Yamauchi",
+      "platform": "X",
+      "handle": "ZakYamauchi",
+      "profile": "https://x.com/ZakYamauchi"
+    },
+    {
+      "player": "Zak Yamauchi",
+      "platform": "Instagram",
+      "handle": "babe.uce",
+      "profile": "https://www.instagram.com/babe.uce"
+    },
+    {
+      "player": "Blake Lowe",
+      "platform": "X",
+      "handle": "Blake_Lowe13",
+      "profile": "https://x.com/Blake_Lowe13"
+    },
+    {
+      "player": "Blake Lowe",
+      "platform": "Instagram",
+      "handle": "blakewlowe",
+      "profile": "https://www.instagram.com/blakewlowe"
+    },
+    {
+      "player": "Keanu Tanuvasa",
+      "platform": "X",
+      "handle": "keanu_tanuvasa",
+      "profile": "https://x.com/keanu_tanuvasa"
+    },
+    {
+      "player": "Keanu Tanuvasa",
+      "platform": "Instagram",
+      "handle": "keanu_tanuvasa",
+      "profile": "https://www.instagram.com/keanu_tanuvasa"
+    },
+    {
+      "player": "Talitu'i Pututau",
+      "platform": "X",
+      "handle": "tui_pututau",
+      "profile": "https://x.com/tui_pututau"
+    },
+    {
+      "player": "Talitu'i Pututau",
+      "platform": "Instagram",
+      "handle": "tui.pututau",
+      "profile": "https://www.instagram.com/tui.pututau"
+    },
+    {
+      "player": "Paki Finau",
+      "platform": "X",
+      "handle": "pakifinau53",
+      "profile": "https://x.com/pakifinau53"
+    },
+    {
+      "player": "Paki Finau",
+      "platform": "Instagram",
+      "handle": "pakii_53",
+      "profile": "https://www.instagram.com/pakii_53"
+    },
+    {
+      "player": "David Tangilanu",
+      "platform": "X",
+      "handle": "DavidTangilanu",
+      "profile": "https://x.com/DavidTangilanu"
+    },
+    {
+      "player": "David Tangilanu",
+      "platform": "Instagram",
+      "handle": "d_tangilanu",
+      "profile": "https://www.instagram.com/d_tangilanu"
+    },
+    {
+      "player": "Siosefa Brown",
+      "platform": "X",
+      "handle": "SefaBrown",
+      "profile": "https://x.com/SefaBrown"
+    },
+    {
+      "player": "Siosefa Brown",
+      "platform": "Instagram",
+      "handle": "siosefabrown",
+      "profile": "https://www.instagram.com/siosefabrown"
+    },
+    {
+      "player": "Siosiua Latu-Finau",
+      "platform": "X",
+      "handle": "SiuaLFinau98",
+      "profile": "https://x.com/SiuaLFinau98"
+    },
+    {
+      "player": "Jr Sia",
+      "platform": "X",
+      "handle": "JrSia2",
+      "profile": "https://x.com/JrSia2"
+    },
+    {
+      "player": "Jr Sia",
+      "platform": "Instagram",
+      "handle": "jr_sia62",
+      "profile": "https://www.instagram.com/jr_sia62"
+    },
+    {
+      "player": "Bruce Mitchell",
+      "platform": "X",
+      "handle": "BruceSMitchell",
+      "profile": "https://x.com/BruceSMitchell"
+    },
+    {
+      "player": "Bruce Mitchell",
+      "platform": "Instagram",
+      "handle": "b.r.u.c.e",
+      "profile": "https://www.instagram.com/b.r.u.c.e"
+    },
+    {
+      "player": "Kyle Sfarcioc",
+      "platform": "X",
+      "handle": "KyleSfarcioc",
+      "profile": "https://x.com/KyleSfarcioc"
+    },
+    {
+      "player": "Kyle Sfarcioc",
+      "platform": "Instagram",
+      "handle": "kylesfarcioc",
+      "profile": "https://www.instagram.com/kylesfarcioc"
+    },
+    {
+      "player": "Brigham Alexander",
+      "platform": "Instagram",
+      "handle": "big_brig66",
+      "profile": "https://www.instagram.com/big_brig66"
+    },
+    {
+      "player": "Brigham Alexander",
+      "platform": "X",
+      "handle": "big_brig66",
+      "profile": "https://x.com/big_brig66"
+    },
+    {
+      "player": "Caden McKee",
+      "platform": "X",
+      "handle": "mckee_caden",
+      "profile": "https://x.com/mckee_caden"
+    },
+    {
+      "player": "Caden McKee",
+      "platform": "Instagram",
+      "handle": "caden.mckee",
+      "profile": "https://www.instagram.com/caden.mckee"
+    },
+    {
+      "player": "Trevor Pay",
+      "platform": "X",
+      "handle": "Tpay70",
+      "profile": "https://x.com/Tpay70"
+    },
+    {
+      "player": "Trevor Pay",
+      "platform": "Instagram",
+      "handle": "pay_trevor",
+      "profile": "https://www.instagram.com/pay_trevor"
+    },
+    {
+      "player": "Joe Brown",
+      "platform": "X",
+      "handle": "joebrown_72",
+      "profile": "https://x.com/joebrown_72"
+    },
+    {
+      "player": "Joe Brown",
+      "platform": "Instagram",
+      "handle": "joebrown_72",
+      "profile": "https://www.instagram.com/joebrown_72"
+    },
+    {
+      "player": "Trevin Ostler",
+      "platform": "X",
+      "handle": "OstlerTrevin",
+      "profile": "https://x.com/OstlerTrevin"
+    },
+    {
+      "player": "Trevin Ostler",
+      "platform": "Instagram",
+      "handle": "trevin1111",
+      "profile": "https://www.instagram.com/trevin1111"
+    },
+    {
+      "player": "Jeff Lewis",
+      "platform": "X",
+      "handle": "jefflewis602",
+      "profile": "https://x.com/jefflewis602"
+    },
+    {
+      "player": "Jeff Lewis",
+      "platform": "Instagram",
+      "handle": "jeff.lewis76",
+      "profile": "https://www.instagram.com/jeff.lewis76"
+    },
+    {
+      "player": "Andrew Gentry",
+      "platform": "X",
+      "handle": "a_gentry75",
+      "profile": "https://x.com/a_gentry75"
+    },
+    {
+      "player": "Andrew Gentry",
+      "platform": "Instagram",
+      "handle": "agentry75",
+      "profile": "https://www.instagram.com/agentry75"
+    },
+    {
+      "player": "Ethan Thomason",
+      "platform": "X",
+      "handle": "EthanThomason77",
+      "profile": "https://x.com/EthanThomason77"
+    },
+    {
+      "player": "Ethan Thomason",
+      "platform": "Instagram",
+      "handle": "ethanthomason76",
+      "profile": "https://www.instagram.com/ethanthomason76"
+    },
+    {
+      "player": "Jacob Nye",
+      "platform": "X",
+      "handle": "JacobNye25",
+      "profile": "https://x.com/JacobNye25"
+    },
+    {
+      "player": "Jacob Nye",
+      "platform": "Instagram",
+      "handle": "jacobnye16",
+      "profile": "https://www.instagram.com/jacobnye16"
+    },
+    {
+      "player": "Will Zundel",
+      "platform": "X",
+      "handle": "WillZundel",
+      "profile": "https://x.com/WillZundel"
+    },
+    {
+      "player": "Will Zundel",
+      "platform": "Instagram",
+      "handle": "will.zundel",
+      "profile": "https://www.instagram.com/will.zundel"
+    },
+    {
+      "player": "Kila Keone",
+      "platform": "X",
+      "handle": "kila_keone",
+      "profile": "https://x.com/kila_keone"
+    },
+    {
+      "player": "Kila Keone",
+      "platform": "Instagram",
+      "handle": "kila_keone",
+      "profile": "https://www.instagram.com/kila_keone"
+    },
+    {
+      "player": "Noah Moeaki",
+      "platform": "X",
+      "handle": "noah_moeaki",
+      "profile": "https://x.com/noah_moeaki"
+    },
+    {
+      "player": "Noah Moeaki",
+      "platform": "Instagram",
+      "handle": "noah.moeaki",
+      "profile": "https://www.instagram.com/noah.moeaki"
+    },
+    {
+      "player": "Matthew Fredrick",
+      "platform": "X",
+      "handle": "Matthew_fred21",
+      "profile": "https://x.com/Matthew_fred21"
+    },
+    {
+      "player": "Matthew Fredrick",
+      "platform": "Instagram",
+      "handle": "matthewfredrick3",
+      "profile": "https://www.instagram.com/matthewfredrick3"
+    },
+    {
+      "player": "Ty Smith",
+      "platform": "X",
+      "handle": "TySmith0531",
+      "profile": "https://x.com/TySmith0531"
+    },
+    {
+      "player": "Ty Smith",
+      "platform": "Instagram",
+      "handle": "tydsmith88",
+      "profile": "https://www.instagram.com/tydsmith88"
+    },
+    {
+      "player": "Hunter Clegg",
+      "platform": "X",
+      "handle": "HunterClegg",
+      "profile": "https://x.com/HunterClegg"
+    },
+    {
+      "player": "Hunter Clegg",
+      "platform": "Instagram",
+      "handle": "hcsmallbear",
+      "profile": "https://www.instagram.com/hcsmallbear"
+    },
+    {
+      "player": "Jett Nelson",
+      "platform": "X",
+      "handle": "JettNelson14",
+      "profile": "https://x.com/JettNelson14"
+    },
+    {
+      "player": "Jett Nelson",
+      "platform": "Instagram",
+      "handle": "jettnelson_",
+      "profile": "https://www.instagram.com/jettnelson_"
+    },
+    {
+      "player": "Matthias Dunn",
+      "platform": "X",
+      "handle": "matthiasdunn97",
+      "profile": "https://x.com/matthiasdunn97"
+    },
+    {
+      "player": "Matthias Dunn",
+      "platform": "Instagram",
+      "handle": "matthias.dunn",
+      "profile": "https://www.instagram.com/matthias.dunn"
+    },
+    {
+      "player": "Justin Kirkland",
+      "platform": "X",
+      "handle": "justinkirklandd",
+      "profile": "https://x.com/justinkirklandd"
+    },
+    {
+      "player": "Justin Kirkland",
+      "platform": "Instagram",
+      "handle": "justin.kirkland1",
+      "profile": "https://www.instagram.com/justin.kirkland1"
+    },
+    {
+      "player": "Anisi Purcell",
+      "platform": "X",
+      "handle": "anisipurcell",
+      "profile": "https://x.com/anisipurcell"
+    },
+    {
+      "player": "Anisi Purcell",
+      "platform": "Instagram",
+      "handle": "anisipurcell",
+      "profile": "https://www.instagram.com/anisipurcell"
+    },
+    {
+      "player": "Kinilau Fonohema",
+      "platform": "X",
+      "handle": "KinilauFonohema",
+      "profile": "https://x.com/KinilauFonohema"
+    },
+    {
+      "player": "Kinilau Fonohema",
+      "platform": "Instagram",
+      "handle": "kinilauu",
+      "profile": "https://www.instagram.com/kinilauu"
+    },
+    {
+      "player": "Devoux Tuataga",
+      "platform": "X",
+      "handle": "Devouxxx",
+      "profile": "https://x.com/Devouxxx"
+    },
+    {
+      "player": "Devoux Tuataga",
+      "platform": "Instagram",
+      "handle": "devouxfb",
+      "profile": "https://www.instagram.com/devouxfb"
+    },
+    {
+      "player": "Brody Laga",
+      "platform": "X",
+      "handle": "Brodylagaaa",
+      "profile": "https://x.com/Brodylagaaa"
+    },
+    {
+      "player": "Brody Laga",
+      "platform": "Instagram",
+      "handle": "brodylaga",
+      "profile": "https://www.instagram.com/brodylaga"
+    },
+    {
+      "player": "Ulavai Fetuli",
+      "platform": "X",
+      "handle": "ulavaifetuli1",
+      "profile": "https://x.com/ulavaifetuli1"
+    },
+    {
+      "player": "Ulavai Fetuli",
+      "platform": "Instagram",
+      "handle": "ulavaifetuli",
+      "profile": "https://www.instagram.com/ulavaifetuli"
+    }
+  ],
+  "tier": "featured",
+  "every": 20,
+  "city": "Provo",
+  "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
+  "episodeSearch": [
+    "BYU Cougars",
+    "BYU football",
+    "Kalani Sitake",
+    "BYU basketball"
+  ],
+  "youtubeSearch": [
+    "BYU football"
+  ],
+  "reddit": [
+    {
+      "sub": "byu"
+    },
+    {
+      "search": "\"BYU football\""
+    }
+  ],
+  "matchWeak": [
+    "Cougars",
+    "Cougs"
+  ]
+}
+{
+  "id": "college-football-252",
+  "short": "BYU",
+  "name": "BYU Football",
+  "espn": {
+    "sport": "football",
+    "league": "college-football",
+    "id": 252
+  },
+  "match": [
+    "BYU",
+    "Brigham Young",
+    "LaVell Edwards Stadium"
+  ],
+  "exclude": [
+    "Washington State",
+    "Houston Cougars",
+    "WSU Cougars",
+    "Coug football in Pullman"
+  ],
+  "news": {
+    "queries": [
+      "BYU football",
+      "BYU Cougars",
+      "Kalani Sitake",
+      "BYU basketball",
+      "Kevin Young BYU",
+      "BYU recruiting"
+    ],
+    "bing": [
+      "BYU Cougars football"
+    ],
+    "sites": [
+      "ksl.com",
+      "kslsports.com",
+      "kslnewsradio.com",
+      "deseret.com",
+      "sltrib.com",
+      "kutv.com",
+      "fox13now.com",
+      "abc4.com",
+      "kjzz.com",
+      "heraldextra.com",
+      "byucougars.com",
+      "universe.byu.edu",
+      "byuradio.org",
+      "byutv.org"
+    ],
+    "sitesNational": [
+      "espn.com",
+      "cbssports.com",
+      "si.com",
+      "nytimes.com/athletic",
+      "sports.yahoo.com",
+      "foxsports.com",
+      "on3.com",
+      "247sports.com",
+      "rivals.com",
+      "usatoday.com",
+      "theathletic.com"
+    ],
+    "sitesFans": [
+      "vanquishthefoe.com",
+      "lawlessrepublic.com",
+      "cougarboard.com",
+      "cougarnation.com"
+    ]
+  },
+  "podcasts": [
+    {
+      "appleId": 996764363,
+      "name": "Cougar Sports with Ben Criddle"
+    },
+    {
+      "appleId": 1430094842,
+      "name": "Locked On Cougars"
+    },
+    {
+      "appleId": 902067712,
+      "name": "BYU Sports Nation"
+    },
+    {
+      "appleId": 1146971609,
+      "name": "Cougar Tracks",
+      "radio": true
+    },
+    {
+      "appleId": 660356776,
+      "name": "Cougar Sports Saturday",
+      "radio": true
+    },
+    {
+      "appleId": 1629310222,
+      "name": "Y's Guys"
+    },
+    {
+      "appleId": 1278474812,
+      "name": "Coordinators' Corner",
+      "radio": true
+    },
+    {
+      "appleId": 1278474481,
+      "name": "BYU Football with Kalani Sitake"
+    },
+    {
+      "appleId": 1779536152,
+      "name": "Center Street Media"
+    },
+    {
+      "appleId": 1766389095,
+      "name": "Bleav in BYU"
+    },
+    {
+      "appleId": 1764157016,
+      "name": "Lavell's Lounge"
+    },
+    {
+      "appleId": 1586819866,
+      "name": "The Hype Train"
+    },
+    {
+      "appleId": 1833726405,
+      "name": "The Royal Cougars"
+    },
+    {
+      "appleId": 1832345572,
+      "name": "The Weekly Y"
+    },
+    {
+      "appleId": 1435179604,
+      "name": "BYU Football (BYUradio)"
+    },
+    {
+      "appleId": 1512970348,
+      "name": "Give 'Em Hell, Brigham"
+    },
+    {
+      "appleId": 1704072438,
+      "name": "The Cougar Talk Podcast"
+    },
+    {
+      "appleId": 1787178959,
+      "name": "The Loyal Cougars Podcast"
+    },
+    {
+      "appleId": 1860085579,
+      "name": "CougConnect Podcast"
+    },
+    {
+      "appleId": 1648939810,
+      "name": "A Century of Cougar Football"
+    },
+    {
+      "appleId": 1546947447,
+      "name": "Church Ball: A BYU Basketball Podcast"
+    },
+    {
+      "appleId": 1889784453,
+      "name": "Hike the Y"
+    },
+    {
+      "appleId": 6806446378,
+      "name": "The Cougs of BYU"
+    },
+    {
+      "appleId": 1150131366,
+      "name": "Behind the Mic (BYUradio)",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1606941424,
+      "name": "Brigham Young University Sound (KSL)"
+    },
+    {
+      "appleId": 6808332869,
+      "name": "After the Whistle: Inside BYU Football"
+    },
+    {
+      "appleId": 6814649931,
+      "name": "Locked On Cougars Hit"
+    },
+    {
+      "appleId": 6814821337,
+      "name": "Cougar-Time"
+    },
+    {
+      "appleId": 6803926923,
+      "name": "Brutally Honest BYU Pod"
+    },
+    {
+      "appleId": 1836363043,
+      "name": "Cougar Prowl Podcast"
+    },
+    {
+      "appleId": 1772764672,
+      "name": "Two Point Conversion with BYU Football"
+    },
+    {
+      "appleId": 1851660930,
+      "name": "The BYU Boys"
+    },
+    {
+      "appleId": 6809059015,
+      "name": "Rise and Shout Replay"
+    },
+    {
+      "appleId": 1704720867,
+      "name": "Big Stories (BYUradio)",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1704722659,
+      "name": "Her Y (BYUradio)",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1838993662,
+      "name": "Secret Dimes of BYU Basketball"
+    },
+    {
+      "appleId": 1541715649,
+      "name": "The Provo Pick and Roll Podcast"
+    }
+  ],
+  "youtube": [
+    {
+      "name": "BYU Cougars",
+      "channelId": "UCreL2UlUK2cV2OXZ4SGstBQ",
+      "teamOnly": true
+    },
+    {
+      "name": "BYU Sports Nation",
+      "channelId": "UCPGJ6U6tzIKHubr5zFWFZLw",
+      "teamOnly": true
+    },
+    {
+      "name": "Locked On Cougars",
+      "channelId": "UC4DgNb05EO8oom2NZsmAQXg",
+      "teamOnly": true
+    },
+    {
+      "name": "Y's Guys",
+      "channelId": "UChVGd9goVAhcV629J3vaFIQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Center Street Media",
+      "teamOnly": true,
+      "channelId": "UCtANVoFwsIYPBPZBEKixXXg"
+    },
+    {
+      "name": "KSL Sports",
+      "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "Locked On Cougars Hit",
+      "channelId": "UCkDqrUpGc7__cH-XDauxb5Q",
+      "teamOnly": true
+    },
+    {
+      "name": "Coug Connect",
+      "channelId": "UClK0Vx8aEhPim-4dmT6WPvQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Cougar Sports Media",
+      "channelId": "UCUC306N3s2kncydw_mrRwnQ",
+      "teamOnly": true
+    },
+    {
+      "name": "BYU Peak Clips",
+      "channelId": "UCYMD_rdR9sHCwtg02wJqDRQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Y Formation",
+      "channelId": "UCuxyq8CUEXUwGuQsYUVUkoA",
+      "teamOnly": true
+    },
+    {
+      "name": "BYUradio",
+      "channelId": "UCJS_rz246e7aS-B_aqIX_hQ"
+    },
+    {
+      "name": "Big Stories from BYUtv",
+      "channelId": "UCDmDwfaVs-rztRq-6w-iG-A"
+    },
+    {
+      "name": "On3",
+      "channelId": "UCn2g2Wy8uiE9BhDPV4knT7A",
+      "every": 60
+    },
+    {
+      "name": "The Board Drill",
+      "channelId": "UC0UJG1R5X-GiN5LDIDO-KcA",
+      "every": 60
+    },
+    {
+      "name": "See Ball Get Ball with David Pollack",
+      "channelId": "UC3-r8FzHqjr-O3KvPU26ZEA",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Insiders",
+      "channelId": "UC6sH2Fc9Bv39wcLRjG3RC-Q",
+      "every": 60
+    },
+    {
+      "name": "CBS Sports College Football",
+      "channelId": "UCLzocFrP98gfI5W2LD7Ux-w",
+      "every": 60
+    },
+    {
+      "name": "Josh Pate's College Football Show",
+      "channelId": "UCg-q_MDeWQrjizr1VPLEpYg",
+      "every": 60
+    },
+    {
+      "name": "The Field of 68: After Dark",
+      "channelId": "UC9by2xjmM_ldmvIwYrARCDg",
+      "every": 60
+    },
+    {
+      "name": "The Joel Klatt Show",
+      "channelId": "UCJn33SOv86632dLg_qVVlcg",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Conference",
+      "channelId": "UCLnfOCTbfqMy_3ah8OmTHEQ",
+      "every": 60
+    },
+    {
+      "name": "Locked On Big 12",
+      "channelId": "UCIaiqufEekxiTnnLc129t2g",
+      "every": 60
+    },
+    {
+      "name": "ESPN College Football",
+      "channelId": "UCzRWWsFjqHk1an4OnVPsl9g",
+      "every": 60
+    },
+    {
+      "name": "Preferred Walk-On",
+      "channelId": "UC7FKpO5Kzc-hQitJvM7tFuQ",
+      "every": 60
+    }
+  ],
+  "rss": [
+    {
+      "name": "Vanquish The Foe",
+      "url": "https://www.vanquishthefoe.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "The Daily Universe",
+      "url": "https://universe.byu.edu/sports.rss"
+    },
+    {
+      "name": "Lawless Republic",
+      "url": "https://lawlessrepublic.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    }
+  ],
   "social": [],
   "tier": "featured",
   "every": 20,
