@@ -7,7 +7,7 @@ import path from 'node:path';
 import {
   parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers,
   dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, hashId,
-  pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue,
+  pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewImageFromHtml,
 } from './lib.mjs';
 import { generateAll, GENERATED } from './generate.mjs';
 
@@ -227,22 +227,95 @@ async function rssSource(team, r, ctx) {
   }));
 }
 
-// Social posts arrive as RSS made by a feed service (for example RSS.app or a
-// self-hosted RSSHub) for each athlete account. See README "Player social posts".
-async function socialSource(team, s, ctx) {
-  if (!s.rss) return [];
-  const feed = parseFeed(await getText(s.rss, ctx));
-  return feed.items.slice(0, 10).map((it) => ({
-    kind: 'social',
-    source: `${s.player} on ${s.platform}`,
-    title: it.title || it.description.slice(0, 140),
-    url: it.link || s.profile,
-    image: it.image,
-    at: toTimestamp(it.date),
-    description: it.description,
-    forcePlayers: [s.player],
-    teamOnly: true,
+// ---------- social posts ----------
+// Each entry in a team's `social` list is one account: a player's or the team's own.
+//   { player, platform: 'X' | 'Instagram' | 'Bluesky' | 'TikTok' | 'Threads', handle, profile, rss? }
+// X needs X_BEARER_TOKEN (pay per post read), Instagram needs IG_ACCESS_TOKEN + IG_USER_ID
+// (free, professional accounts only), Bluesky is free. Without access the app still shows
+// a button to the player's profile.
+const SOCIAL_CAP = { X: 80, Instagram: 60, Bluesky: 200 };   // account refreshes per run, per platform
+const SOCIAL_TTL = { X: 60, Instagram: 90, Bluesky: 30 };    // minutes between refreshes of one account
+const socialBudget = {};
+
+function socialItem(s, { text, url, image, at }) {
+  const who = s.player || s.name || s.handle;
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  return {
+    kind: 'social', source: `${who} on ${s.platform}`, title: clean.slice(0, 220) || `New post from ${who}`,
+    url: url || s.profile, image, at, description: clean.slice(0, 600),
+    forcePlayers: s.player ? [s.player] : [], teamOnly: true, handle: s.handle, platform: s.platform,
+  };
+}
+
+async function fetchX(s, ctx, memo) {
+  const token = process.env.X_BEARER_TOKEN;
+  const auth = { fetchImpl: (u, o) => (ctx.fetchImpl)(u, { ...o, headers: { ...(o?.headers || {}), authorization: `Bearer ${token}` } }) };
+  const h = s.handle.replace(/^@/, '');
+  if (!memo.id) memo.id = (await getJson(`https://api.x.com/2/users/by/username/${h}`, auth)).data?.id;
+  if (!memo.id) throw new Error(`no X account @${h}`);
+  const since = memo.since ? `&since_id=${memo.since}` : '';
+  const j = await getJson(`https://api.x.com/2/users/${memo.id}/tweets?max_results=10&exclude=retweets,replies&tweet.fields=created_at,attachments&expansions=attachments.media_keys&media.fields=url,preview_image_url${since}`, auth);
+  const media = Object.fromEntries((j.includes?.media || []).map((m) => [m.media_key, m.url || m.preview_image_url]));
+  const fresh = (j.data || []).map((t) => socialItem(s, { text: t.text, url: `https://x.com/${h}/status/${t.id}`, image: media[t.attachments?.media_keys?.[0]], at: toTimestamp(t.created_at) }));
+  if (j.meta?.newest_id) memo.since = j.meta.newest_id;
+  return fresh;
+}
+
+async function fetchInstagram(s, ctx) {
+  const h = s.handle.replace(/^@/, '');
+  const fields = `business_discovery.username(${h}){media.limit(8){caption,media_type,media_url,thumbnail_url,permalink,timestamp}}`;
+  const j = await getJson(`https://graph.facebook.com/v21.0/${process.env.IG_USER_ID}?fields=${encodeURIComponent(fields)}&access_token=${process.env.IG_ACCESS_TOKEN}`, ctx);
+  return (j.business_discovery?.media?.data || []).map((m) => socialItem(s, { text: m.caption, url: m.permalink, image: m.media_type === 'VIDEO' ? m.thumbnail_url : m.media_url, at: toTimestamp(m.timestamp) }));
+}
+
+async function fetchBluesky(s, ctx) {
+  const h = s.handle.replace(/^@/, '');
+  const j = await getJson(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${encodeURIComponent(h)}&limit=15&filter=posts_no_replies`, ctx);
+  return (j.feed || []).filter((f) => !f.reason).map(({ post }) => socialItem(s, {
+    text: post.record?.text, url: `https://bsky.app/profile/${h}/post/${post.uri.split('/').pop()}`,
+    image: post.embed?.images?.[0]?.thumb || post.embed?.thumbnail || post.embed?.external?.thumb, at: toTimestamp(post.record?.createdAt),
   }));
+}
+
+const SOCIAL_FETCH = {
+  X: { ready: () => !!process.env.X_BEARER_TOKEN, need: 'X_BEARER_TOKEN', run: fetchX },
+  Instagram: { ready: () => !!(process.env.IG_ACCESS_TOKEN && process.env.IG_USER_ID), need: 'IG_ACCESS_TOKEN and IG_USER_ID', run: fetchInstagram },
+  Bluesky: { ready: () => true, run: fetchBluesky },
+};
+
+async function socialSource(team, s, ctx, cache) {
+  if (s.rss) {
+    const feed = parseFeed(await getText(s.rss, ctx));
+    return feed.items.slice(0, 10).map((it) => socialItem(s, { text: it.title || it.description, url: it.link, image: it.image, at: toTimestamp(it.date) }));
+  }
+  const f = SOCIAL_FETCH[s.platform];
+  if (!f || !s.handle) return { skipped: 'profile link only' };
+  if (!f.ready()) return { skipped: `needs ${f.need}` };
+  const key = `${s.platform}:${s.handle.toLowerCase()}`;
+  const memo = ((cache.social ||= {})[key] ||= { posts: [] });
+  const ttl = (SOCIAL_TTL[s.platform] || 60) * 60000;
+  const cutoff = Date.now() - 14 * 864e5;
+  if (!memo.at || Date.now() - memo.at > ttl) {
+    socialBudget[s.platform] = (socialBudget[s.platform] || 0) + 1;
+    if (socialBudget[s.platform] <= (SOCIAL_CAP[s.platform] || 60)) {
+      const fresh = await f.run(s, ctx, memo);
+      const seen = new Set(fresh.map((p) => p.url));
+      memo.posts = [...fresh, ...memo.posts.filter((p) => !seen.has(p.url))].filter((p) => p.at >= cutoff).slice(0, 20);
+      memo.at = Date.now();
+    }
+  }
+  // Re-label stored posts in case the player's name or team changed.
+  return memo.posts.map((p) => ({ ...p, ...socialItem(s, { text: p.description, url: p.url, image: p.image, at: p.at }) }));
+}
+
+// Article preview pictures, read once per article from the page's own link-preview tag and cached.
+async function addPreviewImages(items, ctx, cache, limit = 40) {
+  const og = (cache.og ||= {});
+  const todo = items.filter((it) => !it.image && it.kind === 'news' && !/news\.google\.com/.test(it.url) && og[it.url] === undefined).slice(0, limit);
+  await pool(todo.map((it) => async () => {
+    try { og[it.url] = previewImageFromHtml(await getText(it.url, { ...ctx, timeoutMs: 8000 }), it.url) || ''; } catch { og[it.url] = ''; }
+  }), 8);
+  for (const it of items) if (!it.image && og[it.url]) it.image = og[it.url];
 }
 
 // ---------- broad search engines (catch sources nobody listed) ----------
@@ -391,6 +464,11 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     status.push({ source: 'ESPN roster', ok: false, error: e.message });
   }
 
+  // School sites and ESPN spell some names differently ("Jr.", "III", apostrophes).
+  const normName = (n) => String(n).toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b\.?/g, '').replace(/[^a-z]/g, '');
+  const rosterByNorm = new Map(roster.map((p) => [normName(p.name), p.name]));
+  const socials = (team.social || []).map((x) => (x.player ? { ...x, player: rosterByNorm.get(normName(x.player)) || x.player } : x));
+
   const jobs = [];
   const label = [];
   for (const q of team.news?.queries || []) { jobs.push(() => newsSource(team, q, ctx)); label.push(`News: ${q}`); }
@@ -411,7 +489,10 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
   for (const p of team.podcasts || []) { jobs.push(() => podcastSource(team, p, ctx, cache)); label.push(p.discover ? `Podcasts: auto-found for ${p.discover}` : `Podcast: ${p.name}`); }
   for (const y of team.youtube || []) { jobs.push(() => youtubeSource(team, y, ctx, cache)); label.push(`YouTube: ${y.name}`); }
   for (const r of team.rss || []) { jobs.push(() => rssSource(team, r, ctx)); label.push(`RSS: ${r.name}`); }
-  for (const s of team.social || []) { jobs.push(() => socialSource(team, s, ctx)); label.push(`Social: ${s.player} (${s.platform})`); }
+  for (const s of socials) {
+    jobs.push(async () => { const r = await socialSource(team, s, ctx, cache); if (r?.skipped) { const e = new Error(r.skipped); e.skip = true; throw e; } return r; });
+    label.push(`Social: ${s.player || s.name || s.handle} (${s.platform})`);
+  }
 
   const results = await pool(jobs.map((job, i) => async () => {
     try {
@@ -419,7 +500,7 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
       status.push({ source: label[i], ok: true, count: items.length });
       return items;
     } catch (e) {
-      status.push({ source: label[i], ok: false, error: e.message });
+      status.push(e.skip ? { source: label[i], ok: true, count: 0, note: e.message } : { source: label[i], ok: false, error: e.message });
       return [];
     }
   }));
@@ -443,11 +524,13 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
         image: it.image,
         duration: it.duration,
         at: it.at,
+        platform: it.platform,
         players,
         description: it.description,
       };
     });
   items = dedupe(items).slice(0, team.maxItems || 400);
+  await addPreviewImages(items, ctx, cache);
 
   await aiSummaries(items, team, apiKey, cache.summaries, fetchImpl);
   const brief = (await aiBrief(items, team, apiKey, fetchImpl)) ||
@@ -456,8 +539,8 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
   const mentions = new Map();
   for (const it of items) for (const p of it.players) mentions.set(p, (mentions.get(p) || 0) + 1);
   const socialByPlayer = {};
-  for (const s of team.social || []) {
-    (socialByPlayer[s.player] ||= []).push({ platform: s.platform, url: s.profile });
+  for (const s of socials) {
+    if (s.player) (socialByPlayer[s.player] ||= []).push({ platform: s.platform, url: s.profile, handle: s.handle });
   }
   const players = roster
     .map((p) => ({ ...p, mentions: mentions.get(p.name) || 0, socials: socialByPlayer[p.name] || [] }))
