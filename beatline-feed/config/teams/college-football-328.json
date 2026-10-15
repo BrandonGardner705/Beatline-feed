@@ -93,14 +93,17 @@
   ],
   "youtube": [
     {
+      "name": "Utah State Football",
+      "channelId": "UC_2jW3CrLREur3IZzQ-1bug",
+      "teamOnly": true
+    },
+    {
       "name": "Utah State Athletics",
-      "handle": "@USUAthletics",
-      "teamOnly": true,
-      "verify": true
+      "channelId": "UCku3Gl14lUgxTVao-iFtRdw"
     },
     {
       "name": "KSL Sports",
-      "handle": "@KSLSports"
+      "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
     }
   ],
   "rss": [
