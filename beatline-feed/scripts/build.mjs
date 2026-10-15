@@ -157,10 +157,27 @@ async function youtubeApiChannelId(y, key, ctx, cache) {
   return id;
 }
 
+const inflightUploads = new Map();
+
 async function youtubeApiSource(y, key, ctx, cache) {
   const id = await youtubeApiChannelId(y, key, ctx, cache.channels);
-  const uploads = 'UU' + id.slice(2);
-  const j = await getJson(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=20&playlistId=${uploads}&key=${key}`, ctx);
+  // Channels shared by several teams (KSL, ESPN, Big 12…) are fetched once and reused.
+  // `every` (minutes) lets busy national channels refresh less often to save quota.
+  const memo = (cache.ytuploads ||= {});
+  const ttl = ((y.every || 20) - 2) * 60000;
+  let j = memo[id] && Date.now() - memo[id].at < ttl ? memo[id].data : null;
+  if (!j) {
+    if (!inflightUploads.has(id)) {
+      inflightUploads.set(id, (async () => {
+        const uploads = 'UU' + id.slice(2);
+        const raw = await getJson(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=20&playlistId=${uploads}&key=${key}`, ctx);
+        const data = { items: (raw.items || []).map((v) => ({ snippet: { title: v.snippet?.title, channelTitle: v.snippet?.channelTitle, description: (v.snippet?.description || '').slice(0, 600), publishedAt: v.snippet?.publishedAt, thumbnails: v.snippet?.thumbnails?.high ? { high: { url: v.snippet.thumbnails.high.url } } : undefined, resourceId: v.snippet?.resourceId }, contentDetails: v.contentDetails })) };
+        memo[id] = { at: Date.now(), data };
+        return data;
+      })().finally(() => inflightUploads.delete(id)));
+    }
+    j = await inflightUploads.get(id);
+  }
   return (j.items || [])
     .filter((v) => v.snippet && !/^(Private|Deleted) video$/.test(v.snippet.title))
     .map((v) => {
