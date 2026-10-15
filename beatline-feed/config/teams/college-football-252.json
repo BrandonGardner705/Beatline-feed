@@ -21,7 +21,11 @@
   "news": {
     "queries": [
       "BYU football",
-      "BYU Cougars"
+      "BYU Cougars",
+      "Kalani Sitake",
+      "BYU basketball",
+      "Kevin Young BYU",
+      "BYU recruiting"
     ],
     "bing": [
       "BYU Cougars football"
@@ -145,6 +149,77 @@
     {
       "appleId": 1648939810,
       "name": "A Century of Cougar Football"
+    },
+    {
+      "appleId": 1546947447,
+      "name": "Church Ball: A BYU Basketball Podcast"
+    },
+    {
+      "appleId": 1889784453,
+      "name": "Hike the Y"
+    },
+    {
+      "appleId": 6806446378,
+      "name": "The Cougs of BYU"
+    },
+    {
+      "appleId": 1150131366,
+      "name": "Behind the Mic (BYUradio)",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1606941424,
+      "name": "Brigham Young University Sound (KSL)"
+    },
+    {
+      "appleId": 6808332869,
+      "name": "After the Whistle: Inside BYU Football"
+    },
+    {
+      "appleId": 6814649931,
+      "name": "Locked On Cougars Hit"
+    },
+    {
+      "appleId": 6814821337,
+      "name": "Cougar-Time"
+    },
+    {
+      "appleId": 6803926923,
+      "name": "Brutally Honest BYU Pod"
+    },
+    {
+      "appleId": 1836363043,
+      "name": "Cougar Prowl Podcast"
+    },
+    {
+      "appleId": 1772764672,
+      "name": "Two Point Conversion with BYU Football"
+    },
+    {
+      "appleId": 1851660930,
+      "name": "The BYU Boys"
+    },
+    {
+      "appleId": 6809059015,
+      "name": "Rise and Shout Replay"
+    },
+    {
+      "appleId": 1704720867,
+      "name": "Big Stories (BYUradio)",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1704722659,
+      "name": "Her Y (BYUradio)",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1838993662,
+      "name": "Secret Dimes of BYU Basketball"
+    },
+    {
+      "appleId": 1541715649,
+      "name": "The Provo Pick and Roll Podcast"
     }
   ],
   "youtube": [
@@ -170,12 +245,118 @@
     },
     {
       "name": "Center Street Media",
-      "handle": "@CenterStMedia",
-      "teamOnly": true
+      "teamOnly": true,
+      "channelId": "UCtANVoFwsIYPBPZBEKixXXg"
     },
     {
       "name": "KSL Sports",
       "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "Locked On Cougars Hit",
+      "channelId": "UCkDqrUpGc7__cH-XDauxb5Q",
+      "teamOnly": true
+    },
+    {
+      "name": "Coug Connect",
+      "channelId": "UClK0Vx8aEhPim-4dmT6WPvQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Cougar Sports Media",
+      "channelId": "UCUC306N3s2kncydw_mrRwnQ",
+      "teamOnly": true
+    },
+    {
+      "name": "BYU Peak Clips",
+      "channelId": "UCYMD_rdR9sHCwtg02wJqDRQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Y Formation",
+      "channelId": "UCuxyq8CUEXUwGuQsYUVUkoA",
+      "teamOnly": true
+    },
+    {
+      "name": "BYUradio",
+      "channelId": "UCJS_rz246e7aS-B_aqIX_hQ"
+    },
+    {
+      "name": "Big Stories from BYUtv",
+      "channelId": "UCDmDwfaVs-rztRq-6w-iG-A"
+    },
+    {
+      "name": "On3",
+      "channelId": "UCn2g2Wy8uiE9BhDPV4knT7A",
+      "every": 60
+    },
+    {
+      "name": "The Board Drill",
+      "channelId": "UC0UJG1R5X-GiN5LDIDO-KcA",
+      "every": 60
+    },
+    {
+      "name": "See Ball Get Ball with David Pollack",
+      "channelId": "UC3-r8FzHqjr-O3KvPU26ZEA",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Insiders",
+      "channelId": "UC6sH2Fc9Bv39wcLRjG3RC-Q",
+      "every": 60
+    },
+    {
+      "name": "CBS Sports College Football",
+      "channelId": "UCLzocFrP98gfI5W2LD7Ux-w",
+      "every": 60
+    },
+    {
+      "name": "Josh Pate's College Football Show",
+      "channelId": "UCg-q_MDeWQrjizr1VPLEpYg",
+      "every": 60
+    },
+    {
+      "name": "The Field of 68: After Dark",
+      "channelId": "UC9by2xjmM_ldmvIwYrARCDg",
+      "every": 60
+    },
+    {
+      "name": "The Joel Klatt Show",
+      "channelId": "UCJn33SOv86632dLg_qVVlcg",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Conference",
+      "channelId": "UCLnfOCTbfqMy_3ah8OmTHEQ",
+      "every": 60
+    },
+    {
+      "name": "Locked On Big 12",
+      "channelId": "UCIaiqufEekxiTnnLc129t2g",
+      "every": 60
+    },
+    {
+      "name": "ESPN College Football",
+      "channelId": "UCzRWWsFjqHk1an4OnVPsl9g",
+      "every": 60
+    },
+    {
+      "name": "Preferred Walk-On",
+      "channelId": "UC7FKpO5Kzc-hQitJvM7tFuQ",
+      "every": 60
     }
   ],
   "rss": [
@@ -187,8 +368,7 @@
     },
     {
       "name": "The Daily Universe",
-      "url": "https://universe.byu.edu/category/sports/feed/",
-      "verify": true
+      "url": "https://universe.byu.edu/sports.rss"
     },
     {
       "name": "Lawless Republic",
@@ -204,7 +384,9 @@
   "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
   "episodeSearch": [
     "BYU Cougars",
-    "BYU football"
+    "BYU football",
+    "Kalani Sitake",
+    "BYU basketball"
   ],
   "youtubeSearch": [
     "BYU football"
