@@ -139,7 +139,49 @@ async function resolveChannel(y, ctx, cache) {
   return id;
 }
 
+function decodeEntities(s) {
+  return String(s || '').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+
+// YouTube blocks its public channel feeds from cloud servers like GitHub's, so with a
+// key we read each channel's uploads through the official API (1 quota unit per channel).
+async function youtubeApiChannelId(y, key, ctx, cache) {
+  if (y.channelId) return y.channelId;
+  const memoKey = `api:${y.handle}`;
+  if (cache[memoKey]) return cache[memoKey];
+  const handle = y.handle.startsWith('@') ? y.handle : `@${y.handle}`;
+  const j = await getJson(`https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=${encodeURIComponent(handle)}&key=${key}`, ctx);
+  const id = j.items?.[0]?.id;
+  if (!id) throw new Error(`no channel for ${handle}`);
+  cache[memoKey] = id;
+  return id;
+}
+
+async function youtubeApiSource(y, key, ctx, cache) {
+  const id = await youtubeApiChannelId(y, key, ctx, cache.channels);
+  const uploads = 'UU' + id.slice(2);
+  const j = await getJson(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=20&playlistId=${uploads}&key=${key}`, ctx);
+  return (j.items || [])
+    .filter((v) => v.snippet && !/^(Private|Deleted) video$/.test(v.snippet.title))
+    .map((v) => {
+      const vid = v.contentDetails?.videoId || v.snippet.resourceId?.videoId;
+      const th = v.snippet.thumbnails || {};
+      return {
+        kind: 'video',
+        source: y.name || v.snippet.channelTitle,
+        title: decodeEntities(v.snippet.title),
+        url: `https://www.youtube.com/watch?v=${vid}`,
+        image: (th.high || th.medium || th.default)?.url || `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`,
+        at: toTimestamp(v.contentDetails?.videoPublishedAt || v.snippet.publishedAt),
+        description: (v.snippet.description || '').slice(0, 600),
+        teamOnly: !!y.teamOnly,
+      };
+    });
+}
+
 async function youtubeSource(team, y, ctx, cache) {
+  const key = process.env.YOUTUBE_API_KEY;
+  if (key) return youtubeApiSource(y, key, ctx, cache);
   const id = await resolveChannel(y, ctx, cache.channels);
   const feed = parseFeed(await getText(`https://www.youtube.com/feeds/videos.xml?channel_id=${id}`, ctx));
   return feed.items.map((it) => ({
@@ -254,7 +296,7 @@ async function youtubeSearchSource(team, term, ctx, cache) {
   const items = (j.items || []).map((v) => ({
     kind: 'video',
     source: v.snippet?.channelTitle || 'YouTube',
-    title: stripText(v.snippet?.title || '').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&'),
+    title: decodeEntities(stripText(v.snippet?.title || '')),
     url: `https://www.youtube.com/watch?v=${v.id?.videoId}`,
     image: v.snippet?.thumbnails?.high?.url,
     at: toTimestamp(v.snippet?.publishedAt),
