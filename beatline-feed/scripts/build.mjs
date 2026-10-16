@@ -5,7 +5,7 @@ import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import {
-  parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers,
+  parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers, sportFilter, fitsSport,
   dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, hashId,
   pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewFromHtml,
   googleArticleId, googleSignature, googleBatchBody, parseGoogleBatch,
@@ -641,10 +641,12 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
 
   // The team's own YouTube channel counts as a team post when it shares a name with a team account.
   const officialNames = new Set([...socials.filter((s) => !s.player).map((s) => String(s.name).toLowerCase()), ...(team.youtube || []).filter((y) => y.official).map((y) => String(y.name).toLowerCase())]);
+  const sport = sportFilter(team);
   const cutoff = Date.now() - windowDays * 864e5;
   let items = results.flat()
     .filter((it) => it.title && it.url && it.at && it.at >= cutoff && it.at <= Date.now() + 36e5)
     .filter((it) => it.teamOnly || isRelevant(`${it.title} ${it.description || ''}`, team))
+    .filter((it) => it.by === 'team' || it.by === 'player' || fitsSport(`${it.title} ${it.description || ''}`, sport))
     .sort((a, b) => b.at - a.at)
     .map((it) => {
       const blob = `${it.title} ${it.description || ''}`;
