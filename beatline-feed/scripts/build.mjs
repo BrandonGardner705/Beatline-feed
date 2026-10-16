@@ -245,6 +245,7 @@ function socialItem(s, { text, url, image, at }) {
     kind: 'social', source: `${who} on ${s.platform}`, title: clean.slice(0, 220) || `New post from ${who}`,
     url: url || s.profile, image, at, description: clean.slice(0, 600),
     forcePlayers: s.player ? [s.player] : [], teamOnly: true, handle: s.handle, platform: s.platform,
+    by: s.player ? 'player' : 'team',
   };
 }
 
@@ -307,6 +308,82 @@ async function socialSource(team, s, ctx, cache) {
   }
   // Re-label stored posts in case the player's name or team changed.
   return memo.posts.map((p) => ({ ...p, ...socialItem(s, { text: p.description, url: p.url, image: p.image, at: p.at }) }));
+}
+
+// ---------- mentions: what everyone else is posting about the team ----------
+// Searches social platforms for the team's name. Bluesky search is free but needs a login
+// (BSKY_HANDLE + BSKY_APP_PASSWORD, an app password from Bluesky settings). X search costs
+// money per post read, so it only runs when a team sets "mentions": { "x": true }.
+// Queries default to the team's main name plus the sport; override with "mentions": { "queries": [...] }.
+const MENTION_TTL = { Bluesky: 30, X: 180 };   // minutes between searches of one query
+let bskySession = null;
+
+async function bskyToken(ctx) {
+  if (bskySession && Date.now() - bskySession.at < 90 * 60000) return bskySession.jwt;
+  const res = await ctx.fetchImpl('https://bsky.social/xrpc/com.atproto.server.createSession', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ identifier: process.env.BSKY_HANDLE, password: process.env.BSKY_APP_PASSWORD }),
+  });
+  if (!res.ok) throw new Error(`Bluesky login failed (${res.status})`);
+  const j = await res.json();
+  bskySession = { jwt: j.accessJwt, at: Date.now() };
+  return j.accessJwt;
+}
+
+function mentionItem({ platform, name, handle, text, url, image, at }) {
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  return {
+    kind: 'social', source: `${name || handle} on ${platform}`, title: clean.slice(0, 220), url, image, at,
+    description: clean.slice(0, 600), teamOnly: false, handle, platform, by: 'fan',
+  };
+}
+
+async function searchBluesky(q, ctx) {
+  const jwt = await bskyToken(ctx);
+  const j = await getJson(`https://bsky.social/xrpc/app.bsky.feed.searchPosts?q=${encodeURIComponent(q)}&sort=latest&limit=40&lang=en`, {
+    fetchImpl: (u, o) => ctx.fetchImpl(u, { ...o, headers: { ...(o?.headers || {}), authorization: `Bearer ${jwt}` } }),
+  });
+  return (j.posts || []).map((post) => mentionItem({
+    platform: 'Bluesky', name: post.author?.displayName, handle: post.author?.handle, text: post.record?.text,
+    url: `https://bsky.app/profile/${post.author?.handle}/post/${String(post.uri).split('/').pop()}`,
+    image: post.embed?.images?.[0]?.thumb || post.embed?.thumbnail || post.embed?.external?.thumb,
+    at: toTimestamp(post.record?.createdAt || post.indexedAt),
+  }));
+}
+
+async function searchX(q, ctx, memo) {
+  const auth = { fetchImpl: (u, o) => ctx.fetchImpl(u, { ...o, headers: { ...(o?.headers || {}), authorization: `Bearer ${process.env.X_BEARER_TOKEN}` } }) };
+  const since = memo.since ? `&since_id=${memo.since}` : '';
+  const query = encodeURIComponent(`${q} -is:retweet -is:reply lang:en`);
+  const j = await getJson(`https://api.x.com/2/tweets/search/recent?query=${query}&max_results=20&tweet.fields=created_at,attachments,author_id&expansions=author_id,attachments.media_keys&user.fields=username,name&media.fields=url,preview_image_url${since}`, auth);
+  const users = Object.fromEntries((j.includes?.users || []).map((u) => [u.id, u]));
+  const media = Object.fromEntries((j.includes?.media || []).map((m) => [m.media_key, m.url || m.preview_image_url]));
+  if (j.meta?.newest_id) memo.since = j.meta.newest_id;
+  return (j.data || []).map((t) => {
+    const u = users[t.author_id] || {};
+    return mentionItem({ platform: 'X', name: u.name, handle: u.username, text: t.text, url: `https://x.com/${u.username || 'i'}/status/${t.id}`, image: media[t.attachments?.media_keys?.[0]], at: toTimestamp(t.created_at) });
+  });
+}
+
+export function mentionQueries(team) {
+  if (team.mentions?.queries?.length) return team.mentions.queries;
+  const name = String(team.match?.[0] || team.name).replace(/"/g, '');
+  const sport = { football: 'football', basketball: 'basketball', baseball: 'baseball', hockey: 'hockey', soccer: 'soccer' }[team.espn?.sport] || '';
+  return [sport ? `"${name}" ${sport}` : `"${name}"`];
+}
+
+async function mentionSource(platform, q, ctx, cache, ownHandles) {
+  const memo = ((cache.mentions ||= {})[`${platform}:${q}`] ||= { posts: [] });
+  const ttl = (MENTION_TTL[platform] || 60) * 60000;
+  if (!memo.at || Date.now() - memo.at > ttl) {
+    const fresh = platform === 'X' ? await searchX(q, ctx, memo) : await searchBluesky(q, ctx);
+    const seen = new Set(fresh.map((p) => p.url));
+    const cutoff = Date.now() - 7 * 864e5;
+    memo.posts = [...fresh, ...memo.posts.filter((p) => !seen.has(p.url))].filter((p) => p.at >= cutoff).slice(0, 60);
+    memo.at = Date.now();
+  }
+  // Posts from the team's or a player's own account already show up as their posts.
+  return memo.posts.filter((p) => p.title && !ownHandles.has(String(p.handle).toLowerCase()));
 }
 
 // Google News links -> the real article address, resolved once per article and cached.
@@ -535,6 +612,21 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     jobs.push(async () => { const r = await socialSource(team, s, ctx, cache); if (r?.skipped) { const e = new Error(r.skipped); e.skip = true; throw e; } return r; });
     label.push(`Social: ${s.player || s.name || s.handle} (${s.platform})`);
   }
+  const ownHandles = new Set(socials.map((s) => String(s.handle || '').replace(/^@/, '').toLowerCase()));
+  for (const q of mentionQueries(team)) {
+    jobs.push(async () => {
+      if (!(process.env.BSKY_HANDLE && process.env.BSKY_APP_PASSWORD)) { const e = new Error('needs BSKY_HANDLE and BSKY_APP_PASSWORD'); e.skip = true; throw e; }
+      return mentionSource('Bluesky', q, ctx, cache, ownHandles);
+    });
+    label.push(`Mentions on Bluesky: ${q}`);
+    if (team.mentions?.x) {
+      jobs.push(async () => {
+        if (!process.env.X_BEARER_TOKEN) { const e = new Error('needs X_BEARER_TOKEN'); e.skip = true; throw e; }
+        return mentionSource('X', q, ctx, cache, ownHandles);
+      });
+      label.push(`Mentions on X: ${q}`);
+    }
+  }
 
   const results = await pool(jobs.map((job, i) => async () => {
     try {
@@ -547,6 +639,8 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     }
   }));
 
+  // The team's own YouTube channel counts as a team post when it shares a name with a team account.
+  const officialNames = new Set([...socials.filter((s) => !s.player).map((s) => String(s.name).toLowerCase()), ...(team.youtube || []).filter((y) => y.official).map((y) => String(y.name).toLowerCase())]);
   const cutoff = Date.now() - windowDays * 864e5;
   let items = results.flat()
     .filter((it) => it.title && it.url && it.at && it.at >= cutoff && it.at <= Date.now() + 36e5)
@@ -567,6 +661,8 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
         duration: it.duration,
         at: it.at,
         platform: it.platform,
+        by: it.by || (it.kind === 'video' && officialNames.has(String(it.source).toLowerCase()) ? 'team' : undefined),
+        handle: it.by ? it.handle : undefined,
         players,
         description: it.description,
       };
