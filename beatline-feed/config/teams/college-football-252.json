@@ -1739,5 +1739,13 @@
   ],
   "onTopic": [
     "Kalani Sitake"
+  ],
+  "boards": [
+    {
+      "name": "CougarBoard",
+      "rss": "https://www.cougarboard.com/rss/board.html?display=top10",
+      "url": "https://www.cougarboard.com/board/list.html",
+      "teamOnly": true
+    }
   ]
 }
