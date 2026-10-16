@@ -1,0 +1,233 @@
+{
+  "id": "mens-college-basketball-254",
+  "short": "UTAH",
+  "name": "Utah Basketball",
+  "espn": {
+    "sport": "basketball",
+    "league": "mens-college-basketball",
+    "id": 254
+  },
+  "match": [
+    "Utah Utes",
+    "University of Utah",
+    "Rice-Eccles"
+  ],
+  "matchWeak": [
+    "Utes"
+  ],
+  "exclude": [
+    "Utah State",
+    "Utah Tech",
+    "Utah Valley",
+    "Utah Jazz",
+    "Utah Mammoth",
+    "Southern Utah"
+  ],
+  "onTopic": [
+    "Alex Jensen"
+  ],
+  "news": {
+    "queries": [
+      "Utah Utes basketball",
+      "Runnin' Utes",
+      "Alex Jensen Utah",
+      "Utah basketball recruiting"
+    ],
+    "bing": [
+      "Utah Utes basketball",
+      "Runnin' Utes",
+      "Alex Jensen Utah",
+      "Utah basketball recruiting"
+    ],
+    "sites": [
+      "ksl.com",
+      "kslsports.com",
+      "kslnewsradio.com",
+      "deseret.com",
+      "sltrib.com",
+      "kutv.com",
+      "fox13now.com",
+      "abc4.com",
+      "kjzz.com",
+      "utahutes.com",
+      "espn700sports.com",
+      "dailyutahchronicle.com"
+    ],
+    "sitesNational": [
+      "espn.com",
+      "cbssports.com",
+      "si.com",
+      "nytimes.com/athletic",
+      "sports.yahoo.com",
+      "foxsports.com",
+      "on3.com",
+      "247sports.com",
+      "rivals.com",
+      "usatoday.com",
+      "theathletic.com"
+    ],
+    "sitesFans": [
+      "utefans.net",
+      "hoyosrevenge.com",
+      "utezone.com"
+    ]
+  },
+  "podcasts": [
+    {
+      "appleId": 1438790448,
+      "name": "Locked On Utes"
+    },
+    {
+      "appleId": 1475061881,
+      "name": "Utah Utes Interviews",
+      "radio": true
+    },
+    {
+      "appleId": 1464953641,
+      "name": "Scotty G. & The Coach",
+      "radio": true
+    },
+    {
+      "appleId": 1606944102,
+      "name": "Jake & Ben",
+      "radio": true
+    },
+    {
+      "appleId": 916428945,
+      "name": "Utah Man Podcast"
+    },
+    {
+      "search": "Crimson Corner Bill Riley",
+      "name": "Crimson Corner"
+    },
+    {
+      "appleId": 1297674070,
+      "name": "ESPN 700 Sports",
+      "teamOnly": false
+    },
+    {
+      "appleId": 1474933041,
+      "name": "The Utah Blockcast"
+    },
+    {
+      "appleId": 1606942358,
+      "name": "University of Utah Sound (KSL)"
+    },
+    {
+      "appleId": 1835927549,
+      "name": "Crimson Corner with Bill Riley"
+    },
+    {
+      "appleId": 6807554470,
+      "name": "U Talk UTAH"
+    }
+  ],
+  "youtube": [
+    {
+      "name": "Utah Athletics",
+      "channelId": "UCOZJeIxFaGm9-czFb9t59PQ"
+    },
+    {
+      "name": "Locked On Utes",
+      "teamOnly": true,
+      "channelId": "UCDRJWNPcAzXgCJifD34eYKQ"
+    },
+    {
+      "name": "KSL Sports",
+      "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "U Talk UTAH",
+      "channelId": "UC_1FdIxtcSzTIWlREiB3jew",
+      "teamOnly": true
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Conference",
+      "channelId": "UCLnfOCTbfqMy_3ah8OmTHEQ",
+      "every": 60
+    },
+    {
+      "name": "Locked On Big 12",
+      "channelId": "UCIaiqufEekxiTnnLc129t2g",
+      "every": 60
+    }
+  ],
+  "rss": [
+    {
+      "name": "Utah Athletics",
+      "url": "https://utahutes.com/rss.aspx?path=football",
+      "teamOnly": true
+    },
+    {
+      "name": "Hoyos Revenge",
+      "url": "https://hoyosrevenge.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "The Daily Utah Chronicle",
+      "url": "https://dailyutahchronicle.com/category/sports/feed/",
+      "verify": true
+    }
+  ],
+  "social": [
+    {
+      "name": "Utah Basketball",
+      "platform": "X",
+      "handle": "UtahMBB",
+      "profile": "https://x.com/UtahMBB"
+    },
+    {
+      "name": "Utah Basketball",
+      "platform": "Instagram",
+      "handle": "utahmbb",
+      "profile": "https://www.instagram.com/utahmbb"
+    },
+    {
+      "name": "Utah Athletics",
+      "platform": "X",
+      "handle": "UtahUtes",
+      "profile": "https://x.com/UtahUtes"
+    },
+    {
+      "name": "Utah Athletics",
+      "platform": "Instagram",
+      "handle": "utahutes",
+      "profile": "https://www.instagram.com/utahutes"
+    }
+  ],
+  "episodeSearch": [
+    "Utah Utes basketball",
+    "Runnin Utes",
+    "Alex Jensen Utah"
+  ],
+  "youtubeSearch": [
+    "Utah Utes basketball"
+  ],
+  "reddit": [
+    {
+      "sub": "Utes",
+      "verify": true
+    },
+    {
+      "search": "\"Utah basketball\""
+    }
+  ],
+  "tier": "featured",
+  "every": 20,
+  "city": "Salt Lake City",
+  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster."
+}
