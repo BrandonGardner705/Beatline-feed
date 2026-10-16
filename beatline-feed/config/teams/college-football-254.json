@@ -643,12 +643,10 @@
   "onTopic": [
     "Morgan Scalley"
   ],
-  "boards": [
+  "boardLinks": [
     {
       "name": "UteZone Forum (On3)",
-      "xenforo": "https://www.on3.com/boards/forums/premium-utes-insider-forum.1249/",
       "url": "https://www.on3.com/boards/forums/premium-utes-insider-forum.1249/",
-      "teamOnly": true,
       "premium": true
     }
   ]
