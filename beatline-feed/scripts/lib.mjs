@@ -348,8 +348,81 @@ export function readEspnTeam(teamJson) {
     record: record || '',
     standing,
     conference,
+    groupId: t.groups?.isConference !== false ? t.groups?.id : t.groups?.parent?.id,
     next,
   };
+}
+
+// ---------- standings and the conference race ----------
+// ESPN standings: one row per team with overall and conference records.
+export function readStandings(json) {
+  const blocks = json?.standings?.entries ? [json.standings] : (json?.children || []).map((c) => c.standings).filter(Boolean);
+  const rows = [];
+  for (const b of blocks) {
+    for (const e of b.entries || []) {
+      const stat = (type) => e.stats?.find((x) => x.type === type);
+      const conf = stat('vsconf')?.summary || '0-0';
+      const [cw, cl] = conf.split('-').map((n) => Number(n) || 0);
+      rows.push({
+        id: String(e.team?.id),
+        name: e.team?.displayName || e.team?.name,
+        short: e.team?.abbreviation || e.team?.shortDisplayName,
+        overall: stat('total')?.summary || stat('total')?.displayValue || '',
+        conf, confW: cw, confL: cl,
+        streak: e.stats?.find((x) => x.name === 'streak')?.displayValue || '',
+        seed: Number(e.stats?.find((x) => x.name === 'playoffSeed')?.value) || undefined,
+      });
+    }
+  }
+  rows.sort((a, b) => (a.seed || 99) - (b.seed || 99) || b.confW - a.confW || a.confL - b.confL);
+  return { name: json?.name || json?.shortName || '', short: json?.abbreviation || json?.shortName || '', rows };
+}
+
+// One team's schedule as plain games.
+export function readSchedule(json, teamId) {
+  return (json?.events || []).map((e) => {
+    const c = e.competitions?.[0] || {};
+    const us = (c.competitors || []).find((x) => String(x.team?.id ?? x.id) === String(teamId));
+    const them = (c.competitors || []).find((x) => x !== us);
+    return {
+      date: Date.parse(e.date) || 0,
+      opp: String(them?.team?.id ?? them?.id ?? ''),
+      oppName: them?.team?.displayName || them?.team?.shortDisplayName || '',
+      oppShort: them?.team?.abbreviation || '',
+      home: us?.homeAway === 'home',
+      done: !!c.status?.type?.completed,
+      win: us?.winner === true ? true : us?.winner === false && c.status?.type?.completed ? false : undefined,
+    };
+  }).filter((g) => g.opp);
+}
+
+// Remaining conference games for every team, and the games between contenders.
+export function raceFromSchedules(standings, schedules, ourId, now = Date.now()) {
+  const ids = new Set(standings.rows.map((r) => r.id));
+  const left = (id) => (schedules[id] || []).filter((g) => !g.done && ids.has(g.opp) && g.date > now - 6 * 36e5);
+  const rows = standings.rows.map((r) => {
+    const n = left(r.id).length;
+    return { ...r, left: n, maxW: r.confW + n };
+  });
+  const ours = rows.find((r) => r.id === String(ourId));
+  const remaining = left(String(ourId)).sort((a, b) => a.date - b.date)
+    .map((g) => ({ date: g.date, opp: g.opp, oppName: g.oppName, oppShort: rows.find((r) => r.id === g.opp)?.short || g.oppShort, home: g.home }));
+  // Games to watch: contenders who could still finish level with or above us, playing each other.
+  const contenders = new Set(rows.filter((r) => r.id !== String(ourId) && ours && r.maxW >= ours.confW).map((r) => r.id));
+  const seen = new Set();
+  const watch = [];
+  for (const id of contenders) {
+    for (const g of left(id)) {
+      if (!contenders.has(g.opp) || g.opp === String(ourId)) continue;
+      const key = [id, g.opp].sort().join('-') + g.date;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const home = g.home ? id : g.opp; const away = g.home ? g.opp : id;
+      watch.push({ date: g.date, home: rows.find((r) => r.id === home)?.short, away: rows.find((r) => r.id === away)?.short });
+    }
+  }
+  watch.sort((a, b) => a.date - b.date);
+  return { rows, remaining, watch: watch.slice(0, 8) };
 }
 
 export function readEspnRoster(rosterJson) {
