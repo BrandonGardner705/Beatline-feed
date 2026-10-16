@@ -81,6 +81,7 @@ export function parseFeed(xml) {
         duration: formatDuration(text(it['itunes:duration'])),
         sourceName: src ? text(src) : undefined,
         sourceUrl: src?.['@url'],
+        author: stripHtml(text(it.author) || text(it['dc:creator'])) || undefined,
       };
     });
     return { title: stripHtml(text(ch.title)), image: chImage, items };
@@ -378,20 +379,37 @@ export function readStandings(json) {
   return { name: json?.name || json?.shortName || '', short: json?.abbreviation || json?.shortName || '', rows };
 }
 
-// One team's schedule as plain games.
+// One team's schedule as plain games, with score, TV and venue when ESPN has them.
 export function readSchedule(json, teamId) {
+  const score = (c) => {
+    const v = c?.score;
+    if (v == null) return undefined;
+    const n = typeof v === 'object' ? (v.displayValue ?? v.value) : v;
+    return n === '' || n == null ? undefined : String(n);
+  };
   return (json?.events || []).map((e) => {
     const c = e.competitions?.[0] || {};
     const us = (c.competitors || []).find((x) => String(x.team?.id ?? x.id) === String(teamId));
     const them = (c.competitors || []).find((x) => x !== us);
+    const done = !!c.status?.type?.completed;
+    const b = (c.broadcasts || [])[0];
     return {
       date: Date.parse(e.date) || 0,
       opp: String(them?.team?.id ?? them?.id ?? ''),
       oppName: them?.team?.displayName || them?.team?.shortDisplayName || '',
       oppShort: them?.team?.abbreviation || '',
+      oppRank: them?.curatedRank?.current && them.curatedRank.current < 99 ? them.curatedRank.current : undefined,
       home: us?.homeAway === 'home',
-      done: !!c.status?.type?.completed,
-      win: us?.winner === true ? true : us?.winner === false && c.status?.type?.completed ? false : undefined,
+      neutral: !!c.neutralSite || undefined,
+      done,
+      win: us?.winner === true ? true : us?.winner === false && done ? false : undefined,
+      us: done ? score(us) : undefined,
+      them: done ? score(them) : undefined,
+      tv: b?.media?.shortName || b?.names?.[0] || undefined,
+      venue: c.venue?.fullName || undefined,
+      city: [c.venue?.address?.city, c.venue?.address?.state].filter(Boolean).join(', ') || undefined,
+      status: c.status?.type?.state,
+      detail: c.status?.type?.shortDetail,
     };
   }).filter((g) => g.opp);
 }
@@ -423,6 +441,57 @@ export function raceFromSchedules(standings, schedules, ourId, now = Date.now())
   }
   watch.sort((a, b) => a.date - b.date);
   return { rows, remaining, watch: watch.slice(0, 8) };
+}
+
+// ---------- message boards ----------
+// Thread list from a XenForo forum page (On3 and many fan boards run on it): title, link,
+// replies and last activity. Pinned threads are skipped; they are old house-keeping posts.
+export function parseXenForoThreads(html, base) {
+  const out = [];
+  for (const block of String(html || '').split(/class="structItem structItem--thread/).slice(1)) {
+    if (/structItem-status--sticky/.test(block.slice(0, 2500))) continue;
+    const m = block.match(/<div class="structItem-title"[^>]*>[\s\S]*?<a href="([^"]*\/threads\/[^"]*)"[^>]*>([^<]+)<\/a>/);
+    if (!m) continue;
+    const replies = block.match(/<dt>Replies<\/dt>\s*<dd>([^<]+)<\/dd>/)?.[1]?.trim();
+    const ts = block.match(/structItem-latestDate[^>]*data-timestamp="(\d+)"/)?.[1]
+      || block.match(/structItem-latestDate[^>]*data-time="(\d+)"/)?.[1];
+    const dt = block.match(/structItem-latestDate[^>]*datetime="([^"]+)"/)?.[1];
+    const author = block.match(/data-author="([^"]*)"/)?.[1];
+    out.push({
+      title: decodeHtml(m[2].trim()),
+      url: new URL(m[1].replace(/\/(latest|unread)$/, '/'), base).href,
+      replies: replies ? parseCount(replies) : undefined,
+      at: ts ? Number(ts) * 1000 : Date.parse(dt) || undefined,
+      author: author ? decodeHtml(author) : undefined,
+    });
+  }
+  return out;
+}
+
+function parseCount(v) {
+  const m = String(v).replace(/,/g, '').match(/([\d.]+)\s*([KkMm]?)/);
+  if (!m) return undefined;
+  return Math.round(Number(m[1]) * (/k/i.test(m[2]) ? 1e3 : /m/i.test(m[2]) ? 1e6 : 1));
+}
+
+// ---------- polls (AP Top 25, Coaches, College Football Playoff) ----------
+export function readPolls(json, ourId) {
+  const wanted = (r) => /AP|Coaches|Playoff|CFP/i.test(`${r.name} ${r.shortName} ${r.type}`);
+  return (json?.rankings || []).filter(wanted).map((r) => {
+    const row = (x) => ({
+      rank: x.current, prev: x.previous || undefined, id: String(x.team?.id ?? ''),
+      name: [x.team?.location, x.team?.name || x.team?.nickname].filter(Boolean).join(' ') || x.team?.displayName,
+      short: x.team?.abbreviation, record: x.recordSummary || undefined, points: x.points || undefined, firstPlace: x.firstPlaceVotes || undefined,
+    });
+    const ranks = (r.ranks || []).map(row).sort((a, b) => a.rank - b.rank).slice(0, 25);
+    const votes = (r.others || []).map(row).filter((x) => x.points);
+    const ours = ranks.find((x) => x.id === String(ourId)) || null;
+    const receiving = !ours ? votes.find((x) => x.id === String(ourId)) || null : null;
+    return {
+      name: r.name, short: r.shortName || r.name, date: r.date || r.lastUpdated,
+      ranks, ours: ours ? { rank: ours.rank, prev: ours.prev } : null, receivingVotes: receiving ? receiving.points : null,
+    };
+  }).filter((p) => p.ranks.length);
 }
 
 export function readEspnRoster(rosterJson) {
