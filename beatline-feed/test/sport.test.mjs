@@ -27,3 +27,12 @@ test('teams can turn the sport filter off', () => {
   assert.equal(sportFilter({ espn: { sport: 'football' }, sportFilter: false }), null);
   assert.equal(fitsSport('anything', null), true);
 });
+
+test('a strict feed needs the sport, the coach or a player by name', async () => {
+  const { namesSport } = await import('../scripts/lib.mjs');
+  const strict = sportFilter({ espn: { sport: 'basketball' }, league: 'mens-college-basketball', onTopic: ['Kevin Young', 'Marriott Center'] });
+  assert.equal(namesSport('James Westling talks BYU vs Notre Dame', strict), false);
+  assert.equal(namesSport('Kevin Young on the new roster', strict), true);
+  assert.equal(namesSport('Church Ball: A BYU Basketball Podcast', strict), true);
+  assert.equal(namesSport('Sold out at the Marriott Center', strict), true);
+});
