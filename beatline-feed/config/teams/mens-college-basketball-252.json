@@ -1,0 +1,337 @@
+{
+  "id": "mens-college-basketball-252",
+  "short": "BYU",
+  "name": "BYU Basketball",
+  "espn": {
+    "sport": "basketball",
+    "league": "mens-college-basketball",
+    "id": 252
+  },
+  "match": [
+    "BYU",
+    "Brigham Young",
+    "LaVell Edwards Stadium"
+  ],
+  "matchWeak": [
+    "Cougars",
+    "Cougs"
+  ],
+  "exclude": [
+    "Washington State",
+    "Houston Cougars",
+    "WSU Cougars",
+    "Coug football in Pullman"
+  ],
+  "onTopic": [
+    "Kevin Young"
+  ],
+  "news": {
+    "queries": [
+      "BYU basketball",
+      "BYU Cougars basketball",
+      "Kevin Young BYU",
+      "BYU basketball recruiting"
+    ],
+    "bing": [
+      "BYU basketball",
+      "BYU Cougars basketball",
+      "Kevin Young BYU",
+      "BYU basketball recruiting"
+    ],
+    "sites": [
+      "ksl.com",
+      "kslsports.com",
+      "kslnewsradio.com",
+      "deseret.com",
+      "sltrib.com",
+      "kutv.com",
+      "fox13now.com",
+      "abc4.com",
+      "kjzz.com",
+      "heraldextra.com",
+      "byucougars.com",
+      "universe.byu.edu",
+      "byuradio.org",
+      "byutv.org"
+    ],
+    "sitesNational": [
+      "espn.com",
+      "cbssports.com",
+      "si.com",
+      "nytimes.com/athletic",
+      "sports.yahoo.com",
+      "foxsports.com",
+      "on3.com",
+      "247sports.com",
+      "rivals.com",
+      "usatoday.com",
+      "theathletic.com"
+    ],
+    "sitesFans": [
+      "vanquishthefoe.com",
+      "lawlessrepublic.com",
+      "cougarboard.com",
+      "cougarnation.com"
+    ]
+  },
+  "podcasts": [
+    {
+      "appleId": 996764363,
+      "name": "Cougar Sports with Ben Criddle"
+    },
+    {
+      "appleId": 1430094842,
+      "name": "Locked On Cougars"
+    },
+    {
+      "appleId": 902067712,
+      "name": "BYU Sports Nation"
+    },
+    {
+      "appleId": 1146971609,
+      "name": "Cougar Tracks",
+      "radio": true
+    },
+    {
+      "appleId": 660356776,
+      "name": "Cougar Sports Saturday",
+      "radio": true
+    },
+    {
+      "appleId": 1629310222,
+      "name": "Y's Guys"
+    },
+    {
+      "appleId": 1779536152,
+      "name": "Center Street Media"
+    },
+    {
+      "appleId": 1766389095,
+      "name": "Bleav in BYU"
+    },
+    {
+      "appleId": 1833726405,
+      "name": "The Royal Cougars"
+    },
+    {
+      "appleId": 1832345572,
+      "name": "The Weekly Y"
+    },
+    {
+      "appleId": 1512970348,
+      "name": "Give 'Em Hell, Brigham"
+    },
+    {
+      "appleId": 1704072438,
+      "name": "The Cougar Talk Podcast"
+    },
+    {
+      "appleId": 1787178959,
+      "name": "The Loyal Cougars Podcast"
+    },
+    {
+      "appleId": 1860085579,
+      "name": "CougConnect Podcast"
+    },
+    {
+      "appleId": 6806446378,
+      "name": "The Cougs of BYU"
+    },
+    {
+      "appleId": 1606941424,
+      "name": "Brigham Young University Sound (KSL)"
+    },
+    {
+      "appleId": 6814649931,
+      "name": "Locked On Cougars Hit"
+    },
+    {
+      "appleId": 6814821337,
+      "name": "Cougar-Time"
+    },
+    {
+      "appleId": 6803926923,
+      "name": "Brutally Honest BYU Pod"
+    },
+    {
+      "appleId": 1836363043,
+      "name": "Cougar Prowl Podcast"
+    },
+    {
+      "appleId": 1851660930,
+      "name": "The BYU Boys"
+    },
+    {
+      "appleId": 6809059015,
+      "name": "Rise and Shout Replay"
+    },
+    {
+      "appleId": 1546947447,
+      "name": "Church Ball: A BYU Basketball Podcast"
+    },
+    {
+      "appleId": 1838993662,
+      "name": "Secret Dimes of BYU Basketball"
+    },
+    {
+      "appleId": 1541715649,
+      "name": "The Provo Pick and Roll Podcast"
+    }
+  ],
+  "youtube": [
+    {
+      "name": "BYU Cougars",
+      "channelId": "UCreL2UlUK2cV2OXZ4SGstBQ",
+      "teamOnly": true
+    },
+    {
+      "name": "BYU Sports Nation",
+      "channelId": "UCPGJ6U6tzIKHubr5zFWFZLw",
+      "teamOnly": true
+    },
+    {
+      "name": "Locked On Cougars",
+      "channelId": "UC4DgNb05EO8oom2NZsmAQXg",
+      "teamOnly": true
+    },
+    {
+      "name": "Y's Guys",
+      "channelId": "UChVGd9goVAhcV629J3vaFIQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Center Street Media",
+      "teamOnly": true,
+      "channelId": "UCtANVoFwsIYPBPZBEKixXXg"
+    },
+    {
+      "name": "KSL Sports",
+      "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "Locked On Cougars Hit",
+      "channelId": "UCkDqrUpGc7__cH-XDauxb5Q",
+      "teamOnly": true
+    },
+    {
+      "name": "Coug Connect",
+      "channelId": "UClK0Vx8aEhPim-4dmT6WPvQ",
+      "teamOnly": true
+    },
+    {
+      "name": "Cougar Sports Media",
+      "channelId": "UCUC306N3s2kncydw_mrRwnQ",
+      "teamOnly": true
+    },
+    {
+      "name": "BYU Peak Clips",
+      "channelId": "UCYMD_rdR9sHCwtg02wJqDRQ",
+      "teamOnly": true
+    },
+    {
+      "name": "BYUradio",
+      "channelId": "UCJS_rz246e7aS-B_aqIX_hQ"
+    },
+    {
+      "name": "On3",
+      "channelId": "UCn2g2Wy8uiE9BhDPV4knT7A",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Insiders",
+      "channelId": "UC6sH2Fc9Bv39wcLRjG3RC-Q",
+      "every": 60
+    },
+    {
+      "name": "The Field of 68: After Dark",
+      "channelId": "UC9by2xjmM_ldmvIwYrARCDg",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
+    },
+    {
+      "name": "Big 12 Conference",
+      "channelId": "UCLnfOCTbfqMy_3ah8OmTHEQ",
+      "every": 60
+    },
+    {
+      "name": "Locked On Big 12",
+      "channelId": "UCIaiqufEekxiTnnLc129t2g",
+      "every": 60
+    }
+  ],
+  "rss": [
+    {
+      "name": "Vanquish The Foe",
+      "url": "https://www.vanquishthefoe.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    },
+    {
+      "name": "The Daily Universe",
+      "url": "https://universe.byu.edu/sports.rss"
+    },
+    {
+      "name": "Lawless Republic",
+      "url": "https://lawlessrepublic.com/feed/",
+      "teamOnly": true,
+      "verify": true
+    }
+  ],
+  "social": [
+    {
+      "name": "BYU Basketball",
+      "platform": "X",
+      "handle": "BYUbasketball",
+      "profile": "https://x.com/BYUbasketball"
+    },
+    {
+      "name": "BYU Basketball",
+      "platform": "Instagram",
+      "handle": "byubasketball",
+      "profile": "https://www.instagram.com/byubasketball"
+    },
+    {
+      "name": "BYU Cougars",
+      "platform": "X",
+      "handle": "BYUcougars",
+      "profile": "https://x.com/BYUcougars"
+    },
+    {
+      "name": "BYU Cougars",
+      "platform": "Instagram",
+      "handle": "byucougars",
+      "profile": "https://www.instagram.com/byucougars"
+    }
+  ],
+  "episodeSearch": [
+    "BYU basketball",
+    "Kevin Young BYU"
+  ],
+  "youtubeSearch": [
+    "BYU basketball"
+  ],
+  "reddit": [
+    {
+      "sub": "byu"
+    },
+    {
+      "search": "\"BYU basketball\""
+    }
+  ],
+  "tier": "featured",
+  "every": 20,
+  "city": "Provo",
+  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster."
+}
