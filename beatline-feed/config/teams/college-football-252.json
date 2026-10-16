@@ -23,8 +23,6 @@
       "BYU football",
       "BYU Cougars",
       "Kalani Sitake",
-      "BYU basketball",
-      "Kevin Young BYU",
       "BYU recruiting"
     ],
     "bing": [
@@ -32,8 +30,6 @@
       "BYU football",
       "BYU Cougars",
       "Kalani Sitake",
-      "BYU basketball",
-      "Kevin Young BYU",
       "BYU recruiting"
     ],
     "sites": [
@@ -157,10 +153,6 @@
       "name": "A Century of Cougar Football"
     },
     {
-      "appleId": 1546947447,
-      "name": "Church Ball: A BYU Basketball Podcast"
-    },
-    {
       "appleId": 1889784453,
       "name": "Hike the Y"
     },
@@ -218,14 +210,6 @@
       "appleId": 1704722659,
       "name": "Her Y (BYUradio)",
       "teamOnly": false
-    },
-    {
-      "appleId": 1838993662,
-      "name": "Secret Dimes of BYU Basketball"
-    },
-    {
-      "appleId": 1541715649,
-      "name": "The Provo Pick and Roll Podcast"
     }
   ],
   "youtube": [
@@ -1736,8 +1720,7 @@
   "episodeSearch": [
     "BYU Cougars",
     "BYU football",
-    "Kalani Sitake",
-    "BYU basketball"
+    "Kalani Sitake"
   ],
   "youtubeSearch": [
     "BYU football"
@@ -1753,5 +1736,8 @@
   "matchWeak": [
     "Cougars",
     "Cougs"
+  ],
+  "onTopic": [
+    "Kalani Sitake"
   ]
 }
