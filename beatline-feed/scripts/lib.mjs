@@ -197,13 +197,71 @@ export function dedupe(items) {
 }
 
 // Article preview picture: the image a publisher sets for link previews (og:image / twitter:image).
+function metaContent(head, names) {
+  for (const n of names) {
+    const tags = head.match(new RegExp(`<meta[^>]+(?:property|name)=["']${n.replace(/[:]/g, '\\:')}["'][^>]*>`, 'i'));
+    const c = tags && tags[0].match(/content=["']([^"']*)["']/i);
+    if (c && c[1].trim()) return c[1];
+  }
+  return undefined;
+}
+
+const decodeHtml = (s) => String(s).replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#(\d+);/g, (m, d) => String.fromCharCode(Number(d)));
+
+// The link preview a publisher sets for sharing (what Facebook, iMessage and Slack show).
+export function previewFromHtml(html, base) {
+  const head = String(html).slice(0, 250000);
+  const out = {};
+  const img = metaContent(head, ['og:image:secure_url', 'og:image', 'twitter:image', 'twitter:image:src']);
+  if (img) { try { out.image = new URL(decodeHtml(img), base).href; } catch {} }
+  const desc = metaContent(head, ['og:description', 'twitter:description', 'description']);
+  if (desc) out.description = decodeHtml(desc).replace(/\s+/g, ' ').trim().slice(0, 400);
+  const site = metaContent(head, ['og:site_name']);
+  if (site) out.site = decodeHtml(site).trim();
+  return out;
+}
+
 export function previewImageFromHtml(html, base) {
-  const head = String(html).slice(0, 200000);
-  const m = head.match(/<meta[^>]+(?:property|name)=["'](?:og:image(?::secure_url)?|twitter:image(?::src)?)["'][^>]*>/i);
-  if (!m) return undefined;
-  const c = m[0].match(/content=["']([^"']+)["']/i);
-  if (!c) return undefined;
-  try { return new URL(c[1].replace(/&amp;/g, '&'), base).href; } catch { return undefined; }
+  return previewFromHtml(html, base).image;
+}
+
+// ---------- Google News links ----------
+// Google News RSS links are redirects (news.google.com/rss/articles/<id>). The real
+// article address is resolved with the same two calls the Google News web page makes.
+export function googleArticleId(url) {
+  const m = String(url || '').match(/^https?:\/\/news\.google\.com\/(?:rss\/)?(?:articles|read)\/([^?#/]+)/);
+  return m ? m[1] : null;
+}
+
+export function googleSignature(html) {
+  const sg = String(html).match(/data-n-a-sg="([^"]+)"/);
+  const ts = String(html).match(/data-n-a-ts="([^"]+)"/);
+  return sg && ts ? { sig: sg[1], ts: ts[1] } : null;
+}
+
+const GARTURL_CTX = [['X', 'X', ['X', 'X'], null, null, 1, 1, 'US:en', null, 1, null, null, null, null, null, 0, 1], 'X', 'X', 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0];
+
+export function googleBatchBody(items) {
+  const env = items.map(({ key, id, ts, sig }) => ['Fbv4je', JSON.stringify(['garturlreq', GARTURL_CTX, id, /^\d+$/.test(String(ts)) ? Number(ts) : ts, sig]), null, String(key)]);
+  return 'f.req=' + encodeURIComponent(JSON.stringify([env]));
+}
+
+export function parseGoogleBatch(text) {
+  let body = String(text);
+  if (body.includes('\n\n')) body = body.split('\n\n').slice(1).join('\n\n');
+  body = body.trimStart();
+  if (body.startsWith(")]}'")) body = body.slice(body.indexOf('\n') + 1).trimStart();
+  const rows = JSON.parse(body);
+  const out = {};
+  for (const row of rows) {
+    if (!Array.isArray(row) || row.length < 3 || (row[0] !== 'wrb.fr' && row[1] !== 'Fbv4je')) continue;
+    let payload = row[2];
+    if (typeof payload === 'string') { try { payload = JSON.parse(payload); } catch { continue; } }
+    if (!Array.isArray(payload) || payload[0] !== 'garturlres') continue;
+    const key = [...row.slice(3)].reverse().find((c) => c != null);
+    out[String(key)] = payload[1];
+  }
+  return out;
 }
 
 export function fallbackSummary(title, description) {
@@ -262,10 +320,18 @@ export function readEspnRoster(rosterJson) {
     const athletes = Array.isArray(g.items) ? g.items : [g];
     for (const a of athletes) {
       if (!a?.fullName && !a?.displayName) continue;
+      const town = [a.birthPlace?.city, a.birthPlace?.state || a.birthPlace?.country].filter(Boolean).join(', ');
       list.push({
         name: a.fullName || a.displayName,
         pos: a.position?.abbreviation || '',
+        position: a.position?.displayName || undefined,
         num: a.jersey ? Number(a.jersey) : undefined,
+        photo: a.headshot?.href || undefined,
+        height: a.displayHeight || undefined,
+        weight: a.displayWeight || undefined,
+        year: a.experience?.displayValue || a.experience?.abbreviation || undefined,
+        hometown: town || undefined,
+        espnId: a.id || undefined,
       });
     }
   }
