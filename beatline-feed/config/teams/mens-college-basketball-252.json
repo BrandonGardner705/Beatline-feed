@@ -23,7 +23,8 @@
     "Coug football in Pullman"
   ],
   "onTopic": [
-    "Kevin Young"
+    "Kevin Young",
+    "Marriott Center"
   ],
   "news": {
     "queries": [
@@ -333,5 +334,11 @@
   "tier": "featured",
   "every": 20,
   "city": "Provo",
-  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster."
+  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster.",
+  "sportStrict": true,
+  "sportSources": [
+    "Church Ball",
+    "Secret Dimes",
+    "Pick and Roll"
+  ]
 }
