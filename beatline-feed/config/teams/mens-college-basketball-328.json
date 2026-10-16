@@ -23,7 +23,8 @@
     "Aggieland"
   ],
   "onTopic": [
-    "Ben Jacobson"
+    "Ben Jacobson",
+    "Spectrum"
   ],
   "news": {
     "queries": [
@@ -203,5 +204,9 @@
   "tier": "featured",
   "every": 20,
   "city": "Logan",
-  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster."
+  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster.",
+  "sportStrict": true,
+  "sportSources": [
+    "Full Court Press"
+  ]
 }
