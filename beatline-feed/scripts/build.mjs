@@ -7,7 +7,7 @@ import path from 'node:path';
 import {
   parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers, sportFilter, fitsSport, namesSport,
   dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, hashId,
-  readStandings, readSchedule, raceFromSchedules,
+  readStandings, readSchedule, raceFromSchedules, parseXenForoThreads, readPolls,
   pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewFromHtml,
   googleArticleId, googleSignature, googleBatchBody, parseGoogleBatch,
 } from './lib.mjs';
@@ -476,19 +476,69 @@ function stripText(s) {
   return String(s).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+// ---------- message boards ----------
+// Fan boards: thread titles link back to the board, like headlines link to articles.
+//   { name, rss, url, teamOnly }      boards that publish a feed (CougarBoard)
+//   { name, xenforo, url, teamOnly }  XenForo forums whose thread list is public (On3 boards)
+async function boardSource(team, b, ctx) {
+  if (b.rss) {
+    const feed = parseFeed(await getText(b.rss, ctx));
+    return feed.items.map((it) => ({
+      kind: 'board', source: b.name, title: it.title, url: String(it.link).replace(/^http:/, 'https:'),
+      at: toTimestamp(it.date), description: it.description.slice(0, 400), author: it.author, teamOnly: b.teamOnly !== false,
+    }));
+  }
+  if (b.xenforo) {
+    const threads = parseXenForoThreads(await getText(b.xenforo, ctx), b.xenforo);
+    return threads.filter((t) => t.at).map((t) => ({
+      kind: 'board', source: b.name, title: t.title, url: t.url, at: t.at, author: t.author, replies: t.replies, teamOnly: b.teamOnly !== false,
+    }));
+  }
+  return [];
+}
+
+// Reddit blocks anonymous requests from cloud servers, so with REDDIT_CLIENT_ID and
+// REDDIT_CLIENT_SECRET (a free "script" app at reddit.com/prefs/apps) it reads through the API.
+let redditToken = null;
+async function redditAuth(ctx) {
+  if (redditToken && Date.now() < redditToken.until) return redditToken.token;
+  const basic = Buffer.from(`${process.env.REDDIT_CLIENT_ID}:${process.env.REDDIT_CLIENT_SECRET}`).toString('base64');
+  const res = await ctx.fetchImpl('https://www.reddit.com/api/v1/access_token', {
+    method: 'POST', body: 'grant_type=client_credentials',
+    headers: { authorization: `Basic ${basic}`, 'content-type': 'application/x-www-form-urlencoded', 'user-agent': 'DiehardFeed/1.0' },
+  });
+  if (!res.ok) throw new Error(`Reddit login failed (${res.status})`);
+  const j = await res.json();
+  redditToken = { token: j.access_token, until: Date.now() + ((j.expires_in || 3600) - 120) * 1000 };
+  return redditToken.token;
+}
+
 async function redditSource(team, r, ctx) {
+  if (process.env.REDDIT_CLIENT_ID && process.env.REDDIT_CLIENT_SECRET) {
+    const token = await redditAuth(ctx);
+    const url = r.sub
+      ? `https://oauth.reddit.com/r/${r.sub}/hot?limit=40&raw_json=1`
+      : `https://oauth.reddit.com/search?q=${encodeURIComponent(r.search)}&sort=new&t=week&limit=40&raw_json=1`;
+    const j = await getJson(url, { fetchImpl: (u, o) => ctx.fetchImpl(u, { ...o, headers: { ...(o?.headers || {}), authorization: `Bearer ${token}`, 'user-agent': 'DiehardFeed/1.0' } }) });
+    return (j.data?.children || []).map(({ data: d }) => d).filter((d) => !d.stickied).map((d) => ({
+      kind: 'board', source: `r/${d.subreddit}`, title: d.title, url: `https://www.reddit.com${d.permalink}`,
+      at: (d.created_utc || 0) * 1000, description: String(d.selftext || '').slice(0, 400), author: d.author,
+      replies: d.num_comments, image: /\.(jpe?g|png|gif)$/i.test(d.url || '') ? d.url : undefined, teamOnly: !!r.teamOnly || !!r.sub,
+    }));
+  }
   const url = r.sub
     ? `https://www.reddit.com/r/${r.sub}/new/.rss?limit=40`
     : `https://www.reddit.com/search.rss?q=${encodeURIComponent(r.search)}&sort=new&t=week`;
   const feed = parseFeed(await getText(url, ctx));
   return feed.items.map((it) => ({
-    kind: 'social',
+    kind: 'board',
     source: r.sub ? `r/${r.sub}` : 'Reddit',
     title: it.title,
     url: it.link,
     at: toTimestamp(it.date),
-    description: it.description.slice(0, 500),
-    teamOnly: !!r.teamOnly,
+    description: it.description.slice(0, 400),
+    author: it.author,
+    teamOnly: !!r.teamOnly || !!r.sub,
   }));
 }
 
@@ -578,7 +628,8 @@ async function buildRace(team, meta, ctx, cache) {
   await pool(table.rows.map((r) => async () => {
     const key = `${league}:${r.id}`;
     const m = memo[key];
-    if (m && Date.now() - m.at < SCHEDULE_TTL) { schedules[r.id] = m.games; return; }
+    // Our own schedule is read fresh every build so scores show right after the final.
+    if (m && r.id !== String(id) && Date.now() - m.at < SCHEDULE_TTL) { schedules[r.id] = m.games; return; }
     try {
       const games = readSchedule(await getJson(`${base}/teams/${r.id}/schedule`, ctx), r.id);
       memo[key] = { at: Date.now(), games };
@@ -589,9 +640,18 @@ async function buildRace(team, meta, ctx, cache) {
   }));
   const race = raceFromSchedules(table, schedules, id);
   return {
+    schedule: (schedules[String(id)] || []).map(({ opp, ...g }) => ({ ...g, opp })),
     name: table.name, short: table.short, titleGame: sport === 'football' && /college/.test(league),
     rows: race.rows, remaining: race.remaining, watch: race.watch, updatedAt: Date.now(),
   };
+}
+
+// One fetch of the national polls per league per run, shared by every team in it.
+const pollRuns = new Map();
+async function leaguePolls(sport, league, ctx) {
+  const key = `${sport}/${league}`;
+  if (!pollRuns.has(key)) pollRuns.set(key, getJson(`https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/rankings`, ctx).catch(() => null));
+  return pollRuns.get(key);
 }
 
 export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 10, apiKey } = {}) {
@@ -624,6 +684,13 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     }
   }
 
+  let polls = [];
+  if (/college/.test(team.espn.league)) {
+    const j = await leaguePolls(team.espn.sport, team.espn.league, ctx);
+    polls = j ? readPolls(j, team.espn.id) : [];
+    status.push({ source: 'National polls', ok: !!j, count: polls.length });
+  }
+
   // School sites and ESPN spell some names differently ("Jr.", "III", apostrophes).
   const normName = (n) => String(n).toLowerCase().replace(/\b(jr|sr|ii|iii|iv)\b\.?/g, '').replace(/[^a-z]/g, '');
   const rosterByNorm = new Map(roster.map((p) => [normName(p.name), p.name]));
@@ -641,6 +708,7 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
   }
   for (const q of team.news?.bing || []) { jobs.push(() => bingNewsSource(team, q, ctx)); label.push(`Bing News: ${q}`); }
   for (const term of team.episodeSearch || []) { jobs.push(() => episodeSearchSource(team, term, ctx)); label.push(`Any podcast mentioning: ${term}`); }
+  for (const b of team.boards || []) { jobs.push(() => boardSource(team, b, ctx)); label.push(`Board: ${b.name}`); }
   for (const r of team.reddit || []) { jobs.push(() => redditSource(team, r, ctx)); label.push(r.sub ? `Reddit: r/${r.sub}` : `Reddit search: ${r.search}`); }
   for (const term of team.youtubeSearch || []) {
     jobs.push(async () => { const res = await youtubeSearchSource(team, term, ctx, cache); if (res?.skipped) throw new Error(res.skipped); return res; });
@@ -708,6 +776,8 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
         duration: it.duration,
         at: it.at,
         platform: it.platform,
+        author: it.author,
+        replies: it.replies,
         by: it.by || (it.kind === 'video' && officialNames.has(String(it.source).toLowerCase()) ? 'team' : undefined),
         handle: it.by ? it.handle : undefined,
         players,
@@ -748,6 +818,12 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     brief,
     players,
     standings,
+    polls,
+    boards: [
+      ...(team.boards || []).map((b) => ({ name: b.name, url: b.url || b.rss, premium: !!b.premium })),
+      ...(team.boardLinks || []),
+      ...(team.reddit || []).filter((r) => r.sub).map((r) => ({ name: `r/${r.sub}`, url: `https://www.reddit.com/r/${r.sub}/` })),
+    ],
     items: out,
     sources: new Set(out.map((i) => i.source)).size,
     status,
