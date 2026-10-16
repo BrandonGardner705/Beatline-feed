@@ -44,7 +44,7 @@ test('league generation, custom recipes and per-team schedules', async () => {
   const dir = await mkdtemp(path.join(tmpdir(), 'beatline-'));
   try {
     await cp(path.join(REPO, 'scripts'), path.join(dir, 'scripts'), { recursive: true });
-    await cp(path.join(REPO, 'config/teams'), path.join(dir, 'config/teams'), { recursive: true });
+    await cp(path.join(REPO, 'config/teams'), path.join(dir, 'config/teams'), { recursive: true, filter: (src) => !/mens-college-basketball/.test(src) });
     await symlink(path.join(REPO, 'node_modules'), path.join(dir, 'node_modules'));
     await writeFile(path.join(dir, 'package.json'), JSON.stringify({ type: 'module' }));
     const leagues = {
