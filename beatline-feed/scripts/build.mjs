@@ -869,10 +869,15 @@ export async function main({ fetchImpl = fetch, now = Date.now() } = {}) {
   const deadline = now + (config.maxRunMinutes || 14) * 60000;
   const teamConcurrency = Number(process.env.TEAM_CONCURRENCY || 8);
 
-  // Who is due this run: featured teams first, then whoever is most overdue.
+  // Who is due this run: featured teams first, then whoever is most overdue. A team is also due
+  // right away when the engine code or its own settings changed since its last build.
   const all = [...recipes.values()];
+  const engine = hashId(await readFile(new URL(import.meta.url), 'utf8') + await readFile(new URL('./lib.mjs', import.meta.url), 'utf8'));
+  const recipeHash = (t) => hashId(engine + JSON.stringify(t));
+  cache.recipeHash ||= {};
+  const changed = (t) => cache.recipeHash[t.id] !== recipeHash(t);
   const due = all
-    .filter((t) => isDue(t, cache.lastBuilt[t.id], now))
+    .filter((t) => changed(t) || isDue(t, cache.lastBuilt[t.id], now))
     .sort((a, b) => (featured.has(b.id) - featured.has(a.id)) || ((cache.lastBuilt[a.id] || 0) - (cache.lastBuilt[b.id] || 0)));
   console.log(`${all.length} teams configured, ${due.length} due now.`);
 
@@ -885,6 +890,7 @@ export async function main({ fetchImpl = fetch, now = Date.now() } = {}) {
       payload.updatedAt = Date.now();
       await writeFile(path.join(OUT, 'teams', `${team.id}.json`), JSON.stringify(payload));
       cache.lastBuilt[team.id] = Date.now();
+      cache.recipeHash[team.id] = recipeHash(team);
       runStatus.built.push(team.id);
       const bad = teamStatus.filter((s) => !s.ok);
       if (bad.length) runStatus.failedSources[team.id] = bad;
