@@ -631,7 +631,11 @@ async function buildRace(team, meta, ctx, cache) {
     // Our own schedule is read fresh every build so scores show right after the final.
     if (m && r.id !== String(id) && Date.now() - m.at < SCHEDULE_TTL) { schedules[r.id] = m.games; return; }
     try {
-      const games = readSchedule(await getJson(`${base}/teams/${r.id}/schedule`, ctx), r.id);
+      // Regular season by default (before tip-off ESPN otherwise returns an empty preseason list);
+      // our own team also gets its postseason games (bowls, tournaments) when there are any.
+      const regular = readSchedule(await getJson(`${base}/teams/${r.id}/schedule?seasontype=2`, ctx), r.id);
+      const post = r.id === String(id) ? readSchedule(await getJson(`${base}/teams/${r.id}/schedule?seasontype=3`, ctx).catch(() => ({})), r.id) : [];
+      const games = [...regular, ...post].sort((x, y) => x.date - y.date);
       memo[key] = { at: Date.now(), games };
       schedules[r.id] = games;
     } catch {
