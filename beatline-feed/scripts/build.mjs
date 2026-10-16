@@ -7,6 +7,7 @@ import path from 'node:path';
 import {
   parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers, sportFilter, fitsSport, namesSport,
   dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, hashId,
+  readStandings, readSchedule, raceFromSchedules,
   pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewFromHtml,
   googleArticleId, googleSignature, googleBatchBody, parseGoogleBatch,
 } from './lib.mjs';
@@ -563,6 +564,36 @@ async function aiBrief(items, team, apiKey, fetchImpl) {
 
 // ---------- team build ----------
 
+// ---------- standings and the race ----------
+// Conference table from ESPN plus every conference team's remaining league games, so the app
+// can show where the team stands and work out "what happens if" without any betting lines.
+const SCHEDULE_TTL = 3 * 36e5;
+async function buildRace(team, meta, ctx, cache) {
+  const { sport, league, id } = team.espn;
+  const base = `https://site.api.espn.com/apis/site/v2/sports/${sport}/${league}`;
+  const table = readStandings(await getJson(`https://site.api.espn.com/apis/v2/sports/${sport}/${league}/standings?group=${meta.groupId}`, ctx));
+  if (!table.rows.length) return null;
+  const memo = (cache.schedules ||= {});
+  const schedules = {};
+  await pool(table.rows.map((r) => async () => {
+    const key = `${league}:${r.id}`;
+    const m = memo[key];
+    if (m && Date.now() - m.at < SCHEDULE_TTL) { schedules[r.id] = m.games; return; }
+    try {
+      const games = readSchedule(await getJson(`${base}/teams/${r.id}/schedule`, ctx), r.id);
+      memo[key] = { at: Date.now(), games };
+      schedules[r.id] = games;
+    } catch {
+      if (m) schedules[r.id] = m.games;
+    }
+  }));
+  const race = raceFromSchedules(table, schedules, id);
+  return {
+    name: table.name, short: table.short, titleGame: sport === 'football' && /college/.test(league),
+    rows: race.rows, remaining: race.remaining, watch: race.watch, updatedAt: Date.now(),
+  };
+}
+
 export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 10, apiKey } = {}) {
   const ctx = { fetchImpl };
   const status = [];
@@ -581,6 +612,16 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     status.push({ source: 'ESPN roster', ok: true, count: roster.length });
   } catch (e) {
     status.push({ source: 'ESPN roster', ok: false, error: e.message });
+  }
+
+  let standings = null;
+  if (meta.groupId) {
+    try {
+      standings = await buildRace(team, meta, ctx, cache);
+      status.push({ source: 'ESPN standings', ok: !!standings, count: standings?.rows.length || 0 });
+    } catch (e) {
+      status.push({ source: 'ESPN standings', ok: false, error: e.message });
+    }
   }
 
   // School sites and ESPN spell some names differently ("Jr.", "III", apostrophes).
@@ -706,6 +747,7 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     },
     brief,
     players,
+    standings,
     items: out,
     sources: new Set(out.map((i) => i.source)).size,
     status,
