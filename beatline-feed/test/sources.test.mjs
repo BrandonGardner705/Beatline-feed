@@ -50,7 +50,7 @@ test('broad search engines find sources nobody listed', async () => {
   assert.equal(ep.duration, '59 min');
   assert.ok(!titles.includes('Smooth jazz dinner recipes'));
 
-  assert.ok(r.items.some((i) => i.kind === 'social' && i.source === 'r/UtahJazz'), 'subreddit posts included');
+  assert.ok(r.items.some((i) => i.kind === 'board' && i.source === 'r/UtahJazz'), 'subreddit posts included');
 
   const yt = r.status.find((s) => s.source.startsWith('Any YouTube channel'));
   assert.equal(yt.ok, false);
