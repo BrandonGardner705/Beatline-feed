@@ -25,14 +25,12 @@
       "Utah Utes football",
       "Utes football",
       "Morgan Scalley",
-      "Utah Utes basketball",
       "Utah Utes recruiting"
     ],
     "bing": [
       "Utah Utes football",
       "Utes football",
       "Morgan Scalley",
-      "Utah Utes basketball",
       "Utah Utes recruiting"
     ],
     "sites": [
@@ -625,8 +623,7 @@
   "_note": "Custom sources for this team. Anything here overrides or adds to the auto-generated recipe.",
   "episodeSearch": [
     "Utah Utes",
-    "Morgan Scalley",
-    "Utah Utes basketball"
+    "Morgan Scalley"
   ],
   "youtubeSearch": [
     "Utah Utes football"
@@ -642,5 +639,8 @@
   ],
   "matchWeak": [
     "Utes"
+  ],
+  "onTopic": [
+    "Morgan Scalley"
   ]
 }
