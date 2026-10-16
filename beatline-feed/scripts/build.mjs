@@ -7,7 +7,8 @@ import path from 'node:path';
 import {
   parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers,
   dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, hashId,
-  pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewImageFromHtml,
+  pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewFromHtml,
+  googleArticleId, googleSignature, googleBatchBody, parseGoogleBatch,
 } from './lib.mjs';
 import { generateAll, GENERATED } from './generate.mjs';
 
@@ -308,14 +309,55 @@ async function socialSource(team, s, ctx, cache) {
   return memo.posts.map((p) => ({ ...p, ...socialItem(s, { text: p.description, url: p.url, image: p.image, at: p.at }) }));
 }
 
-// Article preview pictures, read once per article from the page's own link-preview tag and cached.
-async function addPreviewImages(items, ctx, cache, limit = 40) {
+// Google News links -> the real article address, resolved once per article and cached.
+async function resolveGoogleLinks(items, ctx, cache, limit = 60) {
+  const gn = (cache.gnews ||= {});
+  for (const it of items) { const id = googleArticleId(it.url); if (id && gn[id]) it.url = gn[id]; }
+  const todo = items.filter((it) => googleArticleId(it.url) && gn[googleArticleId(it.url)] === undefined).slice(0, limit);
+  if (!todo.length) return;
+  const signed = [];
+  await pool(todo.map((it, key) => async () => {
+    const id = googleArticleId(it.url);
+    try {
+      const sig = googleSignature(await getText(`https://news.google.com/rss/articles/${id}?hl=en-US&gl=US&ceid=US:en`, { ...ctx, timeoutMs: 8000 }));
+      if (sig) signed.push({ key, id, ...sig, it }); else gn[id] = '';
+    } catch { /* try again next run */ }
+  }), 6);
+  for (let i = 0; i < signed.length; i += 20) {
+    const chunk = signed.slice(i, i + 20);
+    try {
+      const res = await (ctx.fetchImpl)('https://news.google.com/_/DotsSplashUi/data/batchexecute', {
+        method: 'POST',
+        headers: { 'content-type': 'application/x-www-form-urlencoded;charset=UTF-8', 'user-agent': UA },
+        body: googleBatchBody(chunk),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const urls = parseGoogleBatch(await res.text());
+      for (const c of chunk) {
+        const real = urls[String(c.key)];
+        gn[c.id] = real && /^https?:\/\//.test(real) ? real : '';
+        if (gn[c.id]) c.it.url = gn[c.id];
+      }
+    } catch (e) {
+      console.warn(`  Google News decode skipped: ${e.message}`);
+    }
+  }
+}
+
+// Link previews (picture + description), read once per article from the page's sharing tags.
+async function addPreviews(items, ctx, cache, limit = 80) {
   const og = (cache.og ||= {});
-  const todo = items.filter((it) => !it.image && it.kind === 'news' && !/news\.google\.com/.test(it.url) && og[it.url] === undefined).slice(0, limit);
+  const get = (u) => (typeof og[u] === 'string' ? (og[u] ? { image: og[u] } : {}) : og[u]);
+  const todo = items.filter((it) => it.kind === 'news' && !/news\.google\.com/.test(it.url) && og[it.url] === undefined).slice(0, limit);
   await pool(todo.map((it) => async () => {
-    try { og[it.url] = previewImageFromHtml(await getText(it.url, { ...ctx, timeoutMs: 8000 }), it.url) || ''; } catch { og[it.url] = ''; }
+    try { og[it.url] = previewFromHtml(await getText(it.url, { ...ctx, timeoutMs: 8000 }), it.url); } catch { og[it.url] = {}; }
   }), 8);
-  for (const it of items) if (!it.image && og[it.url]) it.image = og[it.url];
+  for (const it of items) {
+    const p = get(it.url);
+    if (!p) continue;
+    if (!it.image && p.image) it.image = p.image;
+    if (!it.description && p.description) it.description = p.description;
+  }
 }
 
 // ---------- broad search engines (catch sources nobody listed) ----------
@@ -530,7 +572,9 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
       };
     });
   items = dedupe(items).slice(0, team.maxItems || 400);
-  await addPreviewImages(items, ctx, cache);
+  await resolveGoogleLinks(items, ctx, cache);
+  items = dedupe(items.map((it) => ({ ...it, id: hashId(it.url) })));
+  await addPreviews(items, ctx, cache);
 
   await aiSummaries(items, team, apiKey, cache.summaries, fetchImpl);
   const brief = (await aiBrief(items, team, apiKey, fetchImpl)) ||
