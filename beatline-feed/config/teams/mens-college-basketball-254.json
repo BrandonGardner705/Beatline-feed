@@ -233,12 +233,10 @@
   "city": "Salt Lake City",
   "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster.",
   "sportStrict": true,
-  "boards": [
+  "boardLinks": [
     {
       "name": "UteZone Forum (On3)",
-      "xenforo": "https://www.on3.com/boards/forums/premium-utes-insider-forum.1249/",
       "url": "https://www.on3.com/boards/forums/premium-utes-insider-forum.1249/",
-      "teamOnly": true,
       "premium": true
     }
   ]
