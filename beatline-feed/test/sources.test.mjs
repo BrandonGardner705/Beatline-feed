@@ -57,10 +57,11 @@ test('broad search engines find sources nobody listed', async () => {
   assert.match(yt.error, /YOUTUBE_API_KEY/, 'YouTube search explains it needs a key');
 });
 
-test('launch config builds only the four custom teams', async () => {
+test('launch config builds football and basketball for the three schools', async () => {
   const { config, recipes } = await loadRecipes();
   assert.equal(config.autoTeams, false);
-  assert.deepEqual([...recipes.keys()].sort(), ['college-football-252', 'college-football-254', 'college-football-328', 'nba-26']);
+  assert.deepEqual([...recipes.keys()].sort(), ['college-football-252', 'college-football-254', 'college-football-328', 'mens-college-basketball-252', 'mens-college-basketball-254', 'mens-college-basketball-328']);
+  assert.deepEqual(config.featured.length, 6);
   for (const t of recipes.values()) {
     assert.ok(t.podcasts.length >= 6, `${t.name} has a wide podcast list`);
     assert.ok(t.episodeSearch?.length, `${t.name} searches every podcast`);
