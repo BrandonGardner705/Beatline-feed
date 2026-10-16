@@ -24,7 +24,9 @@
     "Southern Utah"
   ],
   "onTopic": [
-    "Alex Jensen"
+    "Alex Jensen",
+    "Runnin",
+    "Huntsman Center"
   ],
   "news": {
     "queries": [
@@ -229,5 +231,6 @@
   "tier": "featured",
   "every": 20,
   "city": "Salt Lake City",
-  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster."
+  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster.",
+  "sportStrict": true
 }
