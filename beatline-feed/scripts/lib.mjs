@@ -158,6 +158,39 @@ export function isRelevant(textBlob, team) {
   return context.some((c) => termRe(c).test(t));
 }
 
+// ---------- one sport per feed ----------
+// A school's football feed should not fill up with its basketball stories and the reverse.
+// A story is dropped when it names another sport and never names this one.
+const SPORT_WORDS = {
+  football: ['football', 'gridiron', 'quarterback', 'QB', 'touchdown', 'linebacker', 'cornerback', 'receiver', 'running back', 'tight end', 'kicker', 'kickoff', 'field goal', 'bowl game', 'bowl', 'CFP', 'depth chart', 'spring game', 'fall camp', 'offensive line', 'defensive line', 'gameday', 'cfb', 'college football'],
+  basketball: ['basketball', 'hoops', 'MBB', 'point guard', 'rebound', 'rebounds', 'three-pointer', '3-pointer', 'tipoff', 'tip-off', 'March Madness', 'NCAA Tournament', 'Final Four', 'Sweet 16', 'dunk', 'buzzer-beater', 'KenPom'],
+  baseball: ['baseball', 'inning', 'pitcher', 'home run'],
+  softball: ['softball'],
+  volleyball: ['volleyball'],
+  soccer: ['soccer'],
+  gymnastics: ['gymnastics', 'gymnast', 'Red Rocks'],
+  hockey: ['hockey'],
+  other: ['track and field', 'cross country', 'swimming', 'swim and dive', 'golf', 'tennis', 'wrestling', 'lacrosse', 'skiing', 'rugby'],
+};
+const WOMENS = ["women's basketball", 'womens basketball', 'WBB', "women's hoops", 'Lady Aggies', 'Lady Cougars'];
+
+export function sportFilter(team) {
+  const sport = team.espn?.sport;
+  if (team.sportFilter === false || !SPORT_WORDS[sport]) return null;
+  const womens = /^womens-/.test(team.league || team.id || '');
+  const on = [...SPORT_WORDS[sport], ...(team.onTopic || [])];
+  const off = [...Object.entries(SPORT_WORDS).filter(([k]) => k !== sport).flatMap(([, v]) => v), ...(sport === 'basketball' && !womens ? WOMENS : []), ...(team.offTopic || [])];
+  return { on: on.map(termRe), off: off.map(termRe) };
+}
+
+export function fitsSport(textBlob, filter) {
+  if (!filter) return true;
+  const t = textBlob || '';
+  if (!filter.off.some((re) => re.test(t))) return true;
+  const rest = filter.off.reduce((acc, re) => acc.replace(new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g'), ' '), t);
+  return filter.on.some((re) => re.test(rest));
+}
+
 export function tagPlayers(textBlob, players) {
   const found = [];
   for (const p of players) {
