@@ -476,7 +476,7 @@ function parseCount(v) {
 
 // ---------- polls (AP Top 25, Coaches, College Football Playoff) ----------
 export function readPolls(json, ourId) {
-  const wanted = (r) => /AP|Coaches|Playoff|CFP/i.test(`${r.name} ${r.shortName} ${r.type}`);
+  const wanted = (r) => /AP|Coaches|Playoff|CFP/i.test(`${r.name} ${r.shortName} ${r.type}`) && !/FCS|Div(ision)?\.? ?(I{2,3}|2|3)\b|NAIA|Women/i.test(`${r.name} ${r.shortName}`);
   return (json?.rankings || []).filter(wanted).map((r) => {
     const row = (x) => ({
       rank: x.current, prev: x.previous || undefined, id: String(x.team?.id ?? ''),
