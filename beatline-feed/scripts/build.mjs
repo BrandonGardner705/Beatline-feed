@@ -5,7 +5,7 @@ import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import {
-  parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers, sportFilter, fitsSport,
+  parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers, sportFilter, fitsSport, namesSport,
   dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, hashId,
   pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewFromHtml,
   googleArticleId, googleSignature, googleBatchBody, parseGoogleBatch,
@@ -647,6 +647,10 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
     .filter((it) => it.title && it.url && it.at && it.at >= cutoff && it.at <= Date.now() + 36e5)
     .filter((it) => it.teamOnly || isRelevant(`${it.title} ${it.description || ''}`, team))
     .filter((it) => it.by === 'team' || it.by === 'player' || fitsSport(`${it.title} ${it.description || ''}`, sport))
+    .filter((it) => !team.sportStrict || it.forcePlayers?.length
+      || namesSport(`${it.title} ${it.description || ''}`, sport)
+      || (team.sportSources || []).some((n) => `${it.source || ''} ${it.show || ''}`.toLowerCase().includes(n.toLowerCase()))
+      || tagPlayers(`${it.title} ${it.description || ''}`, roster).length > 0)
     .sort((a, b) => b.at - a.at)
     .map((it) => {
       const blob = `${it.title} ${it.description || ''}`;
