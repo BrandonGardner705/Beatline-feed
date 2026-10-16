@@ -1,0 +1,207 @@
+{
+  "id": "mens-college-basketball-328",
+  "short": "USU",
+  "name": "Utah State Basketball",
+  "espn": {
+    "sport": "basketball",
+    "league": "mens-college-basketball",
+    "id": 328
+  },
+  "match": [
+    "Utah State",
+    "USU",
+    "Maverik Stadium"
+  ],
+  "matchWeak": [
+    "Aggies"
+  ],
+  "exclude": [
+    "Texas A&M",
+    "New Mexico State",
+    "UC Davis",
+    "NC A&T",
+    "Aggieland"
+  ],
+  "onTopic": [
+    "Ben Jacobson"
+  ],
+  "news": {
+    "queries": [
+      "\"Utah State\" basketball",
+      "Utah State Aggies basketball",
+      "Ben Jacobson Utah State"
+    ],
+    "bing": [
+      "\"Utah State\" basketball",
+      "Utah State Aggies basketball",
+      "Ben Jacobson Utah State"
+    ],
+    "sites": [
+      "ksl.com",
+      "kslsports.com",
+      "kslnewsradio.com",
+      "deseret.com",
+      "sltrib.com",
+      "kutv.com",
+      "fox13now.com",
+      "abc4.com",
+      "kjzz.com",
+      "hjnews.com",
+      "cachevalleydaily.com",
+      "utahstateaggies.com",
+      "usu.edu",
+      "usustatesman.com",
+      "kvnu.com"
+    ],
+    "sitesNational": [
+      "espn.com",
+      "cbssports.com",
+      "si.com",
+      "nytimes.com/athletic",
+      "sports.yahoo.com",
+      "foxsports.com",
+      "on3.com",
+      "247sports.com",
+      "rivals.com",
+      "usatoday.com",
+      "theathletic.com",
+      "pac-12.com"
+    ],
+    "sitesFans": [
+      "aggiesportsreport.com",
+      "stadiumjourney.com"
+    ]
+  },
+  "podcasts": [
+    {
+      "search": "The Aggship Podcast",
+      "name": "The Aggship Podcast"
+    },
+    {
+      "search": "The Scotsman Utah State",
+      "name": "The Scotsman"
+    },
+    {
+      "search": "Aggie Radio Sports",
+      "name": "Aggie Radio Sports",
+      "radio": true
+    },
+    {
+      "search": "Aggies All the Way Sports Podcast",
+      "name": "Aggies All the Way"
+    },
+    {
+      "appleId": 1606942362,
+      "name": "Utah State University Sound (KSL)"
+    },
+    {
+      "appleId": 1691337268,
+      "name": "The Scotsman Show"
+    },
+    {
+      "appleId": 1465992636,
+      "name": "Full Court Press (Cache Valley Media)",
+      "teamOnly": false
+    }
+  ],
+  "youtube": [
+    {
+      "name": "Utah State Athletics",
+      "channelId": "UCku3Gl14lUgxTVao-iFtRdw"
+    },
+    {
+      "name": "KSL Sports",
+      "channelId": "UCyIZoJ7Ge36sqkMPV_eKGfg"
+    },
+    {
+      "name": "The Fan KLGN (Logan)",
+      "channelId": "UCK40yeN51MMANs8ZmIRYhWQ"
+    },
+    {
+      "name": "Pac-12",
+      "channelId": "UCtxdtF8iCxZw593FSUIPrxg",
+      "every": 60
+    },
+    {
+      "name": "Locked On Pac-12",
+      "channelId": "UC8d-TBpeHQ0uhyg-qwehXxg",
+      "every": 60
+    },
+    {
+      "name": "Deseret News Sports",
+      "channelId": "UC77DVjpDGrldtddcM5EnREQ"
+    },
+    {
+      "name": "ESPN 700 Sports",
+      "channelId": "UCxwisuPFCy5VJRHJxfFGy3g"
+    },
+    {
+      "name": "KUTV 2 News",
+      "channelId": "UCFVUStJ4azXbWMhFO4yTELg",
+      "every": 60
+    }
+  ],
+  "rss": [
+    {
+      "name": "Utah State Athletics",
+      "url": "https://utahstateaggies.com/rss.aspx?path=football",
+      "teamOnly": true
+    },
+    {
+      "name": "Aggie Radio",
+      "url": "https://feed.podbean.com/aggieradio/feed.xml",
+      "kind": "radio",
+      "verify": true
+    },
+    {
+      "name": "The Utah Statesman",
+      "url": "https://usustatesman.com/category/sports/feed/",
+      "verify": true
+    }
+  ],
+  "social": [
+    {
+      "name": "Utah State Basketball",
+      "platform": "X",
+      "handle": "USUBasketball",
+      "profile": "https://x.com/USUBasketball"
+    },
+    {
+      "name": "Utah State Basketball",
+      "platform": "Instagram",
+      "handle": "usubasketball",
+      "profile": "https://www.instagram.com/usubasketball"
+    },
+    {
+      "name": "Utah State Athletics",
+      "platform": "X",
+      "handle": "USUAthletics",
+      "profile": "https://x.com/USUAthletics"
+    },
+    {
+      "name": "Utah State Athletics",
+      "platform": "Instagram",
+      "handle": "usuathletics",
+      "profile": "https://www.instagram.com/usuathletics"
+    }
+  ],
+  "episodeSearch": [
+    "Utah State basketball",
+    "Ben Jacobson Utah State"
+  ],
+  "youtubeSearch": [
+    "Utah State Aggies basketball"
+  ],
+  "reddit": [
+    {
+      "sub": "USU"
+    },
+    {
+      "search": "\"Utah State\" basketball"
+    }
+  ],
+  "tier": "featured",
+  "every": 20,
+  "city": "Logan",
+  "_note": "Men's basketball. Shares the school's general shows and channels with football; the sport filter keeps each feed to its own sport. Player social accounts still to be added from the basketball roster."
+}
