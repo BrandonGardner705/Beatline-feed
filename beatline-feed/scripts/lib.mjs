@@ -183,6 +183,12 @@ export function sportFilter(team) {
   return { on: on.map(termRe), off: off.map(termRe) };
 }
 
+// Strict feeds (a school's second sport) keep only stories that clearly name the sport,
+// its coach or one of its players; general school coverage stays with the main sport.
+export function namesSport(textBlob, filter) {
+  return !!filter && filter.on.some((re) => re.test(textBlob || ''));
+}
+
 export function fitsSport(textBlob, filter) {
   if (!filter) return true;
   const t = textBlob || '';
