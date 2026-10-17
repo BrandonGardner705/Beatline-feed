@@ -623,6 +623,23 @@ export function parseSidearmRoster(html = '', baseUrl = '') {
       hometown: hometown || undefined, photo: img && !/^data:/.test(img) ? abs(img) : undefined,
     });
   }
+  // Newer Sidearm sites draw the roster in the browser but list every player in schema.org data.
+  if (!out.length) {
+    for (const m of String(html).matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)) {
+      let data; try { data = JSON.parse(m[1]); } catch { continue; }
+      const stack = [data];
+      while (stack.length) {
+        const n = stack.pop();
+        if (Array.isArray(n)) { stack.push(...n); continue; }
+        if (!n || typeof n !== 'object') continue;
+        if (n['@type'] === 'Person' && typeof n.name === 'string' && n.name.length < 60) {
+          const img = typeof n.image === 'string' ? n.image : n.image?.url;
+          out.push({ name: n.name.trim(), pos: '', photo: img ? abs(img) : undefined });
+        }
+        for (const v of Object.values(n)) if (v && typeof v === 'object') stack.push(v);
+      }
+    }
+  }
   const seen = new Set();
   return out.filter((p) => !seen.has(p.name.toLowerCase()) && seen.add(p.name.toLowerCase()));
 }
