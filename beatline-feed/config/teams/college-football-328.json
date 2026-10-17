@@ -872,5 +872,14 @@
   ],
   "onTopic": [
     "Bronco Mendenhall"
+  ],
+  "boards": [
+    {
+      "name": "USUFans.com",
+      "phpbb": "https://www.usufans.com/Forums/app.php/feed/forum/4",
+      "url": "https://www.usufans.com/Forums/viewforum.php?f=4",
+      "teamOnly": true,
+      "sportSure": true
+    }
   ]
 }
