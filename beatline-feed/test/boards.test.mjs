@@ -88,6 +88,8 @@ test('official Sidearm rosters fill in players ESPN is missing', async () => {
   assert.deepEqual(r.map((p) => [p.name, p.num, p.pos, p.year, p.hometown]), [['Jax Allen', 0, 'G', 'Fr.', 'Orem, Utah'], ['Mason Falslev', 14, 'G', 'Sr.', 'Logan, Utah']]);
   assert.equal(r[0].photo, 'https://utahstateaggies.com/images/0.jpg');
   assert.equal(r[0].weight, '190 lbs');
+  const ld = `<script type="application/ld+json">{"@type":"ListItem","item":[{"@type":"Person","name":"Jax Allen","image":{"@type":"ImageObject","url":"/images/jax.jpg"}},{"@type":"Person","name":"AJ Bates"}]}</script>`;
+  assert.deepEqual(parseSidearmRoster(ld, 'https://utahstateaggies.com/x').map((p) => p.name).sort(), ['AJ Bates', 'Jax Allen']);
 
   const fetchImpl = async (url) => {
     if (url.endsWith('/roster') && url.includes('espn')) return new Response(JSON.stringify({ athletes: [{ fullName: 'Mason Falslev', jersey: '14', position: { abbreviation: 'G' } }] }), { status: 200 });
