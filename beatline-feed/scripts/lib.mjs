@@ -98,6 +98,7 @@ export function parseFeed(xml) {
         description: stripHtml(text(group['media:description']) || text(e.summary) || text(e.content)),
         image: group['media:thumbnail']?.['@url'],
         videoId: text(e['yt:videoId']) || undefined,
+        author: stripHtml(text(e.author?.name)) || undefined,
       };
     });
     return { title: stripHtml(text(f.title)), image: undefined, items };
@@ -594,4 +595,34 @@ export function mergeRecipe(base, custom) {
 export function isDue(team, lastBuilt, now, defaultEvery) {
   const every = (team.every || defaultEvery || 60) * 60000;
   return !lastBuilt || now - lastBuilt >= every - 120000;
+}
+
+// Official athletics-site rosters (Sidearm Sports, used by most schools), for when ESPN's roster is short.
+export function parseSidearmRoster(html = '', baseUrl = '') {
+  const clean = (s) => stripHtml(String(s || '')).replace(/\s+/g, ' ').trim();
+  const grab = (chunk, re) => { const m = chunk.match(re); return m ? clean(m[1]) : ''; };
+  const abs = (u) => { try { return u ? new URL(u, baseUrl).href : undefined; } catch { return undefined; } };
+  const out = [];
+  const chunks = String(html).split(/<li[^>]+class="[^"]*(?:sidearm-roster-list-item|sidearm-roster-player)(?=[\s"])[^"]*"[^>]*>/).slice(1);
+  for (const c of chunks) {
+    const name = grab(c, /class="[^"]*sidearm-roster-(?:list-item|player)-name[^"]*"[^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/)
+      || grab(c, /class="[^"]*sidearm-roster-(?:list-item|player)-name[^"]*"[^>]*>([\s\S]*?)<\/(?:div|h3)>/);
+    if (!name || name.length > 60) continue;
+    const num = grab(c, /class="[^"]*(?:list-item-photo-number|player-jersey-number)[^"]*"[^>]*>(?:\s*<span[^>]*>)?\s*(\d{1,3})/);
+    const position = grab(c, /class="[^"]*sidearm-roster-list-item-position[^"]*"[^>]*>([\s\S]*?)<\/span>/)
+      || grab(c, /class="[^"]*sidearm-roster-player-position[^"]*"[^>]*>[\s\S]*?<span[^>]*text-bold[^>]*>([\s\S]*?)<\/span>/);
+    const year = grab(c, /class="[^"]*(?:list-item-year|player-academic-year)[^"]*"[^>]*>([\s\S]*?)<\/span>/);
+    const height = grab(c, /class="[^"]*(?:list-item-height|player-height)[^"]*"[^>]*>([\s\S]*?)<\/span>/);
+    const weight = grab(c, /class="[^"]*(?:list-item-weight|player-weight)[^"]*"[^>]*>([\s\S]*?)<\/span>/);
+    const hometown = grab(c, /class="[^"]*(?:list-item-hometown|player-hometown)[^"]*"[^>]*>([\s\S]*?)<\/(?:div|span)>/);
+    const img = c.match(/<img[^>]+(?:data-src|src)="([^"]+)"[^>]*class="[^"]*(?:photo-img|player-image)/)?.[1] || c.match(/<img[^>]+class="[^"]*(?:photo-img|player-image)[^"]*"[^>]+(?:data-src|src)="([^"]+)"/)?.[1];
+    const abbr = position ? position.split(/[\/\s]+/).map((w) => (w.length <= 2 ? w.toUpperCase() : w[0].toUpperCase())).join('').slice(0, 3) : '';
+    out.push({
+      name, num: num ? Number(num) : undefined, pos: abbr, position: position || undefined, year: year || undefined,
+      height: height || undefined, weight: weight ? (/lb/.test(weight) ? weight : `${weight} lbs`) : undefined,
+      hometown: hometown || undefined, photo: img && !/^data:/.test(img) ? abs(img) : undefined,
+    });
+  }
+  const seen = new Set();
+  return out.filter((p) => !seen.has(p.name.toLowerCase()) && seen.add(p.name.toLowerCase()));
 }
