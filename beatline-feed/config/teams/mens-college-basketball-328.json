@@ -208,5 +208,15 @@
   "sportStrict": true,
   "sportSources": [
     "Full Court Press"
-  ]
+  ],
+  "boards": [
+    {
+      "name": "USUFans.com",
+      "phpbb": "https://www.usufans.com/Forums/app.php/feed/forum/6",
+      "url": "https://www.usufans.com/Forums/viewforum.php?f=6",
+      "teamOnly": true,
+      "sportSure": true
+    }
+  ],
+  "officialRoster": "https://utahstateaggies.com/sports/mens-basketball/roster"
 }
