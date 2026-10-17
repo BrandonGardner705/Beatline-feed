@@ -6,7 +6,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import {
   parseFeed, splitGoogleTitle, googleNewsUrl, sitesQuery, isRelevant, tagPlayers, sportFilter, fitsSport, namesSport,
-  dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, hashId,
+  dedupe, fallbackSummary, toTimestamp, readEspnTeam, readEspnRoster, parseSidearmRoster, hashId,
   readStandings, readSchedule, raceFromSchedules, parseXenForoThreads, readPolls,
   pickPodcastResult, channelIdFromHtml, mergeRecipe, isDue, previewFromHtml,
   googleArticleId, googleSignature, googleBatchBody, parseGoogleBatch,
@@ -488,6 +488,37 @@ async function boardSource(team, b, ctx) {
       at: toTimestamp(it.date), description: it.description.slice(0, 400), author: it.author, teamOnly: b.teamOnly !== false,
     }));
   }
+  // Discourse forums (UteFans.net) publish each category's topics as JSON.
+  if (b.discourse) {
+    const base = String(b.discourse).replace(/\/$/, '');
+    const origin = new URL(base).origin;
+    const j = await getJson(`${base}/l/latest.json`, ctx);
+    return (j.topic_list?.topics || []).filter((t) => !t.pinned && !t.pinned_globally && t.visible !== false).map((t) => ({
+      kind: 'board', source: b.name, title: t.title, url: `${origin}/t/${t.slug}/${t.id}`,
+      at: Date.parse(t.last_posted_at || t.bumped_at || t.created_at), replies: Math.max(0, (t.posts_count || 1) - 1),
+      author: t.last_poster_username, teamOnly: b.teamOnly !== false, sportSure: !!b.sportSure,
+    }));
+  }
+  // phpBB forums (USUFans.com) publish recent posts per forum; fold them into one item per thread.
+  if (b.phpbb) {
+    const feed = parseFeed(await getText(b.phpbb, ctx));
+    const topics = new Map();
+    for (const it of feed.items) {
+      const link = String(it.link).replace(/&amp;/g, '&');
+      const key = link.match(/[?&]t=(\d+)/)?.[1] || link;
+      const title = String(it.title).replace(/^.*?(?:\u2022|â€¢)\s*/, '').replace(/^Re:\s*/i, '').trim();
+      const at = toTimestamp(it.date);
+      const cur = topics.get(key);
+      if (!cur) {
+        topics.set(key, {
+          kind: 'board', source: b.name, title, url: link.replace(/&p=\d+(#p\d+)?$/, ''), at, author: it.author,
+          description: String(it.description || '').replace(/Statistics: Posted by.*$/s, '').slice(0, 300),
+          teamOnly: b.teamOnly !== false, sportSure: !!b.sportSure,
+        });
+      } else if (at > cur.at) cur.at = at;
+    }
+    return [...topics.values()];
+  }
   if (b.xenforo) {
     const threads = parseXenForoThreads(await getText(b.xenforo, ctx), b.xenforo);
     return threads.filter((t) => t.at).map((t) => ({
@@ -677,6 +708,19 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
   } catch (e) {
     status.push({ source: 'ESPN roster', ok: false, error: e.message });
   }
+  // ESPN's roster can be thin before a season; fill in from the school's official roster page.
+  if (team.officialRoster) {
+    try {
+      const extra = parseSidearmRoster(await getText(team.officialRoster, ctx), team.officialRoster);
+      const key = (n) => String(n).toLowerCase().replace(/[^a-z]/g, '');
+      const have = new Set(roster.map((p) => key(p.name)));
+      const added = extra.filter((p) => !have.has(key(p.name)));
+      roster = [...roster, ...added];
+      status.push({ source: 'Official roster', ok: true, count: added.length });
+    } catch (e) {
+      status.push({ source: 'Official roster', ok: false, error: e.message });
+    }
+  }
 
   let standings = null;
   if (meta.groupId) {
@@ -759,8 +803,8 @@ export async function buildTeam(team, { fetchImpl = fetch, cache, windowDays = 1
   let items = results.flat()
     .filter((it) => it.title && it.url && it.at && it.at >= cutoff && it.at <= Date.now() + 36e5)
     .filter((it) => it.teamOnly || isRelevant(`${it.title} ${it.description || ''}`, team))
-    .filter((it) => it.by === 'team' || it.by === 'player' || fitsSport(`${it.title} ${it.description || ''}`, sport))
-    .filter((it) => !team.sportStrict || it.forcePlayers?.length
+    .filter((it) => it.sportSure || it.by === 'team' || it.by === 'player' || fitsSport(`${it.title} ${it.description || ''}`, sport))
+    .filter((it) => !team.sportStrict || it.sportSure || it.forcePlayers?.length
       || namesSport(`${it.title} ${it.description || ''}`, sport)
       || (team.sportSources || []).some((n) => `${it.source || ''} ${it.show || ''}`.toLowerCase().includes(n.toLowerCase()))
       || tagPlayers(`${it.title} ${it.description || ''}`, roster).length > 0)
