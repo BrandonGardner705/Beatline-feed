@@ -239,5 +239,14 @@
       "url": "https://www.on3.com/boards/forums/premium-utes-insider-forum.1249/",
       "premium": true
     }
+  ],
+  "boards": [
+    {
+      "name": "UteFans.net",
+      "discourse": "https://forum.utefans.net/c/basketball/5",
+      "url": "https://forum.utefans.net/c/basketball/5",
+      "teamOnly": true,
+      "sportSure": true
+    }
   ]
 }
