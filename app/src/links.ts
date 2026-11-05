@@ -10,6 +10,10 @@ export const openLink = async (e)=>{
     if (!e) {
         return;
     }
+    if (Platform.OS !== 'web') {
+        await expo_web_browser.openBrowserAsync(e).catch(()=>n.openURL(e));
+        return;
+    }
     window.open(e, '_blank', 'noopener') || (window.location.href = e);
 };
 export const youTubeId = function(e) {

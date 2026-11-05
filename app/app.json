@@ -8,7 +8,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.beatline.app"
+      "bundleIdentifier": "com.diehard.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +18,7 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.beatline.app"
+      "package": "com.diehard.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -28,6 +28,7 @@
       "expo-audio",
       "expo-web-browser",
       "expo-asset"
-    ]
+    ],
+    "scheme": "diehard"
   }
 }

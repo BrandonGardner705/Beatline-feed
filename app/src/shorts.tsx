@@ -1,6 +1,6 @@
 // @ts-nocheck
 // Recovered from the Oct 22 compiled build. Cleanup in progress.
-import { Image as N, Platform, Pressable as O, Share as i, StyleSheet as l, Text as S1, View as D } from 'react-native';
+import { FlatList, Image as N, Platform, Pressable as O, Share as i, StyleSheet as l, Text as S1, View as D } from 'react-native';
 import t from 'react';
 
 
@@ -13,10 +13,30 @@ import t from 'react';
 import * as c from '@expo/vector-icons';
 import { WebView } from 'react-native-webview';
 import * as u from './data';
+import { useCommunity } from './community';
 import * as h from './theme';
 import * as f from './links';
 import * as g from './seen';
 
+function VideoEngage({ item, style, textStyle }) {
+    const cm = useCommunity();
+    t.useEffect(()=>{
+        cm?.watch(item.id);
+    }, [
+        item.id
+    ]);
+    if (!cm) {
+        return null;
+    }
+    const st = cm.stats[item.id] ?? {
+        reactions: {},
+        mine: [],
+        comments: 0,
+        shares: 0
+    };
+    const liked = st.mine.includes('like');
+    return <><O onPress={()=>cm.toggleReaction(item.id, 'like')} hitSlop={8} style={style} accessibilityLabel={liked ? 'Unlike' : 'Like'}><c.Ionicons name={liked ? 'heart' : 'heart-outline'} size={20} color={liked ? '#E5484D' : '#fff'}/><S1 style={textStyle}>{st.reactions.like || 'Like'}</S1></O><O onPress={()=>cm.openComments(item)} hitSlop={8} style={style} accessibilityLabel="Comments"><c.Ionicons name="chatbubble-outline" size={19} color="#fff"/><S1 style={textStyle}>{st.comments || 'Comment'}</S1></O><O onPress={()=>cm.recordShare(item)} hitSlop={8} style={style} accessibilityLabel="Share"><c.Ionicons name="arrow-redo-outline" size={20} color="#fff"/><S1 style={textStyle}>{st.shares || 'Share'}</S1></O></>;
+}
 export const ShortsFeed = function({ items, topInset, bottomInset, isSaved, onSave, onClose, title, empty, header }) {
     const [v, setV] = t.useState({
         w: 0,
@@ -74,7 +94,19 @@ export const ShortsFeed = function({ items, topInset, bottomInset, isSaved, onSa
         })}>{v.h > 0 && (items.length ? <WComponent count={items.length} height={v.h} idx={M} setIdx={setIdx} render={(t)=><XComponent item={items[t]} active={t === M} height={v.h} width={T} saved={isSaved(items[t].id)} onSave={()=>onSave(items[t])} onNext={onNext} hasNext={t < items.length - 1}/>}/> : <S1 style={j.empty}>{empty}</S1>)}</D></D>;
 };
 const p = 118;
-function BComponent({ id, w, h: height, onEnded }) {
+function BComponent(props) {
+    if (Platform.OS !== 'web') {
+        return <WebView source={{
+            uri: `https://www.youtube.com/embed/${props.id}?autoplay=1&playsinline=1&rel=0`
+        }} style={{
+            width: props.w,
+            height: props.h,
+            backgroundColor: '#000'
+        }} allowsInlineMediaPlayback mediaPlaybackRequiresUserAction={false} allowsFullscreenVideo/>;
+    }
+    return <BWebComponent {...props}/>;
+}
+function BWebComponent({ id, w, h: height, onEnded }) {
     const lRef = t.useRef(null);
     const s = typeof location !== 'undefined' ? location.origin : '';
     const src = `https://www.youtube.com/embed/${id}?autoplay=1&playsinline=1&rel=0&enablejsapi=1${s ? `&origin=${encodeURIComponent(s)}` : ''}`;
@@ -166,9 +198,7 @@ function XComponent({ item, active, height, width, saved, onSave, onNext, hasNex
     }}><D style={{
         flex: 1,
         minWidth: 0
-    }}><S1 style={j.channel} numberOfLines={1}>{item.show ?? item.source} · {u.timeAgo(item.at)}</S1><S1 style={j.title} numberOfLines={2}>{item.title}</S1></D></D><D style={j.actions}><O onPress={onSave} hitSlop={8} style={j.action} accessibilityLabel={saved ? 'Remove from saved' : 'Save'}><c.Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={20} color="#fff"/><S1 style={j.actionText}>{saved ? 'Saved' : 'Save'}</S1></O><O onPress={()=>i.share({
-            message: item.url
-        }).catch(()=>{})} hitSlop={8} style={j.action} accessibilityLabel="Share"><c.Ionicons name="share-outline" size={20} color="#fff"/><S1 style={j.actionText}>Share</S1></O><D style={{
+    }}><S1 style={j.channel} numberOfLines={1}>{item.show ?? item.source} · {u.timeAgo(item.at)}</S1><S1 style={j.title} numberOfLines={2}>{item.title}</S1></D></D><D style={j.actions}><O onPress={onSave} hitSlop={8} style={j.action} accessibilityLabel={saved ? 'Remove from saved' : 'Save'}><c.Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={20} color="#fff"/><S1 style={j.actionText}>{saved ? 'Saved' : 'Save'}</S1></O><VideoEngage item={item} style={j.action} textStyle={j.actionText}/><D style={{
         flex: 1
     }}/><O onPress={()=>{
         g.markSeen(item.id);
@@ -176,7 +206,42 @@ function XComponent({ item, active, height, width, saved, onSave, onNext, hasNex
     }} hitSlop={8} style={j.action} accessibilityLabel="Watch on YouTube"><c.Ionicons name={id ? 'logo-youtube' : 'open-outline'} size={20} color="#fff"/><S1 style={j.actionText}>{id ? 'YouTube' : `Watch on ${item.source}`}</S1></O></D></D></D>;
 }
 const v = 'cubic-bezier(0.16, 1, 0.3, 1)';
-function WComponent({ count, height, idx, setIdx, render }) {
+function WComponent(props) {
+    if (Platform.OS !== 'web') {
+        return <WNativeComponent {...props}/>;
+    }
+    return <WWebComponent {...props}/>;
+}
+function WNativeComponent({ count, height, idx, setIdx, render }) {
+    const data = t.useMemo(()=>Array.from({
+            length: count
+        }, (_, i)=>i), [
+        count
+    ]);
+    const ref = t.useRef(null);
+    t.useEffect(()=>{
+        ref.current?.scrollToOffset({
+            offset: idx * height,
+            animated: true
+        });
+    }, [
+        idx,
+        height
+    ]);
+    return <FlatList ref={ref} data={data} keyExtractor={(i)=>String(i)} pagingEnabled showsVerticalScrollIndicator={false} decelerationRate="fast" snapToInterval={height} getItemLayout={(_, i)=>({
+            length: height,
+            offset: height * i,
+            index: i
+        })} windowSize={3} initialNumToRender={2} onMomentumScrollEnd={(e)=>{
+        const n = Math.round(e.nativeEvent.contentOffset.y / height);
+        if (n !== idx) {
+            setIdx(n);
+        }
+    }} renderItem={({ item: i })=><D style={{
+            height
+        }}>{Math.abs(i - idx) <= 1 ? render(i) : null}</D>}/>;
+}
+function WWebComponent({ count, height, idx, setIdx, render }) {
     const sRef = t.useRef(null);
     const dRef = t.useRef(null);
     const cRef = t.useRef({

@@ -111,7 +111,17 @@ function XComponent({ teams, onSignIn }) {
         {
             color: '#fff'
         }
-    ]}>Continue with email</S1></O><S1 style={j.legal}>Unofficial fan app. Not affiliated with any team, school or league. Every story links to the outlet that made it.</S1></I1></I1></I1>;
+    ]}>Continue with email</S1></O><O onPress={()=>onSignIn('guest')} hitSlop={8} style={{
+        alignSelf: 'center',
+        paddingVertical: 6
+    }}><S1 style={[
+        j.legal,
+        {
+            color: 'rgba(255,255,255,0.85)',
+            textDecorationLine: 'underline',
+            marginTop: 0
+        }
+    ]}>Browse without an account</S1></O><S1 style={j.legal}>Unofficial fan app. Not affiliated with any team, school or league. Every story links to the outlet that made it.</S1></I1></I1></I1>;
 }
 function BComponent({ teams, initial, onDone, onCancel }) {
     const b = u.usePalette();

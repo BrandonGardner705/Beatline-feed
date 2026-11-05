@@ -29,6 +29,7 @@ import * as T from './src/components';
 import * as v from './src/theme';
 import * as z from './src/feed';
 import * as I from './src/account';
+import { CommunityProvider, ChatBoard, useCommunity } from './src/community';
 import * as R from './src/onboarding';
 import * as P from './src/post';
 import * as F from './src/shorts';
@@ -63,6 +64,10 @@ const E = [
     {
         key: 'all',
         label: 'Latest'
+    },
+    {
+        key: 'chat',
+        label: 'Chat'
     },
     {
         key: 'clips',
@@ -111,7 +116,7 @@ function GComponent() {
         JetBrainsMono_700Bold: k.JetBrainsMono_700Bold
     });
     if (e) {
-        return <y.SafeAreaProvider><JComponent/></y.SafeAreaProvider>;
+        return <y.SafeAreaProvider><CommunityProvider><JComponent/></CommunityProvider></y.SafeAreaProvider>;
     }
     return null;
 }
@@ -216,6 +221,14 @@ function JComponent() {
     const { schools, active } = Ye;
     const team = ft?.team ?? schools.find((e)=>e.id === active) ?? schools[0];
     const color = team?.color ?? '#3C5A78';
+    const community = useCommunity();
+    t.useEffect(()=>{
+        community?.setScope(ft?.team, Ye.featured.length ? Ye.featured : Ye.schools);
+    }, [
+        ft?.team?.id,
+        Ye.featured.length,
+        Ye.schools.length
+    ]);
     t.useEffect(()=>{
         j.getItem('bl.saved.v2').then((e)=>{
             if (e) {
@@ -278,7 +291,7 @@ function JComponent() {
         if (i === 'players' || i === 'game') {
             return [];
         }
-        if (i === 'standings') {
+        if (i === 'standings' || i === 'chat') {
             return [];
         }
         let e = i === 'all' ? ft.items : i === 'listen' ? ft.items.filter((e)=>{
@@ -382,7 +395,11 @@ function JComponent() {
     if (!Qe.account || !Ye.followed.length || Xe) {
         return <R.Onboarding step={Qe.account ? 'teams' : 'welcome'} teams={teams} initial={Ye.followed} onSignIn={(e)=>{
             V();
-            Qe.signIn(e);
+            if (e === 'email') {
+                community?.openEmail();
+                return;
+            }
+            Qe.signIn(e).catch(()=>{});
         }} onCancel={Qe.account && Ye.followed.length ? ()=>setXe(false) : undefined} onDone={(e)=>{
             V();
             Ye.setFollowedList(e);
@@ -447,7 +464,7 @@ function JComponent() {
             icon: 'at',
             count: ft.items.filter((e)=>e.players.includes(w) && !D.isOwnPost(e, St)).length
         }
-    ]}/>{Bt}</> : i === 'game' && ev ? <B.GameCenter key={ev.id} team={ft.team} ev={ev} items={ft.items} c={e} color={color}/> : i === 'all' ? <><H1 style={[
+    ]}/>{Bt}</> : i === 'chat' && ft ? <ChatBoard team={ft.team} game={ev} color={color}/> : i === 'game' && ev ? <B.GameCenter key={ev.id} team={ft.team} ev={ev} items={ft.items} c={e} color={color}/> : i === 'all' ? <><H1 style={[
         le.games,
         {
             backgroundColor: e.line
@@ -539,7 +556,7 @@ function JComponent() {
         {
             color: e.bg
         }
-    ]}>Browse leagues</F1></S1></H1>}{!ft || k || i === 'standings' || i === 'game' || i === 'players' && !w ? null : <H1 style={le.sortRow}>{[
+    ]}>Browse leagues</F1></S1></H1>}{!ft || k || i === 'standings' || i === 'chat' || i === 'game' || i === 'players' && !w ? null : <H1 style={le.sortRow}>{[
         'latest',
         'trending'
     ].map((t)=>{
@@ -616,7 +633,7 @@ function JComponent() {
         width: '100%',
         maxWidth: 720,
         alignSelf: 'center'
-    }} progressViewOffset={se + 0} refreshControl={configured ? <R1 refreshing={refreshing} onRefresh={refresh} progressViewOffset={se + 0} tintColor={e.muted}/> : undefined} ListHeaderComponent={ListHeaderComponent} ListEmptyComponent={(i !== 'players' && i !== 'standings' && i !== 'game' || w || k) && ft ? <F1 style={[
+    }} progressViewOffset={se + 0} refreshControl={configured ? <R1 refreshing={refreshing} onRefresh={refresh} progressViewOffset={se + 0} tintColor={e.muted}/> : undefined} ListHeaderComponent={ListHeaderComponent} ListEmptyComponent={(i !== 'players' && i !== 'standings' && i !== 'game' && i !== 'chat' || w || k) && ft ? <F1 style={[
         le.empty,
         {
             color: e.muted
@@ -1032,7 +1049,7 @@ function XComponent({ open, account, teams, savedCount, onClose, onEditTeams, on
     if (!open) {
         return null;
     }
-    const g = account?.provider === 'apple' ? 'Signed in with Apple' : account?.provider === 'google' ? 'Signed in with Google' : 'Signed in with email';
+    const g = account?.provider === 'guest' ? 'Browsing as a guest' : account?.provider === 'apple' ? 'Signed in with Apple' : account?.provider === 'google' ? 'Signed in with Google' : `Signed in with email${account?.email ? ` · ${account.email}` : ''}`;
     return <A1 visible animationType="slide" presentationStyle="pageSheet" onRequestClose={onClose} transparent={false}><H1 style={[
         le.sheet,
         {

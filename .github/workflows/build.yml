@@ -51,8 +51,29 @@ jobs:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
           TEAM_CONCURRENCY: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - name: Build the Diehard web app from source (app/)
+        id: app
+        continue-on-error: true
+        working-directory: app
+        env:
+          EXPO_BASE_URL: /Beatline-feed/app
+        run: |
+          npm ci
+          npx expo export --platform web --output-dir dist
       - name: Add the Diehard web app (served at /app/)
-        run: mkdir -p public/app && cp web/index.html public/app/index.html
+        run: |
+          mkdir -p public/app
+          if [ "${{ steps.app.outcome }}" = "success" ] && [ -f ../app/dist/index.html ]; then
+            cp -r ../app/dist/. public/app/
+          else
+            echo "::warning::App build failed - serving the last saved web build instead"
+            cp web/index.html public/app/index.html
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: beatline-feed/public

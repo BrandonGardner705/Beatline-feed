@@ -12,9 +12,14 @@ create table if not exists public.profiles (
 );
 
 -- Home team can only change once every 30 days; users can't make themselves moderators.
+-- These limits apply to people using the app. You (in the Supabase dashboard / SQL editor,
+-- where there is no app user) can still change anything, e.g. make someone a moderator.
 create or replace function public.guard_profile_update() returns trigger
 language plpgsql security definer set search_path = public as $$
 begin
+  if auth.uid() is null then
+    return new;
+  end if;
   if new.is_moderator <> old.is_moderator
      and not coalesce((select is_moderator from profiles where id = auth.uid()), false) then
     raise exception 'Not allowed';
@@ -31,11 +36,11 @@ drop trigger if exists profiles_guard on public.profiles;
 create trigger profiles_guard before update on public.profiles
   for each row execute function public.guard_profile_update();
 
--- New accounts: no commenting for the first 24 hours (reactions still OK).
+-- New accounts: no commenting for the first 10 minutes (reactions still OK). Raise this once you launch publicly.
 create or replace function public.can_post() returns boolean
 language sql stable security definer set search_path = public as $$
   select exists (select 1 from profiles p
-                 where p.id = auth.uid() and p.created_at < now() - interval '24 hours');
+                 where p.id = auth.uid() and p.created_at < now() - interval '10 minutes');
 $$;
 
 create or replace function public.home_team_of(uid uuid) returns text

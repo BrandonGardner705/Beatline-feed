@@ -14,6 +14,7 @@ import * as m from '@expo/vector-icons';
 import { WebView } from 'react-native-webview';
 import * as h from './data';
 import * as y from './theme';
+import { EngageBar } from './community';
 import * as p from './links';
 import * as b from './components';
 import * as x from './seen';
@@ -81,9 +82,7 @@ export const PostCard = function({ item, color, c, saved, onSave, onPlayer, badg
         {
             color: /^#/.test(badge) ? y.BRAND.voltInk : y.inkFor(color, c, 0.5)
         }
-    ]}>{badge}</U></C1> : null}<L1 onPress={onSave} hitSlop={10} style={C.headBtn} accessibilityLabel={saved ? 'Remove from saved' : 'Save'}><m.Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={18} color={saved ? y.inkFor(color, c) : c.muted}/></L1><L1 onPress={()=>n.share({
-            message: item.url
-        }).catch(()=>{})} hitSlop={10} style={C.headBtn} accessibilityLabel="Share"><m.Ionicons name="share-outline" size={18} color={c.muted}/></L1></L1>{item.kind === 'board' ? <L1 onPress={onPress} style={{
+    ]}>{badge}</U></C1> : null}<L1 onPress={onSave} hitSlop={10} style={C.headBtn} accessibilityLabel={saved ? 'Remove from saved' : 'Save'}><m.Ionicons name={saved ? 'bookmark' : 'bookmark-outline'} size={18} color={saved ? y.inkFor(color, c) : c.muted}/></L1></L1>{item.kind === 'board' ? <L1 onPress={onPress} style={{
         paddingHorizontal: 14,
         gap: 6
     }}><U style={[
@@ -168,8 +167,8 @@ export const PostCard = function({ item, color, c, saved, onSave, onPlayer, badg
         paddingHorizontal: 14
     }}><FComponent item={item} color={color} c={c}/></C1> : item.image && item.kind !== 'board' ? <L1 onPress={onPress} style={C.media}><SComponent uri={item.image} ratio={1} fallback={c.surface2}/></L1> : null}{item.players?.length ? <C1 style={{
         paddingHorizontal: 14
-    }}><RComponent names={item.players} color={color} c={c} onPick={onPlayer}/></C1> : null}<C1 style={{
-        height: 4
+    }}><RComponent names={item.players} color={color} c={c} onPick={onPlayer}/></C1> : null}<EngageBar item={item}/><C1 style={{
+        height: 2
     }}/></C1>;
 };
 const k = {
@@ -251,6 +250,15 @@ function SComponent({ uri, ratio, children, fallback }) {
 }
 function VComponent({ id }) {
     const src = `https://www.youtube.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;
+    if (Platform.OS !== 'web') {
+        return <WebView source={{
+            uri: src
+        }} style={{
+            width: '100%',
+            aspectRatio: 16 / 9,
+            backgroundColor: '#000'
+        }} allowsInlineMediaPlayback mediaPlaybackRequiresUserAction={false} allowsFullscreenVideo/>;
+    }
     return <iframe src={src} allow='autoplay; encrypted-media; picture-in-picture; fullscreen' allowFullScreen style={{
         width: '100%',
         aspectRatio: '16 / 9',

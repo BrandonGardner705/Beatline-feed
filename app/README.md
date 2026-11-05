@@ -21,6 +21,17 @@ npx expo export --platform web   # web build in dist/
 - `src/gamecenter.tsx`, `src/screens.tsx`, `src/clips.tsx` — gameday hub, scoreboards, nav, search
 - `src/standings.tsx`, `src/alerts.tsx`, `src/topics.ts`, `src/theme.ts`, `src/sports.ts`
 
+## Community (comments, reactions, chat)
+
+- `src/community.tsx` — sign-in sheets, fan profiles, the like/react/comment/share bar,
+  comments, the Chat tab (team board, rivalry room, game-day thread), reporting, blocking,
+  and the moderator review screen.
+- `src/supabase.ts` — Supabase connection and sign-in (Google, Apple, email link).
+- Database rules: `beatline-feed/supabase/schema.sql` (run once in Supabase → SQL Editor).
+  Tests: `beatline-feed/supabase/rules.test.mjs`.
+- Make someone a moderator in Supabase → SQL Editor:
+  `update profiles set is_moderator = true where display_name = 'TheirName';`
+
 ## History
 
 The original source was lost on Oct 22; this code was recovered from that day's compiled build on
