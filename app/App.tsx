@@ -82,10 +82,6 @@ const E = [
         label: 'Standings'
     },
     {
-        key: 'players',
-        label: 'Players'
-    },
-    {
         key: 'listen',
         label: 'Podcasts'
     },
