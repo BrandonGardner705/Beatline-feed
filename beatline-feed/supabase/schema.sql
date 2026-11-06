@@ -81,7 +81,8 @@ create table if not exists public.comments (
 create index if not exists comments_item on public.comments(item_id, created_at);
 
 -- ---------- Chat boards ----------
--- room: a team id (only that team's fans can post), 'rivalry' (anyone), or 'game-<espn id>'.
+-- room: a team key like 'school-252' (team board) or 'school-252-game-<espn id>' (that team's
+-- game-day thread). Only that team's fans can post; everyone can read.
 create table if not exists public.threads (
   id uuid primary key default gen_random_uuid(),
   room text not null,
@@ -112,13 +113,12 @@ create table if not exists public.post_reactions (
   primary key (post_id, user_id, kind)
 );
 
--- Who may post in a room: their home team's room, rivalry, or any game thread their team plays in.
+-- Who may post in a room: only their home team's board and their home team's game threads.
 create or replace function public.can_post_in(room text) returns boolean
 language sql stable security definer set search_path = public as $$
   select public.can_post() and (
-    room = 'rivalry'
-    or room like 'game-%'
-    or room = public.home_team_of(auth.uid())
+    room = public.home_team_of(auth.uid())
+    or room like public.home_team_of(auth.uid()) || '-game-%'
   );
 $$;
 

@@ -1,5 +1,5 @@
 // Diehard community: sign-in, fan profiles, likes/reactions/comments/shares on feed items,
-// the Chat tab (team boards, rivalry room, game-day thread), reporting, blocking and the
+// the Chat tab (team board and that team's game-day thread), reporting, blocking and the
 // moderator review queue. Data lives in Supabase (see supabase/schema.sql).
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -659,7 +659,7 @@ function JoinSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
       <TextInput value={name} onChangeText={(t) => setName(t.slice(0, 24))} placeholder="e.g. CougarDad801" placeholderTextColor={ctx.c.muted}
         style={[st.field, { color: ctx.c.fg, backgroundColor: ctx.c.surface, borderColor: ctx.c.line }]} />
       <Text style={[st.label, { color: ctx.c.muted, marginTop: 16 }]}>YOUR HOME TEAM</Text>
-      <Text style={[st.small, { color: ctx.c.muted }]}>You can comment and post in your home team's spaces, plus the rivalry room. You can switch once every 30 days.</Text>
+      <Text style={[st.small, { color: ctx.c.muted }]}>You can comment and post in your home team's spaces. Other fans can read along. You can switch once every 30 days.</Text>
       <View style={{ gap: 8, marginTop: 10 }}>
         {schools.map((s) => {
           const k = schoolKeyOf(s.id);
@@ -687,7 +687,7 @@ type Post = { id: string; thread_id: string; user_id: string; body: string; hidd
 export function ChatBoard({ team, game, color }: { team: { id: string; short: string; name: string; color: string }; game?: { id: string; name?: string; state?: string } | null; color: string }) {
   const ctx = useCommunity()!;
   const teamKey = schoolKeyOf(team.id);
-  const gameRoom = game ? `game-${game.id}` : '';
+  const gameRoom = game ? `${teamKey}-game-${game.id}` : '';
   const [room, setRoom] = useState(teamKey);
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
@@ -724,11 +724,10 @@ export function ChatBoard({ team, game, color }: { team: { id: string; short: st
   // Game room: one live thread per game, opened straight away.
   const gameThread = room === gameRoom ? threads.find((t) => t.is_game_thread) ?? null : null;
   const visible = threads.filter((t) => !ctx.blocked.has(t.user_id));
-  const canPost = !!ctx.profile && (room === 'rivalry' || room.startsWith('game-') || room === ctx.profile.home_team);
+  const canPost = !!ctx.profile && (room === ctx.profile.home_team || room.startsWith(`${ctx.profile.home_team}-game-`));
   const rooms = [
     { key: teamKey, label: `${team.short} fans`, icon: 'people' },
     ...(gameRoom ? [{ key: gameRoom, label: game?.state === 'in' ? '● Live game' : 'Game day', icon: 'american-football' }] : []),
-    { key: 'rivalry', label: 'Rivalry', icon: 'flame' },
   ];
 
   return (
@@ -755,10 +754,9 @@ export function ChatBoard({ team, game, color }: { team: { id: string; short: st
         })}
       </ScrollView>
       <Text style={[st.small, { color: ctx.c.muted }]}>
-        {room === 'rivalry' ? 'Every fan base welcome. Keep it about sports — personal attacks get removed.'
-          : room === gameRoom ? 'One live thread for this game. Everyone can join.'
+        {room === gameRoom ? `One live thread for ${team.short} fans during this game.`
           : canPost || !ctx.profile ? `${team.short} fans only. Other fans can read along.`
-          : `Only ${team.short} fans can post here. Head to the Rivalry room to talk with everyone.`}
+          : `Only ${team.short} fans can post here. You can still read along.`}
       </Text>
 
       {room === gameRoom ? (
@@ -939,7 +937,7 @@ function ThreadScreen({ thread, canPost, onClose }: { thread: Thread | null; can
           )} />
         <View style={{ paddingBottom: insets.bottom }}>
           <Composer placeholder={t?.is_game_thread ? 'React to the game…' : 'Reply…'} value={text} onChange={setText} onSend={send} busy={busy} error={err} max={2000}
-            locked={!ctx.session ? 'signin' : !ctx.profile ? 'join' : !canPost ? 'Only home-team fans can post in this room. Join the Rivalry room to talk with everyone.' : ''} />
+            locked={!ctx.session ? 'signin' : !ctx.profile ? 'join' : !canPost ? 'Only this team’s fans can post here. You can still read along.' : ''} />
         </View>
       </KeyboardAvoidingView>
     </Modal>
