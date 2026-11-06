@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { fonts, BRAND, alpha, usePalette } from './theme';
 import { timeAgo } from './data';
-import { friendlyError, sendEmailLink, signInWith, signOut as authSignOut, supabase } from './supabase';
+import { createAccount, friendlyError, sendPasswordReset, setNewPassword, signInWith, signInWithPassword, signOut as authSignOut, supabase } from './supabase';
 
 // ---------- shared types & helpers ----------
 type Palette = { bg: string; surface: string; surface2: string; fg: string; muted: string; line: string; live: string; dark: boolean };
@@ -83,7 +83,7 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
   const [stats, setStats] = useState<Record<string, Stats>>({});
   const [commentsFor, setCommentsFor] = useState<any>(null);
   const [report, setReport] = useState<ReportTarget | null>(null);
-  const [sheet, setSheet] = useState<'' | 'signin' | 'email' | 'join'>('');
+  const [sheet, setSheet] = useState<'' | 'signin' | 'email' | 'join' | 'newpass'>('');
   const queue = useRef<Set<string>>(new Set());
   const loaded = useRef<Set<string>>(new Set());
   const timer = useRef<any>(null);
@@ -100,7 +100,7 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => { setSession(data.session); setReady(true); }).catch(() => setReady(true));
-    const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
+    const { data } = supabase.auth.onAuthStateChange((e, s) => { setSession(s); if (e === 'PASSWORD_RECOVERY') setSheet('newpass'); });
     return () => data.subscription.unsubscribe();
   }, []);
   useEffect(() => { reloadProfile(); }, [reloadProfile]);
@@ -219,7 +219,8 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
       <CommentsSheet item={commentsFor} onClose={() => setCommentsFor(null)} />
       <ReportSheet target={report} onClose={() => setReport(null)} />
       <SignInSheet open={sheet === 'signin'} onClose={() => setSheet('')} onEmail={() => setSheet('email')} />
-      <EmailSheet open={sheet === 'email'} onClose={() => setSheet('')} />
+      <EmailSheet open={sheet === 'email'} onClose={() => setSheet('')} onCreated={() => setSheet('join')} />
+      <NewPasswordSheet open={sheet === 'newpass'} onClose={() => setSheet('')} />
       <JoinSheet open={sheet === 'join' || (!!session && !profile && sheet === 'signin')} onClose={() => setSheet('')} />
     </CommunityContext.Provider>
   );
@@ -577,44 +578,131 @@ function SignInSheet({ open, onClose, onEmail }: { open: boolean; onClose: () =>
       <View style={{ gap: 10 }}>
         <Btn kind="dark" icon="logo-google" label="Continue with Google" busy={busy === 'google'} onPress={() => go('google')} />
         <Btn kind="dark" icon="logo-apple" label="Continue with Apple" busy={busy === 'apple'} onPress={() => go('apple')} />
-        <Btn kind="ghost" icon="mail-outline" label="Continue with email" onPress={onEmail} />
+        <Btn kind="ghost" icon="mail-outline" label="Email and password" onPress={onEmail} />
       </View>
       {err ? <Text style={[st.error, { color: ctx.c.live, marginTop: 10 }]}>{err}</Text> : null}
     </Sheet>
   );
 }
 
-export function EmailSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function EmailSheet({ open, onClose, onCreated }: { open: boolean; onClose: () => void; onCreated?: () => void }) {
   const ctx = useCommunity()!;
+  const [mode, setMode] = useState<'create' | 'signin' | 'forgot'>('create');
   const [email, setEmail] = useState('');
-  const [sent, setSent] = useState(false);
+  const [password, setPassword] = useState('');
+  const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
-  useEffect(() => { if (open) { setSent(false); setErr(''); } }, [open]);
-  const send = async () => {
-    if (!/^\S+@\S+\.\S+$/.test(email.trim())) { setErr('Enter a valid email address.'); return; }
+  const [note, setNote] = useState('');
+  useEffect(() => { if (open) { setErr(''); setNote(''); setPassword(''); } }, [open]);
+  useEffect(() => { setErr(''); setNote(''); }, [mode]);
+
+  const submit = async () => {
+    const e = email.trim();
+    if (!/^\S+@\S+\.\S+$/.test(e)) { setErr('Enter a valid email address.'); return; }
+    if (mode !== 'forgot' && password.length < 8) { setErr('Use a password with at least 8 characters.'); return; }
+    setBusy(true); setErr(''); setNote('');
+    try {
+      if (mode === 'create') {
+        const d = await createAccount(e, password);
+        if (d.session) { onCreated ? onCreated() : onClose(); }
+        else setNote('Almost there — check your email to confirm your account, then sign in.');
+      } else if (mode === 'signin') {
+        await signInWithPassword(e, password);
+        onClose();
+      } else {
+        await sendPasswordReset(e);
+        setNote(`If ${e} has an account, we sent a link to reset your password.`);
+      }
+    } catch (x) { setErr(friendlyError(x)); }
+    setBusy(false);
+  };
+
+  const title = mode === 'create' ? 'Create your account' : mode === 'signin' ? 'Welcome back' : 'Reset your password';
+  const fieldStyle = [st.field, { color: ctx.c.fg, backgroundColor: ctx.c.surface, borderColor: ctx.c.line }];
+  return (
+    <Sheet open={open} onClose={onClose}>
+      <View style={st.sheetHead}>
+        <Text style={[st.sheetTitle, { color: ctx.c.fg }]}>{title}</Text>
+        <Pressable onPress={onClose} hitSlop={10} accessibilityLabel="Close"><Ionicons name="close" size={24} color={ctx.c.fg} /></Pressable>
+      </View>
+      {mode !== 'forgot' ? (
+        <View style={[st.tabs, { backgroundColor: ctx.c.surface2 }]}>
+          {(['create', 'signin'] as const).map((m) => (
+            <Pressable key={m} onPress={() => setMode(m)} style={[st.tab, mode === m && { backgroundColor: ctx.c.bg }]}>
+              <Text style={[st.tabText, { color: mode === m ? ctx.c.fg : ctx.c.muted }]}>{m === 'create' ? 'Create account' : 'Sign in'}</Text>
+            </Pressable>
+          ))}
+        </View>
+      ) : (
+        <Text style={[st.body, { color: ctx.c.muted, marginBottom: 10 }]}>Enter your email and we'll send you a link to set a new password.</Text>
+      )}
+      <View style={{ gap: 10 }}>
+        <Text style={[st.label, { color: ctx.c.muted }]}>EMAIL</Text>
+        <TextInput value={email} onChangeText={setEmail} placeholder="you@example.com" placeholderTextColor={ctx.c.muted}
+          autoCapitalize="none" autoComplete="email" keyboardType="email-address" textContentType="emailAddress" style={fieldStyle} />
+        {mode !== 'forgot' ? (
+          <>
+            <Text style={[st.label, { color: ctx.c.muted, marginTop: 4 }]}>PASSWORD</Text>
+            <View>
+              <TextInput value={password} onChangeText={setPassword} placeholder={mode === 'create' ? 'At least 8 characters' : 'Your password'}
+                placeholderTextColor={ctx.c.muted} secureTextEntry={!show} autoCapitalize="none"
+                autoComplete={mode === 'create' ? 'new-password' : 'current-password'}
+                textContentType={mode === 'create' ? 'newPassword' : 'password'} onSubmitEditing={submit}
+                style={[...fieldStyle, { paddingRight: 48 }]} />
+              <Pressable onPress={() => setShow((v) => !v)} hitSlop={10} style={st.eye} accessibilityLabel={show ? 'Hide password' : 'Show password'}>
+                <Ionicons name={show ? 'eye-off-outline' : 'eye-outline'} size={20} color={ctx.c.muted} />
+              </Pressable>
+            </View>
+          </>
+        ) : null}
+        {err ? <Text style={[st.error, { color: ctx.c.live }]}>{err}</Text> : null}
+        {note ? <Text style={[st.body, { color: ctx.c.fg }]}>{note}</Text> : null}
+        <View style={{ marginTop: 4 }}>
+          <Btn label={mode === 'create' ? 'Create account' : mode === 'signin' ? 'Sign in' : 'Send reset link'} busy={busy} onPress={submit} />
+        </View>
+        {mode === 'signin' ? (
+          <Pressable onPress={() => setMode('forgot')} hitSlop={8} style={{ alignSelf: 'center', paddingVertical: 6 }}>
+            <Text style={[st.link, { color: ctx.c.muted }]}>Forgot password?</Text>
+          </Pressable>
+        ) : mode === 'forgot' ? (
+          <Pressable onPress={() => setMode('signin')} hitSlop={8} style={{ alignSelf: 'center', paddingVertical: 6 }}>
+            <Text style={[st.link, { color: ctx.c.muted }]}>Back to sign in</Text>
+          </Pressable>
+        ) : (
+          <Text style={[st.small, { color: ctx.c.muted, textAlign: 'center' }]}>Next you'll pick the name other fans see and your home team.</Text>
+        )}
+      </View>
+    </Sheet>
+  );
+}
+
+function NewPasswordSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const ctx = useCommunity()!;
+  const [password, setPassword] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState('');
+  const [done, setDone] = useState(false);
+  useEffect(() => { if (open) { setPassword(''); setErr(''); setDone(false); } }, [open]);
+  const save = async () => {
+    if (password.length < 8) { setErr('Use a password with at least 8 characters.'); return; }
     setBusy(true); setErr('');
-    try { await sendEmailLink(email); setSent(true); } catch (e) { setErr(friendlyError(e)); }
+    try { await setNewPassword(password); setDone(true); } catch (x) { setErr(friendlyError(x)); }
     setBusy(false);
   };
   return (
     <Sheet open={open} onClose={onClose}>
       <View style={st.sheetHead}>
-        <Text style={[st.sheetTitle, { color: ctx.c.fg }]}>{sent ? 'Check your email' : 'Sign in with email'}</Text>
+        <Text style={[st.sheetTitle, { color: ctx.c.fg }]}>{done ? 'Password updated' : 'Set a new password'}</Text>
         <Pressable onPress={onClose} hitSlop={10}><Ionicons name="close" size={24} color={ctx.c.fg} /></Pressable>
       </View>
-      {sent ? (
-        <View style={{ gap: 14 }}>
-          <Text style={[st.body, { color: ctx.c.muted }]}>We sent a sign-in link to {email.trim()}. Open it on this device to finish signing in.</Text>
-          <Btn label="Done" onPress={onClose} />
-        </View>
-      ) : (
+      {done ? <Btn label="Done" onPress={onClose} /> : (
         <View style={{ gap: 12 }}>
-          <TextInput value={email} onChangeText={setEmail} placeholder="you@example.com" placeholderTextColor={ctx.c.muted}
-            autoCapitalize="none" autoComplete="email" keyboardType="email-address" onSubmitEditing={send}
+          <TextInput value={password} onChangeText={setPassword} placeholder="At least 8 characters" placeholderTextColor={ctx.c.muted}
+            secureTextEntry autoCapitalize="none" autoComplete="new-password" textContentType="newPassword" onSubmitEditing={save}
             style={[st.field, { color: ctx.c.fg, backgroundColor: ctx.c.surface, borderColor: ctx.c.line }]} />
           {err ? <Text style={[st.error, { color: ctx.c.live }]}>{err}</Text> : null}
-          <Btn label="Send sign-in link" busy={busy} onPress={send} />
+          <Btn label="Save password" busy={busy} onPress={save} />
         </View>
       )}
     </Sheet>
@@ -1027,6 +1115,11 @@ const st = StyleSheet.create({
   label: { fontFamily: fonts.monoBold, fontSize: 11, letterSpacing: 1, marginBottom: 6 },
   empty: { fontFamily: fonts.body, fontSize: 14, textAlign: 'center', marginTop: 24, marginBottom: 12 },
   error: { fontFamily: fonts.bodyMedium, fontSize: 13 },
+  tabs: { flexDirection: 'row', borderRadius: 12, padding: 4, marginBottom: 14, marginTop: 4 },
+  tab: { flex: 1, alignItems: 'center', paddingVertical: 9, borderRadius: 9 },
+  tabText: { fontFamily: fonts.bodySemi, fontSize: 14 },
+  eye: { position: 'absolute', right: 12, top: 0, bottom: 0, justifyContent: 'center' },
+  link: { fontFamily: fonts.bodySemi, fontSize: 13.5, textDecorationLine: 'underline' },
   btn: { height: 48, borderRadius: 14, borderWidth: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingHorizontal: 14 },
   btnText: { fontFamily: fonts.bodyBold, fontSize: 15 },
   field: { borderWidth: 1, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, fontFamily: fonts.body, fontSize: 16 },

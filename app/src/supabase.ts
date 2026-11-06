@@ -61,6 +61,34 @@ export async function sendEmailLink(email: string) {
   if (error) throw error;
 }
 
+// Email + password accounts.
+export async function createAccount(email: string, password: string) {
+  const { data, error } = await supabase.auth.signUp({
+    email: email.trim(),
+    password,
+    options: { emailRedirectTo: redirectUrl() },
+  });
+  if (error) throw error;
+  // Supabase returns a user with no identities when the email is already registered.
+  if (data.user && !data.user.identities?.length) throw new Error('already registered');
+  return data;
+}
+
+export async function signInWithPassword(email: string, password: string) {
+  const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+  if (error) throw error;
+}
+
+export async function sendPasswordReset(email: string) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: redirectUrl() });
+  if (error) throw error;
+}
+
+export async function setNewPassword(password: string) {
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) throw error;
+}
+
 export async function signOut() {
   await supabase.auth.signOut().catch(() => {});
 }
@@ -73,6 +101,11 @@ export function friendlyError(e: any): string {
   if (/row-level security|violates/i.test(m))
     return "You can't post here. New accounts wait a few minutes, and you can only comment in your home team's spaces.";
   if (/JWT|not authenticated|session/i.test(m)) return 'Please sign in again.';
+  if (/Invalid login credentials/i.test(m)) return "That email and password don't match. Try again or reset your password.";
+  if (/already registered|already been registered|User already/i.test(m)) return 'That email already has an account. Tap "Sign in" instead.';
+  if (/Password should be|weak.?password/i.test(m)) return 'Use a password with at least 8 characters.';
+  if (/Email not confirmed/i.test(m)) return 'Check your email to confirm your account first.';
+  if (/rate limit|too many/i.test(m)) return 'Too many tries. Wait a minute and try again.';
   if (/Failed to fetch|Network/i.test(m)) return "Couldn't reach Diehard. Check your connection.";
   return m || 'Something went wrong. Try again.';
 }
