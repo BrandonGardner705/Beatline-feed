@@ -174,7 +174,7 @@ function BComponent({ teams, initial, onDone, onCancel }) {
         {
             color: b.fg
         }
-    ]}>Who are you a diehard for?</S1><S1 style={[
+    ]}>Who are you a diehard fan of?</S1><S1 style={[
         j.sub,
         {
             color: b.muted
