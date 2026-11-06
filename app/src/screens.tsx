@@ -610,12 +610,6 @@ const v = [
         on: 'headset'
     },
     {
-        key: 'social',
-        label: 'Social',
-        icon: 'chatbubble-ellipses-outline',
-        on: 'chatbubble-ellipses'
-    },
-    {
         key: 'boards',
         label: 'Boards',
         icon: 'chatbubbles-outline',

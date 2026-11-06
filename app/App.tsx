@@ -94,10 +94,6 @@ const E = [
         label: 'Video'
     },
     {
-        key: 'social',
-        label: 'Social'
-    },
-    {
         key: 'boards',
         label: 'Boards'
     }
